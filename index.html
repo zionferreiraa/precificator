@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TradePrice — Gestão de Custos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* ─── TOKENS ────────────────────────────────────────────────── */
+:root{
+  --klein:  #002FA7;   /* Klein blue — signature */
+  --cobalt: #0047AB;   /* Cobalt */
+  --cobalt-mid:#1A5FCC;
+  --cobalt-lt: #E8EEF8;
+  --cobalt-xlt:#F2F5FC;
+  --white:  #FFFFFF;
+  --grey-0: #F7F8FA;
+  --grey-1: #EFF1F5;
+  --grey-2: #DDE1EA;
+  --grey-3: #B4BCCC;
+  --grey-4: #7A849A;
+  --grey-5: #3D4455;
+  --ink:    #1A1E2E;
+  --green:  #1B8F6E;
+  --green-lt:#E3F5EF;
+  --amber:  #B96B0A;
+  --amber-lt:#FBF0E0;
+  --red:    #C23B3B;
+  --red-lt: #FCEAEA;
+  --radius-sm:6px;
+  --radius:  10px;
+  --radius-lg:16px;
+  --shadow-sm:0 1px 3px rgba(0,47,167,.07);
+  --shadow:   0 2px 12px rgba(0,47,167,.10);
+  --font-display:'DM Sans',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --transition:.16s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{
+  background:var(--grey-0);
+  font-family:var(--font-body);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── LAYOUT ────────────────────────────────────────────────── */
+.shell{display:flex;height:100vh;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;flex-shrink:0;
+  background:var(--klein);
+  display:flex;flex-direction:column;
+  padding:0 0 1.5rem;
+  position:relative;
+}
+.sidebar::after{
+  content:'';
+  position:absolute;inset:0 0 0 auto;
+  width:1px;background:rgba(255,255,255,.08);
+}
+.sidebar-logo{
+  padding:1.5rem 1.25rem 1.75rem;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  margin-bottom:.75rem;
+}
+.sidebar-logo .wordmark{
+  font-family:var(--font-display);
+  font-size:1.15rem;font-weight:600;
+  color:#fff;letter-spacing:-.02em;
+}
+.sidebar-logo .sub{
+  font-size:.7rem;color:rgba(255,255,255,.5);
+  margin-top:2px;letter-spacing:.06em;text-transform:uppercase;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:.65rem 1.25rem;
+  font-size:.82rem;font-weight:500;
+  color:rgba(255,255,255,.55);
+  cursor:pointer;border:none;background:none;
+  width:100%;text-align:left;
+  font-family:var(--font-body);
+  border-left:3px solid transparent;
+  transition:color var(--transition), background var(--transition);
+}
+.nav-item i{font-size:1rem;flex-shrink:0}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-item.active{
+  color:#fff;background:rgba(255,255,255,.12);
+  border-left-color:#fff;
+}
+.sidebar-divider{height:1px;background:rgba(255,255,255,.08);margin:.5rem 1.25rem}
+.sidebar-section-label{
+  font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);padding:.75rem 1.25rem .25rem;
+}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.topbar{
+  background:var(--white);
+  border-bottom:1px solid var(--grey-2);
+  padding:.875rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+  position:sticky;top:0;z-index:10;
+}
+.topbar-title{
+  font-family:var(--font-display);
+  font-size:1.05rem;font-weight:600;
+  color:var(--ink);letter-spacing:-.02em;
+}
+.topbar-sub{font-size:.75rem;color:var(--grey-4);margin-top:1px}
+.topbar-actions{display:flex;gap:.5rem}
+
+.content{padding:1.75rem 2rem;flex:1}
+
+/* ─── VIEWS ─────────────────────────────────────────────────── */
+.view{display:none}.view.active{display:block}
+
+/* ─── KPI STRIP ─────────────────────────────────────────────── */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.kpi-card{
+  background:var(--white);border-radius:var(--radius);
+  padding:1.125rem 1.25rem;
+  border:1px solid var(--grey-2);
+  box-shadow:var(--shadow-sm);
+}
+.kpi-card .kc-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.5rem;font-weight:500}
+.kpi-card .kc-val{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.kpi-card .kc-sub{font-size:.7rem;color:var(--grey-4);margin-top:.2rem}
+.kpi-card .kc-val.blue{color:var(--klein)}
+.kpi-card .kc-val.green{color:var(--green)}
+.kpi-card .kc-val.red{color:var(--red)}
+.kpi-card .kc-val.amber{color:var(--amber)}
+
+/* ─── PANELS ─────────────────────────────────────────────────── */
+.panel{
+  background:var(--white);border-radius:var(--radius-lg);
+  border:1px solid var(--grey-2);
+  box-shadow:var(--shadow-sm);
+  padding:1.375rem 1.5rem;
+  margin-bottom:1rem;
+}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.125rem;
+}
+.panel-title{
+  font-family:var(--font-display);
+  font-size:.9rem;font-weight:600;
+  color:var(--ink);letter-spacing:-.01em;
+  display:flex;align-items:center;gap:.5rem;
+}
+.panel-title i{color:var(--cobalt-mid);font-size:1rem}
+.panel-hint{font-size:.72rem;color:var(--grey-4);margin-top:.25rem}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+
+/* ─── BUTTONS ────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.5rem 1rem;font-size:.78rem;font-weight:500;
+  border-radius:var(--radius-sm);border:1px solid var(--grey-2);
+  background:var(--white);color:var(--grey-5);
+  cursor:pointer;font-family:var(--font-body);
+  transition:background var(--transition),border-color var(--transition),color var(--transition);
+  white-space:nowrap;
+}
+.btn:hover{background:var(--grey-1);border-color:var(--grey-3)}
+.btn-primary{background:var(--klein);border-color:var(--klein);color:#fff}
+.btn-primary:hover{background:var(--cobalt);border-color:var(--cobalt)}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--cobalt-mid)}
+.btn-ghost:hover{background:var(--cobalt-xlt);border-color:var(--cobalt-xlt)}
+.btn-danger{color:var(--red);border-color:var(--grey-2)}
+.btn-danger:hover{background:var(--red-lt);border-color:var(--red-lt)}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+
+/* ─── FORM ────────────────────────────────────────────────────── */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.875rem}
+.fg{display:flex;flex-direction:column;gap:.3rem}
+.fg label{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--grey-4)}
+.fg input,.fg select,.fg textarea{
+  padding:.525rem .75rem;
+  border:1px solid var(--grey-2);border-radius:var(--radius-sm);
+  background:var(--white);color:var(--ink);
+  font-size:.82rem;font-family:var(--font-body);
+  transition:border-color var(--transition),box-shadow var(--transition);
+  width:100%;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  outline:none;border-color:var(--cobalt-mid);
+  box-shadow:0 0 0 3px rgba(0,71,171,.12);
+}
+
+/* ─── TABLE ──────────────────────────────────────────────────── */
+.tp-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.tp-table th{
+  text-align:left;padding:.55rem .875rem;
+  font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--grey-4);border-bottom:2px solid var(--grey-1);
+  background:var(--grey-0);
+}
+.tp-table th:first-child{border-radius:var(--radius-sm) 0 0 0}
+.tp-table th:last-child{border-radius:0 var(--radius-sm) 0 0}
+.tp-table td{
+  padding:.65rem .875rem;border-bottom:1px solid var(--grey-1);
+  color:var(--ink);vertical-align:middle;
+}
+.tp-table tr:last-child td{border-bottom:none}
+.tp-table tbody tr:hover td{background:var(--cobalt-xlt)}
+.edit-cell{
+  padding:.35rem .55rem;border:1px solid var(--grey-2);border-radius:5px;
+  background:var(--white);color:var(--ink);font-size:.78rem;font-family:var(--font-body);
+  width:88px;transition:border-color var(--transition);
+}
+.edit-cell:focus{outline:none;border-color:var(--cobalt-mid)}
+
+/* ─── BADGES ─────────────────────────────────────────────────── */
+.badge{display:inline-block;padding:.15rem .65rem;border-radius:100px;font-size:.68rem;font-weight:600;letter-spacing:.02em}
+.bg{background:var(--green-lt);color:var(--green)}
+.br{background:var(--red-lt);color:var(--red)}
+.ba{background:var(--amber-lt);color:var(--amber)}
+.bb{background:var(--cobalt-lt);color:var(--klein)}
+.bp{background:#EDE8FB;color:#4B32A8}
+
+/* ─── GROUPS BAR ─────────────────────────────────────────────── */
+.groups-bar{display:flex;gap:.625rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.grp-chip{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.125rem;border-radius:100px;
+  border:1.5px solid var(--grey-2);
+  background:var(--white);cursor:pointer;
+  font-size:.78rem;font-weight:500;color:var(--grey-5);
+  font-family:var(--font-body);
+  transition:all var(--transition);
+  box-shadow:var(--shadow-sm);
+}
+.grp-chip:hover{border-color:var(--grey-3);background:var(--grey-0)}
+.grp-chip.active{color:#fff;border-color:transparent}
+.grp-chip .chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.grp-chip .chip-count{
+  font-size:.63rem;padding:.1rem .45rem;border-radius:100px;
+  background:rgba(255,255,255,.25);font-weight:600;
+}
+.grp-chip:not(.active) .chip-count{background:var(--grey-1);color:var(--grey-4)}
+
+.grp-panel{display:none}.grp-panel.active{display:block}
+
+/* ─── TOTAL ROW IN GROUP HEADER ──────────────────────────────── */
+.grp-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--cobalt-xlt);border-radius:var(--radius-sm);
+  padding:.6rem 1rem;margin-bottom:1rem;border:1px solid var(--cobalt-lt);
+}
+.grp-meta .gm-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cobalt-mid);font-weight:600}
+.grp-meta .gm-val{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--klein)}
+
+/* ─── DIVIDER ─────────────────────────────────────────────────── */
+.sep{height:1px;background:var(--grey-1);margin:1rem 0}
+
+/* ─── IMPORT ZONE ─────────────────────────────────────────────── */
+.drop-zone{
+  border:2px dashed var(--grey-2);border-radius:var(--radius-lg);
+  padding:2.5rem 2rem;text-align:center;cursor:pointer;
+  transition:border-color var(--transition),background var(--transition);
+  background:var(--grey-0);
+}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--cobalt-mid);background:var(--cobalt-xlt)}
+.drop-zone .dz-icon{font-size:2.5rem;color:var(--grey-3);display:block;margin-bottom:.75rem}
+.drop-zone .dz-title{font-family:var(--font-display);font-size:.95rem;font-weight:600;color:var(--grey-5);margin-bottom:.3rem}
+.drop-zone .dz-hint{font-size:.75rem;color:var(--grey-4)}
+
+/* ─── IMPORT CARDS ────────────────────────────────────────────── */
+.import-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.875rem;margin-top:1.25rem}
+.import-card{
+  background:var(--grey-0);border:1px solid var(--grey-2);
+  border-radius:var(--radius);padding:1rem 1.125rem;
+}
+.import-card .ic-title{font-size:.78rem;font-weight:600;color:var(--grey-5);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem}
+.import-card .ic-title i{color:var(--cobalt-mid)}
+.import-card .ic-desc{font-size:.72rem;color:var(--grey-4);line-height:1.5}
+
+.col-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
+.ctag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.2rem .7rem;border-radius:100px;font-size:.7rem;font-weight:500;
+  background:var(--cobalt-lt);color:var(--klein);border:1px solid rgba(0,47,167,.15);
+}
+.ctag.req::before{content:'*';color:var(--cobalt-mid);margin-right:.1rem}
+
+/* ─── SLIDER ─────────────────────────────────────────────────── */
+.slider-block{margin-bottom:.875rem}
+.slider-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem}
+.slider-header label{font-size:.75rem;font-weight:500;color:var(--grey-5)}
+.slider-val{font-family:var(--font-display);font-size:.85rem;font-weight:600;color:var(--klein)}
+input[type=range]{
+  width:100%;height:4px;border-radius:2px;
+  appearance:none;background:var(--grey-2);cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:16px;height:16px;border-radius:50%;
+  background:var(--klein);border:2px solid var(--white);
+  box-shadow:0 1px 4px rgba(0,47,167,.3);cursor:pointer;
+}
+input[type=range]:focus{outline:none}
+
+/* ─── LEGEND ─────────────────────────────────────────────────── */
+.chart-legend{display:flex;flex-wrap:wrap;gap:.875rem;margin-bottom:.75rem}
+.chart-legend span{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--grey-4)}
+.cl-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+
+/* ─── TOAST ──────────────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:1.75rem;right:1.75rem;
+  background:var(--ink);color:#fff;
+  padding:.65rem 1.25rem;border-radius:var(--radius);
+  font-size:.78rem;font-weight:500;letter-spacing:.01em;
+  opacity:0;pointer-events:none;transform:translateY(6px);
+  transition:opacity .25s,transform .25s;z-index:999;
+  box-shadow:var(--shadow);
+}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ─── PROGRESS BAR (for import) ─────────────────────────────── */
+.prog-bar-wrap{background:var(--grey-1);border-radius:100px;height:6px;margin-top:.5rem;overflow:hidden}
+.prog-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--klein),var(--cobalt-mid));transition:width .4s ease}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--grey-2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--grey-3)}
+
+/* ─── UTIL ───────────────────────────────────────────────────── */
+.empty-row td{text-align:center;color:var(--grey-4);padding:2rem;font-size:.8rem}
+.text-right{text-align:right}
+.fw6{font-weight:600}
+.mt1{margin-top:.875rem}
+.chart-wrap{position:relative;width:100%}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- ─── SIDEBAR ─────────────────────────────────────────────── -->
+<aside class="sidebar" role="navigation" aria-label="Menu principal">
+  <div class="sidebar-logo">
+    <div class="wordmark">TradePrice</div>
+    <div class="sub">Importação &amp; Exportação</div>
+  </div>
+
+  <div class="sidebar-section-label">Análise</div>
+  <button class="nav-item active" onclick="switchView('dashboard')">
+    <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard
+  </button>
+
+  <div class="sidebar-section-label">Gestão</div>
+  <button class="nav-item" onclick="switchView('grupos')">
+    <i class="ti ti-layers-difference" aria-hidden="true"></i> Grupos de custo
+  </button>
+  <button class="nav-item" onclick="switchView('precificar')">
+    <i class="ti ti-calculator" aria-hidden="true"></i> Precificar
+  </button>
+
+  <div class="sidebar-section-label">Dados</div>
+  <button class="nav-item" onclick="switchView('importar')">
+    <i class="ti ti-upload" aria-hidden="true"></i> Importar dados
+  </button>
+  <button class="nav-item" onclick="switchView('exportar')">
+    <i class="ti ti-download" aria-hidden="true"></i> Exportar
+  </button>
+
+  <div style="flex:1"></div>
+  <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
+    <div style="font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.04em">v 2.0 · 2025</div>
+  </div>
+</aside>
+
+<!-- ─── MAIN ──────────────────────────────────────────────────── -->
+<main class="main" role="main">
+  <header class="topbar">
+    <div>
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn" onclick="exportCSV()"><i class="ti ti-download" aria-hidden="true"></i> Exportar CSV</button>
+      <button class="btn btn-primary" onclick="switchView('importar')"><i class="ti ti-upload" aria-hidden="true"></i> Importar</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+<!-- ──────────────── DASHBOARD ──────────────────────────────── -->
+<div id="view-dashboard" class="view active">
+  <div class="kpis" id="kpi-area"></div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><i class="ti ti-chart-bar" aria-hidden="true"></i> Custo total por grupo</div>
+          <div class="panel-hint">Valor absoluto mensal por categoria</div>
+        </div>
+      </div>
+      <div class="chart-legend" id="leg-bar"></div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-grupos" role="img" aria-label="Custo total por grupo"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><i class="ti ti-chart-donut-3" aria-hidden="true"></i> Participação percentual</div>
+          <div class="panel-hint">Peso de cada grupo no custo total</div>
+        </div>
+      </div>
+      <div class="chart-legend" id="leg-pie"></div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-pie" role="img" aria-label="Participação percentual dos grupos"></canvas></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><i class="ti ti-list-details" aria-hidden="true"></i> Top itens por custo mensal</div>
+        <div class="panel-hint">8 maiores despesas individuais cadastradas</div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:210px"><canvas id="c-detail" role="img" aria-label="Top itens por custo mensal"></canvas></div>
+  </div>
+</div>
+
+<!-- ──────────────── GRUPOS ──────────────────────────────────── -->
+<div id="view-grupos" class="view">
+  <div class="groups-bar" id="groups-bar"></div>
+  <div id="grupos-panels"></div>
+</div>
+
+<!-- ──────────────── PRECIFICAR ─────────────────────────────── -->
+<div id="view-precificar" class="view">
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><i class="ti ti-adjustments-horizontal" aria-hidden="true"></i> Simulador de precificação</div>
+        <div class="panel-hint">Base automática: soma dos grupos cadastrados · ajuste markup, volume e extras</div>
+      </div>
+    </div>
+    <div class="kpis" id="prec-kpis" style="margin-bottom:1.375rem"></div>
+    <div class="sep"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <div class="slider-block">
+          <div class="slider-header"><label>Markup (%)</label><span class="slider-val" id="sv-markup">40%</span></div>
+          <input type="range" id="sl-markup" min="5" max="150" step="1" value="40" oninput="runSim()"/>
+        </div>
+        <div class="slider-block">
+          <div class="slider-header"><label>Unidades por mês</label><span class="slider-val" id="sv-un">30 un.</span></div>
+          <input type="range" id="sl-un" min="1" max="500" step="1" value="30" oninput="runSim()"/>
+        </div>
+        <div class="slider-block">
+          <div class="slider-header"><label>Frete / despesas extras (R$)</label><span class="slider-val" id="sv-extra">R$ 0</span></div>
+          <input type="range" id="sl-extra" min="0" max="20000" step="200" value="0" oninput="runSim()"/>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-sim" role="img" aria-label="Composição do preço unitário simulado"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────── IMPORTAR ────────────────────────────────── -->
+<div id="view-importar" class="view">
+
+  <!-- DROP ZONE -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><i class="ti ti-cloud-upload" aria-hidden="true"></i> Carregar arquivo</div>
+        <div class="panel-hint">Excel, CSV ou exportações do Power BI · os dados são lidos localmente, sem servidor</div>
+      </div>
+    </div>
+    <div class="drop-zone" id="drop-zone"
+         onclick="document.getElementById('finp').click()"
+         ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event)">
+      <i class="ti ti-file-spreadsheet dz-icon" aria-hidden="true"></i>
+      <div class="dz-title">Arraste o arquivo aqui ou clique para selecionar</div>
+      <div class="dz-hint">.xlsx &nbsp;·&nbsp; .xls &nbsp;·&nbsp; .csv</div>
+    </div>
+    <input type="file" id="finp" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(event)"/>
+
+    <div id="imp-progress" style="display:none;margin-top:.875rem">
+      <div style="font-size:.75rem;font-weight:500;color:var(--grey-5);margin-bottom:.35rem" id="imp-progress-label">Lendo arquivo…</div>
+      <div class="prog-bar-wrap"><div class="prog-bar" id="imp-prog-bar" style="width:0%"></div></div>
+    </div>
+    <div id="imp-result" style="margin-top:.75rem"></div>
+  </div>
+
+  <!-- FORMATO ESPERADO -->
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-file-description" aria-hidden="true"></i> Estrutura da planilha</div>
+      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.6">
+        Cada linha representa um item de custo. A coluna <strong style="color:var(--klein)">grupo</strong> define em qual categoria o item será inserido automaticamente.
+      </p>
+      <div class="col-tags">
+        <span class="ctag req">grupo</span>
+        <span class="ctag req">nome</span>
+        <span class="ctag req">custo_unitario</span>
+        <span class="ctag">quantidade</span>
+        <span class="ctag">categoria</span>
+      </div>
+      <p style="font-size:.68rem;color:var(--grey-3);margin-top:.75rem">* campos obrigatórios</p>
+    </div>
+    <div class="panel">
+      <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-layers-difference" aria-hidden="true"></i> Grupos válidos</div>
+      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.6">
+        O valor na coluna <strong style="color:var(--klein)">grupo</strong> deve corresponder exatamente a um dos grupos abaixo (não diferencia maiúsculas):
+      </p>
+      <div class="col-tags" id="valid-groups-tags"></div>
+    </div>
+  </div>
+
+  <!-- FONTES COMPATÍVEIS -->
+  <div class="panel">
+    <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-plug-connected" aria-hidden="true"></i> Fontes de dados compatíveis</div>
+    <div class="import-grid">
+      <div class="import-card">
+        <div class="ic-title"><i class="ti ti-table" aria-hidden="true"></i> Microsoft Excel</div>
+        <div class="ic-desc">Exporte como .xlsx ou .xls. Certifique-se que a primeira linha contém os cabeçalhos.</div>
+      </div>
+      <div class="import-card">
+        <div class="ic-title"><i class="ti ti-file-text" aria-hidden="true"></i> CSV genérico</div>
+        <div class="ic-desc">Qualquer sistema que exporte CSV — ERP, WMS, planilhas Google. Separador vírgula ou ponto-e-vírgula.</div>
+      </div>
+      <div class="import-card">
+        <div class="ic-title"><i class="ti ti-chart-histogram" aria-hidden="true"></i> Power BI</div>
+        <div class="ic-desc">Use "Exportar dados" em qualquer visual de tabela do Power BI e importe o .xlsx gerado.</div>
+      </div>
+      <div class="import-card">
+        <div class="ic-title"><i class="ti ti-file-word" aria-hidden="true"></i> Word / Outros</div>
+        <div class="ic-desc">Copie a tabela para o Excel, ajuste os cabeçalhos e exporte como .xlsx antes de importar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="panel">
+    <div class="panel-title" style="margin-bottom:.875rem"><i class="ti ti-tools" aria-hidden="true"></i> Ferramentas</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="document.getElementById('finp').click()"><i class="ti ti-upload" aria-hidden="true"></i> Selecionar arquivo</button>
+      <button class="btn" onclick="downloadTemplate()"><i class="ti ti-file-download" aria-hidden="true"></i> Baixar modelo .xlsx</button>
+      <button class="btn" onclick="exportCSV()"><i class="ti ti-download" aria-hidden="true"></i> Exportar dados atuais (CSV)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────── EXPORTAR ────────────────────────────────── -->
+<div id="view-exportar" class="view">
+  <div class="panel">
+    <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-download" aria-hidden="true"></i> Exportar dados</div>
+    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:1.25rem;line-height:1.6">Baixe os dados cadastrados para continuar em outro momento, compartilhar ou importar em outro sistema.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="exportCSV()"><i class="ti ti-file-text" aria-hidden="true"></i> Exportar CSV completo</button>
+      <button class="btn" onclick="exportJSON()"><i class="ti ti-braces" aria-hidden="true"></i> Exportar JSON</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github" aria-hidden="true"></i> Usar no GitHub</div>
+    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.6">
+      Este arquivo é um HTML completamente standalone — sem dependências locais. Para publicar no GitHub Pages:
+    </p>
+    <ol style="font-size:.8rem;color:var(--grey-5);line-height:2;padding-left:1.25rem">
+      <li>Faça upload do arquivo <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.75rem">tradeprice.html</code> para um repositório</li>
+      <li>Renomeie para <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.75rem">index.html</code> ou configure o arquivo-raiz no GitHub Pages</li>
+      <li>Ative GitHub Pages em <em>Settings → Pages → Source → main branch</em></li>
+      <li>Acesse pelo link <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.75rem">seu-usuario.github.io/repo</code></li>
+    </ol>
+  </div>
+</div>
+
+  </div><!-- /.content -->
+</main>
+</div><!-- /.shell -->
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ─── DATA ───────────────────────────────────────────────────── */
+const GROUPS = [
+  { id:'pessoal', label:'Pessoal', icon:'ti-users', color:'#002FA7',
+    items:[
+      {nome:'Líder de operações', qtd:1, unit:5800, cat:'CLT'},
+      {nome:'Auxiliares',         qtd:4, unit:2100, cat:'CLT'},
+      {nome:'Motoristas',         qtd:2, unit:2800, cat:'CLT'},
+      {nome:'Vistoriadores',      qtd:2, unit:3200, cat:'CLT'},
+      {nome:'Operadores',         qtd:3, unit:2400, cat:'CLT'},
+    ]},
+  { id:'equipamentos', label:'Equipamentos', icon:'ti-forklift', color:'#0A7E59',
+    items:[
+      {nome:'Empilhadeira',              qtd:2, unit:1800, cat:'Aluguel/mês'},
+      {nome:'Rampa de acesso',           qtd:1, unit:600,  cat:'Aluguel/mês'},
+      {nome:'Implementos empilhadeira',  qtd:1, unit:350,  cat:'Manutenção'},
+      {nome:'Outdoor',                   qtd:1, unit:900,  cat:'Marketing'},
+      {nome:'Coletes de segurança',      qtd:10,unit:45,   cat:'EPI'},
+      {nome:'Celulares corporativos',    qtd:5, unit:120,  cat:'Mensal'},
+    ]},
+  { id:'sistema', label:'Sistema', icon:'ti-cpu', color:'#5A3EA8',
+    items:[
+      {nome:'Licença ERP mensal', qtd:1, unit:1200, cat:'SaaS'},
+      {nome:'Hospedagem cloud',   qtd:1, unit:480,  cat:'Infraestrutura'},
+    ]},
+  { id:'internet', label:'Internet', icon:'ti-wifi', color:'#B46A0A',
+    items:[
+      {nome:'5G corporativo', qtd:5, unit:110, cat:'Mensal'},
+    ]},
+  { id:'insumos', label:'Insumos', icon:'ti-package', color:'#B0306A',
+    items:[
+      {nome:'Etiquetas BOPP',          qtd:5000,unit:0.08,cat:'Consumível'},
+      {nome:'Ribbon para impressora',  qtd:20,  unit:18,  cat:'Consumível'},
+      {nome:'Materiais de escritório', qtd:1,   unit:280, cat:'Mensal'},
+    ]},
+];
+
+const CAT_OPTIONS_PESSOAL = ['CLT','PJ','Diarista','Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'];
+const CAT_OPTIONS_GENERIC = ['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'];
+
+let activeGroup = 'pessoal';
+let charts = {};
+
+/* ─── UTILS ──────────────────────────────────────────────────── */
+function groupTotal(g){ return g.items.reduce((a,i)=>a+i.qtd*i.unit,0); }
+function allTotal(){ return GROUPS.reduce((a,g)=>a+groupTotal(g),0); }
+function fmt(v){ return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtShort(v){
+  if(v>=1000000) return 'R$ '+(v/1000000).toFixed(1)+'M';
+  if(v>=1000)    return 'R$ '+(v/1000).toFixed(1)+'k';
+  return fmt(v);
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+function destroyChart(key){ if(charts[key]){charts[key].destroy();delete charts[key];} }
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
+const PAGE_META={
+  dashboard: {title:'Dashboard',        sub:'Visão consolidada de todos os grupos de custo'},
+  grupos:    {title:'Grupos de custo',   sub:'Adicione, edite e organize itens por categoria'},
+  precificar:{title:'Precificação',      sub:'Simule o preço de venda com base nos custos reais'},
+  importar:  {title:'Importar dados',    sub:'Carregue planilhas Excel, CSV ou exportações do Power BI'},
+  exportar:  {title:'Exportar',          sub:'Baixe os dados ou publique no GitHub Pages'},
+};
+function switchView(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  const btns=document.querySelectorAll('.nav-item');
+  const keys=['dashboard','grupos','precificar','importar','exportar'];
+  const idx=keys.indexOf(v);
+  if(idx>=0) btns[idx].classList.add('active');
+  document.getElementById('page-title').textContent=PAGE_META[v].title;
+  document.getElementById('page-sub').textContent=PAGE_META[v].sub;
+  if(v==='dashboard') setTimeout(renderDashboard,30);
+  if(v==='grupos') renderGrupos();
+  if(v==='precificar') setTimeout(runSim,30);
+  if(v==='importar') renderImportMeta();
+}
+
+/* ─── DASHBOARD ──────────────────────────────────────────────── */
+function renderDashboard(){
+  const total=allTotal();
+  const biggest=GROUPS.slice().sort((a,b)=>groupTotal(b)-groupTotal(a))[0];
+  const itemCount=GROUPS.reduce((a,g)=>a+g.items.length,0);
+  const pessoalPct=(groupTotal(GROUPS.find(g=>g.id==='pessoal'))/total*100).toFixed(1);
+
+  document.getElementById('kpi-area').innerHTML=`
+    <div class="kpi-card"><div class="kc-label">Custo total mensal</div><div class="kc-val red">${fmt(total)}</div><div class="kc-sub">todos os grupos</div></div>
+    <div class="kpi-card"><div class="kc-label">Grupos ativos</div><div class="kc-val blue">${GROUPS.length}</div><div class="kc-sub">categorias configuradas</div></div>
+    <div class="kpi-card"><div class="kc-label">Itens cadastrados</div><div class="kc-val">${itemCount}</div><div class="kc-sub">despesas individuais</div></div>
+    <div class="kpi-card"><div class="kc-label">Maior grupo</div><div class="kc-val amber">${biggest.label}</div><div class="kc-sub">${fmt(groupTotal(biggest))}/mês</div></div>
+    <div class="kpi-card"><div class="kc-label">Peso folha pessoal</div><div class="kc-val">${pessoalPct}%</div><div class="kc-sub">do custo total</div></div>
+  `;
+
+  const labels=GROUPS.map(g=>g.label);
+  const totals=GROUPS.map(g=>Math.round(groupTotal(g)));
+  const colors=GROUPS.map(g=>g.color);
+
+  document.getElementById('leg-bar').innerHTML=
+    GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label}</span>`).join('');
+  document.getElementById('leg-pie').innerHTML=
+    GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${(groupTotal(g)/total*100).toFixed(1)}%</strong></span>`).join('');
+
+  destroyChart('grp');
+  charts.grp=new Chart(document.getElementById('c-grupos'),{
+    type:'bar',
+    data:{labels,datasets:[{
+      label:'Custo mensal',data:totals,
+      backgroundColor:colors.map(c=>c+'DD'),borderRadius:5,
+      borderSkipped:false,
+    }]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}},
+        datalabels:{display:false},
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:11},color:'#7A849A'}},
+        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:11},color:'#7A849A',callback:v=>fmtShort(v)}},
+      }
+    },
+    plugins:[{
+      id:'barValues',
+      afterDatasetsDraw(chart){
+        const {ctx,data}=chart;
+        ctx.save();
+        data.datasets.forEach((ds,i)=>{
+          const meta=chart.getDatasetMeta(i);
+          meta.data.forEach((bar,j)=>{
+            ctx.fillStyle='#3D4455';
+            ctx.font='500 11px Inter';
+            ctx.textAlign='center';
+            ctx.textBaseline='bottom';
+            ctx.fillText(fmtShort(ds.data[j]),bar.x,bar.y-4);
+          });
+        });
+        ctx.restore();
+      }
+    }]
+  });
+
+  destroyChart('pie');
+  charts.pie=new Chart(document.getElementById('c-pie'),{
+    type:'doughnut',
+    data:{labels,datasets:[{
+      data:totals,
+      backgroundColor:colors.map(c=>c+'DD'),
+      borderWidth:2,borderColor:'#fff',hoverOffset:6,
+    }]},
+    options:{
+      responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed)+' ('+((ctx.parsed/total)*100).toFixed(1)+'%)'}}
+      }
+    },
+    plugins:[{
+      id:'centerText',
+      afterDraw(chart){
+        const {ctx,chartArea:{left,right,top,bottom}}=chart;
+        const cx=(left+right)/2, cy=(top+bottom)/2;
+        ctx.save();
+        ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillStyle='#7A849A';ctx.font='11px Inter';
+        ctx.fillText('TOTAL',cx,cy-12);
+        ctx.fillStyle='#1A1E2E';ctx.font='600 14px DM Sans';
+        ctx.fillText(fmtShort(total),cx,cy+8);
+        ctx.restore();
+      }
+    }]
+  });
+
+  const allItems=[];
+  GROUPS.forEach(g=>g.items.forEach(i=>allItems.push({label:i.nome.length>16?i.nome.slice(0,16)+'…':i.nome,val:Math.round(i.qtd*i.unit),color:g.color})));
+  allItems.sort((a,b)=>b.val-a.val);
+  const top8=allItems.slice(0,8);
+
+  destroyChart('detail');
+  charts.detail=new Chart(document.getElementById('c-detail'),{
+    type:'bar',
+    data:{
+      labels:top8.map(i=>i.label),
+      datasets:[{label:'Custo/mês',data:top8.map(i=>i.val),backgroundColor:top8.map(i=>i.color+'DD'),borderRadius:4,borderSkipped:false}]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.x)}}},
+      scales:{
+        x:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:10},color:'#7A849A',callback:v=>fmtShort(v)}},
+        y:{grid:{display:false},ticks:{font:{family:'Inter',size:11},color:'#3D4455'}},
+      }
+    },
+    plugins:[{
+      id:'hbarValues',
+      afterDatasetsDraw(chart){
+        const {ctx,data}=chart;
+        ctx.save();
+        data.datasets.forEach((ds,i)=>{
+          const meta=chart.getDatasetMeta(i);
+          meta.data.forEach((bar,j)=>{
+            ctx.fillStyle='#3D4455';
+            ctx.font='500 10.5px Inter';
+            ctx.textAlign='left';
+            ctx.textBaseline='middle';
+            ctx.fillText(fmtShort(ds.data[j]),bar.x+5,bar.y);
+          });
+        });
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+/* ─── GRUPOS ─────────────────────────────────────────────────── */
+function renderGrupos(){
+  const bar=document.getElementById('groups-bar');
+  bar.innerHTML=GROUPS.map(g=>`
+    <button class="grp-chip${g.id===activeGroup?' active':''}"
+      style="${g.id===activeGroup?`background:${g.color};border-color:${g.color};`:''}"
+      onclick="selectGroup('${g.id}')">
+      <span class="chip-dot" style="background:${g.id===activeGroup?'rgba(255,255,255,.6)':g.color}"></span>
+      <i class="ti ${g.icon}" aria-hidden="true"></i>
+      ${g.label}
+      <span class="chip-count">${g.items.length}</span>
+    </button>`).join('');
+
+  document.getElementById('grupos-panels').innerHTML=GROUPS.map(g=>`
+    <div id="gp-${g.id}" class="grp-panel${g.id===activeGroup?' active':''}">
+      <div class="panel">
+        <div class="grp-meta">
+          <div class="gm-label"><i class="ti ${g.icon}" aria-hidden="true" style="margin-right:.3rem"></i>${g.label}</div>
+          <div class="gm-val" id="gm-val-${g.id}">${fmt(groupTotal(g))}<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span></div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="tp-table">
+            <thead><tr>
+              <th>Item</th><th>Qtd</th><th>Custo unit. (R$)</th><th>Total/mês</th><th>Regime</th><th></th>
+            </tr></thead>
+            <tbody id="tb-${g.id}">${renderRows(g)}</tbody>
+          </table>
+        </div>
+        <div class="sep"></div>
+        <div style="font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--grey-4);margin-bottom:.625rem">Adicionar item</div>
+        <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1.4fr auto;gap:.625rem;align-items:end">
+          <div class="fg"><label>Nome</label><input id="ai-nome-${g.id}" placeholder="Descrição do item"/></div>
+          <div class="fg"><label>Qtd</label><input id="ai-qtd-${g.id}" type="number" value="1" min="0.01" step="any"/></div>
+          <div class="fg"><label>Custo unit.</label><input id="ai-unit-${g.id}" type="number" placeholder="0,00" step="any"/></div>
+          <div class="fg"><label>Regime / Categoria</label><select id="ai-cat-${g.id}">${catOptions(g.id)}</select></div>
+          <div class="fg"><label>&nbsp;</label><button class="btn btn-primary" onclick="addItem('${g.id}')" aria-label="Adicionar item ao grupo ${g.label}"><i class="ti ti-plus" aria-hidden="true"></i> Adicionar</button></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title" style="color:${g.color}"><i class="ti ${g.icon}" aria-hidden="true"></i> Distribuição interna — ${g.label}</div>
+            <div class="panel-hint">Custo mensal por item (qtd × unitário)</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:190px"><canvas id="cg-${g.id}" role="img" aria-label="Distribuição de custos dentro do grupo ${g.label}"></canvas></div>
+      </div>
+    </div>`).join('');
+
+  GROUPS.forEach(g=>{
+    rebindEdits(g.id);
+    renderGroupChart(g);
+  });
+}
+
+function catOptions(gid){
+  const opts = gid==='pessoal'
+    ? ['CLT','PJ','Diarista','Outro']
+    : ['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'];
+  return opts.map(o=>`<option>${o}</option>`).join('');
+}
+
+function renderRows(g){
+  if(!g.items.length) return `<tr class="empty-row"><td colspan="6">Nenhum item cadastrado. Use o formulário abaixo para adicionar.</td></tr>`;
+  return g.items.map((it,idx)=>`
+    <tr>
+      <td class="fw6">${it.nome}</td>
+      <td><input class="edit-cell" type="number" value="${it.qtd}" min="0.01" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="qtd"/></td>
+      <td><input class="edit-cell" type="number" value="${it.unit}" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="unit"/></td>
+      <td class="fw6" style="color:${g.color}" id="row-total-${g.id}-${idx}">${fmt(it.qtd*it.unit)}</td>
+      <td>
+        <select class="edit-cell" style="width:110px" data-gid="${g.id}" data-idx="${idx}" data-field="cat">
+          ${(g.id==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'])
+            .map(o=>`<option${o===it.cat?' selected':''}>${o}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <button class="btn btn-danger" onclick="removeItem('${g.id}',${idx})" aria-label="Remover ${it.nome}" style="padding:.35rem .6rem;font-size:.7rem">
+          <i class="ti ti-trash" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+function rebindEdits(gid){
+  const g=GROUPS.find(x=>x.id===gid);
+  document.querySelectorAll(`#tb-${gid} [data-gid]`).forEach(el=>{
+    el.onchange=function(){
+      const idx=+this.dataset.idx, field=this.dataset.field;
+      g.items[idx][field]=field==='cat'?this.value:(parseFloat(this.value)||0);
+      const totalCell=document.getElementById(`row-total-${gid}-${idx}`);
+      if(totalCell) totalCell.textContent=fmt(g.items[idx].qtd*g.items[idx].unit);
+      updateGroupMeta(g);
+      renderGroupChart(g);
+      updateGroupChip(g);
+    };
+  });
+}
+
+function updateGroupMeta(g){
+  const el=document.getElementById('gm-val-'+g.id);
+  if(el) el.innerHTML=fmt(groupTotal(g))+'<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span>';
+}
+
+function updateGroupChip(g){
+  const chips=document.querySelectorAll('.grp-chip');
+  const idx=GROUPS.findIndex(x=>x.id===g.id);
+  const cnt=chips[idx]?.querySelector('.chip-count');
+  if(cnt) cnt.textContent=g.items.length;
+}
+
+function renderGroupChart(g){
+  const el=document.getElementById('cg-'+g.id); if(!el||!g.items.length) return;
+  const key='gc_'+g.id; destroyChart(key);
+  const vals=g.items.map(i=>Math.round(i.qtd*i.unit));
+  charts[key]=new Chart(el,{
+    type:'bar',
+    data:{
+      labels:g.items.map(i=>i.nome.length>14?i.nome.slice(0,14)+'…':i.nome),
+      datasets:[{label:'Custo/mês',data:vals,backgroundColor:g.color+'CC',borderRadius:4,borderSkipped:false}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#7A849A',maxRotation:35}},
+        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:10},color:'#7A849A',callback:v=>fmtShort(v)}},
+      }
+    },
+    plugins:[{
+      id:'barVals',
+      afterDatasetsDraw(chart){
+        const {ctx,data}=chart;
+        ctx.save();
+        data.datasets.forEach((ds,i)=>{
+          chart.getDatasetMeta(i).data.forEach((bar,j)=>{
+            ctx.fillStyle='#3D4455';
+            ctx.font='500 10px Inter';
+            ctx.textAlign='center';ctx.textBaseline='bottom';
+            ctx.fillText(fmtShort(ds.data[j]),bar.x,bar.y-3);
+          });
+        });
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+function selectGroup(id){
+  activeGroup=id;
+  const g=GROUPS.find(x=>x.id===id);
+  document.querySelectorAll('.grp-chip').forEach((b,i)=>{
+    b.classList.remove('active');
+    b.style.background=''; b.style.borderColor=''; b.style.color='';
+  });
+  const idx=GROUPS.findIndex(x=>x.id===id);
+  const chips=document.querySelectorAll('.grp-chip');
+  chips[idx].classList.add('active');
+  chips[idx].style.background=g.color;
+  chips[idx].style.borderColor=g.color;
+  chips[idx].style.color='#fff';
+  document.querySelectorAll('.grp-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('gp-'+id).classList.add('active');
+}
+
+function addItem(gid){
+  const g=GROUPS.find(x=>x.id===gid);
+  const nome=document.getElementById(`ai-nome-${gid}`).value.trim();
+  const qtd=parseFloat(document.getElementById(`ai-qtd-${gid}`).value)||1;
+  const unit=parseFloat(document.getElementById(`ai-unit-${gid}`).value)||0;
+  const cat=document.getElementById(`ai-cat-${gid}`).value;
+  if(!nome){alert('Informe o nome do item.');return;}
+  g.items.push({nome,qtd,unit,cat});
+  ['nome','unit'].forEach(f=>{const el=document.getElementById(`ai-${f}-${gid}`);if(el)el.value='';});
+  document.getElementById(`ai-qtd-${gid}`).value='1';
+  document.getElementById(`tb-${gid}`).innerHTML=renderRows(g);
+  rebindEdits(gid);
+  updateGroupMeta(g);
+  renderGroupChart(g);
+  updateGroupChip(g);
+  toast('Item adicionado com sucesso');
+}
+
+function removeItem(gid,idx){
+  const g=GROUPS.find(x=>x.id===gid);
+  g.items.splice(idx,1);
+  document.getElementById(`tb-${gid}`).innerHTML=renderRows(g);
+  rebindEdits(gid);
+  updateGroupMeta(g);
+  renderGroupChart(g);
+  updateGroupChip(g);
+  toast('Item removido');
+}
+
+/* ─── SIMULADOR ──────────────────────────────────────────────── */
+let simChart=null;
+function runSim(){
+  const markup=+document.getElementById('sl-markup').value;
+  const un=+document.getElementById('sl-un').value;
+  const extra=+document.getElementById('sl-extra').value;
+  document.getElementById('sv-markup').textContent=markup+'%';
+  document.getElementById('sv-un').textContent=un+' un.';
+  document.getElementById('sv-extra').textContent='R$ '+extra.toLocaleString('pt-BR');
+
+  const base=allTotal()+extra;
+  const custoUnit=base/un;
+  const precoUnit=custoUnit*(1+markup/100);
+  const margemUnit=precoUnit-custoUnit;
+  const fat=precoUnit*un;
+
+  document.getElementById('prec-kpis').innerHTML=`
+    <div class="kpi-card"><div class="kc-label">Custo base/mês</div><div class="kc-val red">${fmt(base)}</div><div class="kc-sub">grupos + extras</div></div>
+    <div class="kpi-card"><div class="kc-label">Custo unitário</div><div class="kc-val">${fmt(custoUnit)}</div><div class="kc-sub">por unidade</div></div>
+    <div class="kpi-card"><div class="kc-label">Preço sugerido</div><div class="kc-val green">${fmt(precoUnit)}</div><div class="kc-sub">com markup ${markup}%</div></div>
+    <div class="kpi-card"><div class="kc-label">Margem unitária</div><div class="kc-val amber">${fmt(margemUnit)}</div><div class="kc-sub">${((margemUnit/precoUnit)*100).toFixed(1)}% sobre o preço</div></div>
+    <div class="kpi-card"><div class="kc-label">Receita potencial</div><div class="kc-val blue">${fmt(fat)}</div><div class="kc-sub">${un} unidades/mês</div></div>
+  `;
+
+  if(simChart) simChart.destroy();
+  const grpUnit=GROUPS.map(g=>parseFloat((groupTotal(g)/un).toFixed(2)));
+  const extraUnit=parseFloat((extra/un).toFixed(2));
+
+  simChart=new Chart(document.getElementById('c-sim'),{
+    type:'bar',
+    data:{
+      labels:['Composição do preço unitário'],
+      datasets:[
+        ...GROUPS.map((g,i)=>({label:g.label,data:[grpUnit[i]],backgroundColor:g.color+'CC'})),
+        {label:'Extras/Frete',data:[extraUnit],backgroundColor:'#7A849ACC'},
+        {label:'Margem (markup)',data:[parseFloat(margemUnit.toFixed(2))],backgroundColor:'#0A7E5999'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{family:'Inter',size:11},color:'#3D4455',padding:14}},
+        tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{family:'Inter',size:11}}},
+        y:{stacked:true,grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:11},callback:v=>fmtShort(v)}},
+      }
+    },
+    plugins:[{
+      id:'stackTotals',
+      afterDatasetsDraw(chart){
+        const {ctx}=chart;
+        ctx.save();
+        const metas=chart.data.datasets.map((_,i)=>chart.getDatasetMeta(i));
+        const lastMeta=metas[metas.length-1];
+        lastMeta.data.forEach((bar,j)=>{
+          let total=0;
+          chart.data.datasets.forEach(ds=>total+=ds.data[j]||0);
+          ctx.fillStyle='#1A1E2E';ctx.font='600 12px DM Sans';
+          ctx.textAlign='center';ctx.textBaseline='bottom';
+          ctx.fillText(fmt(total),bar.x,bar.y-5);
+        });
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+/* ─── IMPORT ─────────────────────────────────────────────────── */
+function renderImportMeta(){
+  const tags=document.getElementById('valid-groups-tags');
+  if(tags) tags.innerHTML=GROUPS.map(g=>`<span class="ctag" style="background:rgba(${hexToRgb(g.color)},.08);color:${g.color};border-color:rgba(${hexToRgb(g.color)},.2)">${g.label}</span>`).join('');
+}
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+function dzOver(e){ e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function dzLeave(){ document.getElementById('drop-zone').classList.remove('drag-over'); }
+function dzDrop(e){
+  e.preventDefault(); dzLeave();
+  const file=e.dataTransfer.files[0]; if(file) processFile(file);
+}
+
+function handleFile(e){ const file=e.target.files[0]; if(file) processFile(file); }
+
+function processFile(file){
+  const prog=document.getElementById('imp-progress');
+  const progBar=document.getElementById('imp-prog-bar');
+  const progLabel=document.getElementById('imp-progress-label');
+  prog.style.display='block'; progBar.style.width='20%'; progLabel.textContent='Lendo arquivo…';
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    progBar.style.width='60%'; progLabel.textContent='Processando dados…';
+    setTimeout(()=>{
+      try{
+        const data=new Uint8Array(ev.target.result);
+        const wb=XLSX.read(data,{type:'array'});
+        const ws=wb.Sheets[wb.SheetNames[0]];
+        const rows=XLSX.utils.sheet_to_json(ws);
+        let added=0, skipped=0;
+        rows.forEach(row=>{
+          const grpRaw=String(row['grupo']||row['Grupo']||'').toLowerCase().trim();
+          const g=GROUPS.find(x=>x.id===grpRaw||x.label.toLowerCase()===grpRaw);
+          if(!g){skipped++;return;}
+          const nome=String(row['nome']||row['Nome']||'').trim(); if(!nome){skipped++;return;}
+          g.items.push({
+            nome,
+            qtd:parseFloat(row['quantidade']||row['Quantidade']||1),
+            unit:parseFloat(row['custo_unitario']||row['Custo Unitário']||row['custo unitario']||row['Custo_Unitario']||0),
+            cat:String(row['categoria']||row['Categoria']||'Outro')
+          });
+          added++;
+        });
+        progBar.style.width='100%'; progLabel.textContent='Concluído';
+        document.getElementById('imp-result').innerHTML=`
+          <div style="display:flex;align-items:center;gap:.625rem;background:var(--green-lt);border:1px solid rgba(27,143,110,.2);border-radius:var(--radius);padding:.75rem 1rem;font-size:.8rem">
+            <i class="ti ti-circle-check" style="color:var(--green);font-size:1.2rem"></i>
+            <div>
+              <div style="font-weight:600;color:var(--green)">${added} item(s) importado(s) com sucesso</div>
+              ${skipped?`<div style="color:var(--amber);margin-top:.1rem">${skipped} linha(s) ignorada(s) — grupo não reconhecido ou nome ausente</div>`:''}
+            </div>
+          </div>`;
+        toast(`${added} itens importados`);
+        setTimeout(()=>{prog.style.display='none';},1200);
+      }catch(err){
+        progBar.style.width='100%';progBar.style.background='var(--red)';
+        document.getElementById('imp-result').innerHTML=`
+          <div style="display:flex;align-items:center;gap:.625rem;background:var(--red-lt);border:1px solid rgba(194,59,59,.2);border-radius:var(--radius);padding:.75rem 1rem;font-size:.8rem">
+            <i class="ti ti-alert-circle" style="color:var(--red);font-size:1.2rem"></i>
+            <div>
+              <div style="font-weight:600;color:var(--red)">Erro ao processar o arquivo</div>
+              <div style="color:var(--grey-4);margin-top:.1rem">Verifique se o formato está correto e os cabeçalhos estão na primeira linha</div>
+            </div>
+          </div>`;
+        setTimeout(()=>{prog.style.display='none';progBar.style.background='';},2000);
+      }
+    },400);
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+/* ─── EXPORT ─────────────────────────────────────────────────── */
+function exportCSV(){
+  const header='grupo,nome,quantidade,custo_unitario,categoria,total_mensal';
+  const rows=[];
+  GROUPS.forEach(g=>g.items.forEach(i=>rows.push(`${g.label},"${i.nome}",${i.qtd},${i.unit},"${i.cat}",${(i.qtd*i.unit).toFixed(2)}`)));
+  const csv=[header,...rows].join('\n');
+  triggerDownload(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}),'tradeprice_custos.csv');
+  toast('CSV exportado');
+}
+
+function exportJSON(){
+  const payload=GROUPS.map(g=>({grupo:g.label,total:Math.round(groupTotal(g)),itens:g.items}));
+  triggerDownload(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),'tradeprice_custos.json');
+  toast('JSON exportado');
+}
+
+function downloadTemplate(){
+  const header='grupo,nome,quantidade,custo_unitario,categoria';
+  const examples=[
+    'Pessoal,Líder de operações,1,5800,CLT',
+    'Pessoal,Auxiliares,4,2100,PJ',
+    'Equipamentos,Empilhadeira,2,1800,Aluguel/mês',
+    'Sistema,Licença ERP mensal,1,1200,SaaS',
+    'Internet,5G corporativo,5,110,Mensal',
+    'Insumos,Etiquetas BOPP,5000,0.08,Consumível',
+  ];
+  triggerDownload(new Blob(['\uFEFF'+[header,...examples].join('\n')],{type:'text/csv;charset=utf-8;'}),'modelo_tradeprice.csv');
+  toast('Modelo baixado');
+}
+
+function triggerDownload(blob,name){
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+/* ─── INIT ───────────────────────────────────────────────────── */
+renderDashboard();
+</script>
+</body>
+</html>
