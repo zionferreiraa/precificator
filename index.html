@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <meta name="theme-color" content="#002FA7"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -10,168 +10,296 @@
 <meta name="description" content="Gestão de custos para importação e exportação"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <title>TradePrice — Gestão de Custos</title>
-
-<!-- PWA Manifest inline (GitHub Pages single-file) -->
-<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22TradePrice%20%E2%80%94%20Gest%C3%A3o%20de%20Custos%22%2C%22short_name%22%3A%22TradePrice%22%2C%22description%22%3A%22Gest%C3%A3o%20de%20custos%20para%20importa%C3%A7%C3%A3o%20e%20exporta%C3%A7%C3%A3o%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F7F8FA%22%2C%22theme_color%22%3A%22%23002FA7%22%2C%22orientation%22%3A%22landscape-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%2527http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%3D%25270%25200%2520192%2520192%2527%253E%253Crect%2520width%3D%2527192%2527%2520height%3D%2527192%2527%2520rx%3D%252738%2527%2520fill%3D%2527%2523002FA7%2527%2F%253E%253Ctext%2520x%3D%252796%2527%2520y%3D%2527125%2527%2520text-anchor%3D%2527middle%2527%2520font-size%3D%252796%2527%2520font-family%3D%2527sans-serif%2527%2520fill%3D%2527%2523fff%2527%253ET%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D"/>
-
-<!-- Apple touch icon via inline SVG data URL -->
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22TradePrice%22%2C%22short_name%22%3A%22TradePrice%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F7F8FA%22%2C%22theme_color%22%3A%22%23002FA7%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%2527http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%3D%25270%25200%2520192%2520192%2527%253E%253Crect%2520width%3D%2527192%2527%2520height%3D%2527192%2527%2520rx%3D%252738%2527%2520fill%3D%2527%2523002FA7%2527%2F%253E%253Ctext%2520x%3D%252796%2527%2520y%3D%2527125%2527%2520text-anchor%3D%2527middle%2527%2520font-size%3D%252796%2527%2520font-family%3D%2527sans-serif%2527%2520fill%3D%2527%2523fff%2527%253ET%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D"/>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%23002FA7'/><text x='90' y='118' text-anchor='middle' font-size='90' font-family='sans-serif' fill='%23fff'>T</text></svg>"/>
-
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
 <style>
-/* ─── TOKENS ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
 :root{
-  --klein:#002FA7;
-  --cobalt:#0047AB;
-  --cobalt-mid:#1A5FCC;
-  --cobalt-lt:#E8EEF8;
-  --cobalt-xlt:#F2F5FC;
-  --white:#FFFFFF;
-  --grey-0:#F7F8FA;
-  --grey-1:#EFF1F5;
-  --grey-2:#DDE1EA;
-  --grey-3:#B4BCCC;
-  --grey-4:#7A849A;
-  --grey-5:#3D4455;
-  --ink:#1A1E2E;
-  --green:#1B8F6E;
-  --green-lt:#E3F5EF;
-  --amber:#B96B0A;
-  --amber-lt:#FBF0E0;
-  --red:#C23B3B;
-  --red-lt:#FCEAEA;
-  --purple:#5A3EA8;
-  --purple-lt:#EDE8FB;
-  --radius-sm:6px;
-  --radius:10px;
-  --radius-lg:16px;
-  --shadow-sm:0 1px 3px rgba(0,47,167,.07);
-  --shadow:0 2px 12px rgba(0,47,167,.10);
-  --font-display:'DM Sans',sans-serif;
-  --font-body:'Inter',sans-serif;
-  --transition:.16s ease;
+  --klein:#002FA7; --cobalt:#0047AB; --cobalt-mid:#1A5FCC;
+  --cobalt-lt:#E8EEF8; --cobalt-xlt:#F2F5FC;
+  --white:#FFFFFF; --grey-0:#F7F8FA; --grey-1:#EFF1F5;
+  --grey-2:#DDE1EA; --grey-3:#B4BCCC; --grey-4:#7A849A;
+  --grey-5:#3D4455; --ink:#1A1E2E;
+  --green:#1B8F6E; --green-lt:#E3F5EF;
+  --amber:#B96B0A; --amber-lt:#FBF0E0;
+  --red:#C23B3B; --red-lt:#FCEAEA;
+  --purple:#5A3EA8; --purple-lt:#EDE8FB;
+  --r-sm:6px; --r:10px; --r-lg:16px;
+  --sh-sm:0 1px 3px rgba(0,47,167,.07);
+  --sh:0 2px 12px rgba(0,47,167,.10);
+  --ff-d:'DM Sans',sans-serif; --ff-b:'Inter',sans-serif;
+  --tr:.16s ease;
+  /* mobile nav heights */
+  --mob-topbar:52px;
+  --mob-fab:56px;
+  --mob-sheet:260px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px}
-
-/* ─── BACKGROUND TEXTURE ─────────────────────────────────── */
+html{font-size:15px;-webkit-text-size-adjust:100%}
 body{
-  font-family:var(--font-body);
-  color:var(--ink);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-  background-color:var(--grey-0);
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(0,47,167,.045) 1px, transparent 0);
+  font-family:var(--ff-b);color:var(--ink);min-height:100vh;
+  -webkit-font-smoothing:antialiased;background-color:var(--grey-0);
+  background-image:radial-gradient(circle at 1px 1px,rgba(0,47,167,.042) 1px,transparent 0);
   background-size:24px 24px;
 }
-
-/* ─── LAYOUT ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   DESKTOP LAYOUT  (≥768px)
+══════════════════════════════════════════════ */
 .shell{display:flex;height:100vh;overflow:hidden}
 
-/* SIDEBAR */
+/* — Sidebar — */
 .sidebar{
-  width:224px;flex-shrink:0;
-  background:var(--klein);
-  display:flex;flex-direction:column;
-  padding:0 0 1.5rem;
-  position:relative;
-  z-index:20;
+  width:224px;flex-shrink:0;background:var(--klein);
+  display:flex;flex-direction:column;padding:0 0 1.5rem;
+  position:relative;z-index:20;
 }
-.sidebar::after{content:'';position:absolute;inset:0 0 0 auto;width:1px;background:rgba(255,255,255,.08);}
+.sidebar::after{content:'';position:absolute;inset:0 0 0 auto;width:1px;background:rgba(255,255,255,.08)}
 .sidebar-logo{padding:1.5rem 1.25rem 1.625rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:.625rem}
-.sidebar-logo .wordmark{font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.025em}
+.sidebar-logo .wordmark{font-family:var(--ff-d);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.025em}
 .sidebar-logo .sub{font-size:.65rem;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.07em;text-transform:uppercase}
 .nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.625rem 1.25rem;
-  font-size:.8rem;font-weight:500;
-  color:rgba(255,255,255,.52);
+  display:flex;align-items:center;gap:10px;padding:.625rem 1.25rem;
+  font-size:.8rem;font-weight:500;color:rgba(255,255,255,.52);
   cursor:pointer;border:none;background:none;width:100%;text-align:left;
-  font-family:var(--font-body);border-left:3px solid transparent;
-  transition:color var(--transition),background var(--transition);
+  font-family:var(--ff-b);border-left:3px solid transparent;
+  transition:color var(--tr),background var(--tr);
 }
 .nav-item i{font-size:.95rem;flex-shrink:0}
 .nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}
 .nav-item.active{color:#fff;background:rgba(255,255,255,.13);border-left-color:rgba(255,255,255,.8)}
 .sidebar-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:.7rem 1.25rem .2rem}
-
-/* PWA install banner */
 #pwa-banner{
-  display:none;
-  margin:.75rem 1rem;
+  display:none;margin:.75rem 1rem;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
-  border-radius:var(--radius-sm);padding:.6rem .875rem;
-  font-size:.72rem;color:rgba(255,255,255,.8);cursor:pointer;
-  transition:background var(--transition);
+  border-radius:var(--r-sm);padding:.6rem .875rem;
+  font-size:.72rem;color:rgba(255,255,255,.8);cursor:pointer;transition:background var(--tr);
 }
 #pwa-banner:hover{background:rgba(255,255,255,.16)}
 #pwa-banner i{font-size:.9rem;vertical-align:middle;margin-right:.35rem}
 
-/* MAIN */
+/* — Main — */
 .main{flex:1;overflow-y:auto;display:flex;flex-direction:column;position:relative}
 .topbar{
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--grey-2);
-  padding:.875rem 2rem;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--grey-2);padding:.875rem 2rem;
   display:flex;align-items:center;justify-content:space-between;
   flex-shrink:0;position:sticky;top:0;z-index:10;
 }
-.topbar-title{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.topbar-title{font-family:var(--ff-d);font-size:1.05rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
 .topbar-sub{font-size:.72rem;color:var(--grey-4);margin-top:1px}
 .topbar-actions{display:flex;gap:.5rem}
 .content{padding:1.75rem 2rem;flex:1}
 
-/* ─── VIEWS ───────────────────────────────────────────────── */
+/* Mobile-only elements hidden on desktop */
+.mob-topbar,.mob-fab,.mob-sheet,.mob-overlay{display:none}
+
+/* ══════════════════════════════════════════════
+   MOBILE LAYOUT  (<768px)
+══════════════════════════════════════════════ */
+@media(max-width:767px){
+  html{font-size:14px}
+
+  /* Hide desktop sidebar */
+  .sidebar{display:none}
+
+  /* Shell becomes a column */
+  .shell{flex-direction:column;height:100dvh;overflow:hidden}
+
+  /* Hide desktop topbar */
+  .topbar{display:none}
+
+  /* Mobile top bar */
+  .mob-topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--klein);
+    padding:.75rem 1rem .75rem 1.125rem;
+    height:var(--mob-topbar);flex-shrink:0;
+    position:sticky;top:0;z-index:30;
+    padding-top:max(.75rem,env(safe-area-inset-top));
+  }
+  .mob-topbar .mt-brand{font-family:var(--ff-d);font-size:1rem;font-weight:600;color:#fff;letter-spacing:-.02em}
+  .mob-topbar .mt-page{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:1px}
+  .mob-topbar-actions{display:flex;gap:.5rem}
+  .mob-icon-btn{
+    width:34px;height:34px;border-radius:8px;border:none;
+    background:rgba(255,255,255,.12);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:.95rem;
+  }
+
+  /* Scrollable content area */
+  .main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .content{
+    padding:1rem 1rem 5rem;/* bottom room for FAB */
+    padding-bottom:calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  /* ── FAB (floating menu trigger) ── */
+  .mob-fab{
+    display:flex;
+    position:fixed;
+    bottom:calc(1.25rem + env(safe-area-inset-bottom));
+    left:50%;transform:translateX(-50%);
+    z-index:50;
+    width:52px;height:52px;border-radius:50%;
+    background:var(--klein);
+    box-shadow:0 4px 20px rgba(0,47,167,.35),0 1px 4px rgba(0,0,0,.15);
+    border:none;cursor:pointer;
+    align-items:center;justify-content:center;
+    color:#fff;font-size:1.3rem;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .mob-fab:active{transform:translateX(-50%) scale(.93)}
+  .mob-fab.open{background:var(--grey-5);box-shadow:0 4px 20px rgba(0,0,0,.25)}
+
+  /* ── Bottom Sheet ── */
+  .mob-sheet{
+    display:block;
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--white);
+    border-radius:20px 20px 0 0;
+    box-shadow:0 -4px 32px rgba(0,47,167,.13);
+    z-index:45;
+    transform:translateY(100%);
+    transition:transform .32s cubic-bezier(.4,0,.2,1);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .mob-sheet.open{transform:translateY(0)}
+  .mob-sheet-handle{
+    width:36px;height:4px;border-radius:2px;background:var(--grey-2);
+    margin:.75rem auto .5rem;
+  }
+  .mob-sheet-title{
+    font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--grey-4);padding:.25rem 1.25rem .5rem;
+  }
+  .mob-nav-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    gap:0;padding:.25rem .5rem .75rem;
+  }
+  .mob-nav-btn{
+    display:flex;flex-direction:column;align-items:center;gap:.3rem;
+    padding:.625rem .25rem;border:none;background:none;cursor:pointer;
+    border-radius:10px;transition:background var(--tr);
+    font-family:var(--ff-b);
+  }
+  .mob-nav-btn:active{background:var(--grey-1)}
+  .mob-nav-btn i{font-size:1.35rem;color:var(--grey-4);transition:color var(--tr)}
+  .mob-nav-btn span{font-size:.62rem;font-weight:500;color:var(--grey-4);transition:color var(--tr);text-align:center;line-height:1.2}
+  .mob-nav-btn.active i{color:var(--klein)}
+  .mob-nav-btn.active span{color:var(--klein);font-weight:600}
+  .mob-nav-btn .mob-dot{
+    width:4px;height:4px;border-radius:50%;background:var(--klein);
+    opacity:0;margin-top:1px;transition:opacity var(--tr);
+  }
+  .mob-nav-btn.active .mob-dot{opacity:1}
+
+  /* Overlay behind sheet */
+  .mob-overlay{
+    display:block;position:fixed;inset:0;
+    background:rgba(0,0,0,.35);z-index:40;
+    opacity:0;pointer-events:none;transition:opacity .28s ease;
+  }
+  .mob-overlay.show{opacity:1;pointer-events:all}
+
+  /* ── Content adjustments ── */
+  .kpis{grid-template-columns:repeat(2,1fr);gap:.625rem;margin-bottom:1rem}
+  .kpi-card{padding:.875rem 1rem}
+  .kpi-card .kc-val{font-size:1.15rem}
+  .kpi-card .kc-sub{display:none}
+
+  .panel{padding:1rem;border-radius:12px;margin-bottom:.75rem}
+  .panel-title{font-size:.82rem}
+  .panel-hint{font-size:.68rem}
+  .panel-head{margin-bottom:.875rem}
+
+  .grid2{grid-template-columns:1fr;gap:.75rem}
+
+  /* Charts shorter on mobile */
+  .chart-wrap[style*="height:215px"]{height:180px!important}
+  .chart-wrap[style*="height:205px"]{height:170px!important}
+  .chart-wrap[style*="height:185px"]{height:155px!important}
+
+  /* Precificar: stack instead of side-by-side */
+  .prec-grid{grid-template-columns:1fr}
+  .sim-donut-wrap[style*="height:280px"]{height:230px!important}
+
+  /* Groups bar: scrollable row */
+  .groups-bar{flex-wrap:nowrap;overflow-x:auto;padding-bottom:.375rem;-webkit-overflow-scrolling:touch}
+  .groups-bar::-webkit-scrollbar{display:none}
+  .grp-chip{white-space:nowrap;flex-shrink:0;font-size:.74rem;padding:.425rem .875rem}
+
+  /* Add-item form: stack on mobile */
+  #grupos-panels [style*="grid-template-columns:2.5fr"]{
+    grid-template-columns:1fr 1fr!important;
+  }
+  /* btn full width in mobile forms */
+  #grupos-panels .btn-primary{width:100%;justify-content:center;margin-top:.25rem}
+
+  /* Table horizontal scroll */
+  .tp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:0 0 var(--r) var(--r)}
+  .tp-table{min-width:520px}
+
+  /* Import zone compact */
+  .drop-zone{padding:1.5rem 1rem}
+  .drop-zone .dz-icon{font-size:1.75rem;margin-bottom:.5rem}
+  .drop-zone .dz-title{font-size:.85rem}
+  .import-grid{grid-template-columns:1fr}
+
+  .btn{padding:.55rem .875rem;font-size:.79rem}
+  .btn-row{gap:.5rem}
+
+  /* Toast above FAB */
+  .toast{bottom:calc(5.5rem + env(safe-area-inset-bottom));right:1rem;left:1rem;text-align:center}
+
+  /* Breakdown list on mobile */
+  .bl-bar-wrap{width:60px}
+  .bl-val{min-width:62px;font-size:.72rem}
+  .bl-pct{min-width:32px;font-size:.67rem}
+}
+
+/* ══════════════════════════════════════════════
+   SHARED COMPONENT STYLES
+══════════════════════════════════════════════ */
 .view{display:none}.view.active{display:block}
 
-/* ─── KPI STRIP ───────────────────────────────────────────── */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.875rem;margin-bottom:1.5rem}
 .kpi-card{
-  background:var(--white);border-radius:var(--radius);
-  padding:1.125rem 1.25rem;border:1px solid var(--grey-2);box-shadow:var(--shadow-sm);
+  background:var(--white);border-radius:var(--r);
+  padding:1.125rem 1.25rem;border:1px solid var(--grey-2);box-shadow:var(--sh-sm);
   position:relative;overflow:hidden;
 }
 .kpi-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--kpi-accent,var(--grey-2));border-radius:var(--radius) var(--radius) 0 0;
+  background:var(--kpi-accent,var(--grey-2));border-radius:var(--r) var(--r) 0 0;
 }
 .kpi-card .kc-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.5rem;font-weight:500}
-.kpi-card .kc-val{font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.kpi-card .kc-val{font-family:var(--ff-d);font-size:1.35rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
 .kpi-card .kc-sub{font-size:.68rem;color:var(--grey-4);margin-top:.2rem}
-.kpi-card .kc-val.blue{color:var(--klein)}
-.kpi-card .kc-val.green{color:var(--green)}
-.kpi-card .kc-val.red{color:var(--red)}
-.kpi-card .kc-val.amber{color:var(--amber)}
+.kpi-card .kc-val.blue{color:var(--klein)}.kpi-card .kc-val.green{color:var(--green)}
+.kpi-card .kc-val.red{color:var(--red)}.kpi-card .kc-val.amber{color:var(--amber)}
 .kpi-card .kc-val.purple{color:var(--purple)}
 
-/* ─── PANELS ──────────────────────────────────────────────── */
-.panel{
-  background:var(--white);border-radius:var(--radius-lg);
-  border:1px solid var(--grey-2);box-shadow:var(--shadow-sm);
-  padding:1.375rem 1.5rem;margin-bottom:1rem;
-}
+.panel{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--grey-2);box-shadow:var(--sh-sm);padding:1.375rem 1.5rem;margin-bottom:1rem}
 .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.125rem}
-.panel-title{font-family:var(--font-display);font-size:.88rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem}
+.panel-title{font-family:var(--ff-d);font-size:.88rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem}
 .panel-title i{color:var(--cobalt-mid);font-size:1rem}
 .panel-hint{font-size:.7rem;color:var(--grey-4);margin-top:.2rem}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
 
-/* ─── BUTTONS ─────────────────────────────────────────────── */
 .btn{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.5rem 1rem;font-size:.77rem;font-weight:500;
-  border-radius:var(--radius-sm);border:1px solid var(--grey-2);
-  background:var(--white);color:var(--grey-5);
-  cursor:pointer;font-family:var(--font-body);
-  transition:background var(--transition),border-color var(--transition),color var(--transition);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;
+  font-size:.77rem;font-weight:500;border-radius:var(--r-sm);border:1px solid var(--grey-2);
+  background:var(--white);color:var(--grey-5);cursor:pointer;font-family:var(--ff-b);
+  transition:background var(--tr),border-color var(--tr),color var(--tr);white-space:nowrap;
 }
 .btn:hover{background:var(--grey-1);border-color:var(--grey-3)}
 .btn-primary{background:var(--klein);border-color:var(--klein);color:#fff}
@@ -180,48 +308,35 @@ body{
 .btn-danger:hover{background:var(--red-lt);border-color:var(--red-lt)}
 .btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
 
-/* ─── FORM ────────────────────────────────────────────────── */
 .fg{display:flex;flex-direction:column;gap:.3rem}
 .fg label{font-size:.67rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4)}
 .fg input,.fg select{
-  padding:.525rem .75rem;border:1px solid var(--grey-2);border-radius:var(--radius-sm);
-  background:var(--white);color:var(--ink);font-size:.8rem;font-family:var(--font-body);
-  transition:border-color var(--transition),box-shadow var(--transition);width:100%;
+  padding:.525rem .75rem;border:1px solid var(--grey-2);border-radius:var(--r-sm);
+  background:var(--white);color:var(--ink);font-size:.8rem;font-family:var(--ff-b);
+  transition:border-color var(--tr),box-shadow var(--tr);width:100%;
 }
 .fg input:focus,.fg select:focus{outline:none;border-color:var(--cobalt-mid);box-shadow:0 0 0 3px rgba(0,71,171,.12)}
 
-/* ─── TABLE ───────────────────────────────────────────────── */
+.tp-table-wrap{overflow-x:auto}
 .tp-table{width:100%;border-collapse:collapse;font-size:.79rem}
-.tp-table th{
-  text-align:left;padding:.5rem .875rem;font-size:.62rem;font-weight:600;
-  letter-spacing:.07em;text-transform:uppercase;color:var(--grey-4);
-  border-bottom:2px solid var(--grey-1);background:var(--grey-0);
-}
+.tp-table th{text-align:left;padding:.5rem .875rem;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--grey-4);border-bottom:2px solid var(--grey-1);background:var(--grey-0)}
 .tp-table td{padding:.625rem .875rem;border-bottom:1px solid var(--grey-1);color:var(--ink);vertical-align:middle}
 .tp-table tr:last-child td{border-bottom:none}
 .tp-table tbody tr:hover td{background:var(--cobalt-xlt)}
-.edit-cell{
-  padding:.33rem .55rem;border:1px solid var(--grey-2);border-radius:5px;
-  background:var(--white);color:var(--ink);font-size:.77rem;font-family:var(--font-body);
-  width:88px;transition:border-color var(--transition);
-}
+.edit-cell{padding:.33rem .55rem;border:1px solid var(--grey-2);border-radius:5px;background:var(--white);color:var(--ink);font-size:.77rem;font-family:var(--ff-b);width:88px;transition:border-color var(--tr)}
 .edit-cell:focus{outline:none;border-color:var(--cobalt-mid)}
 
-/* ─── BADGES ──────────────────────────────────────────────── */
-.badge{display:inline-block;padding:.15rem .65rem;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
-.bg{background:var(--green-lt);color:var(--green)}
-.br{background:var(--red-lt);color:var(--red)}
-.ba{background:var(--amber-lt);color:var(--amber)}
-.bb{background:var(--cobalt-lt);color:var(--klein)}
+.badge{display:inline-block;padding:.15rem .65rem;border-radius:100px;font-size:.65rem;font-weight:600}
+.bg{background:var(--green-lt);color:var(--green)}.br{background:var(--red-lt);color:var(--red)}
+.ba{background:var(--amber-lt);color:var(--amber)}.bb{background:var(--cobalt-lt);color:var(--klein)}
 .bp{background:var(--purple-lt);color:var(--purple)}
 
-/* ─── GROUPS BAR ──────────────────────────────────────────── */
 .groups-bar{display:flex;gap:.625rem;flex-wrap:wrap;margin-bottom:1.25rem}
 .grp-chip{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.5rem 1.125rem;border-radius:100px;border:1.5px solid var(--grey-2);
-  background:var(--white);cursor:pointer;font-size:.78rem;font-weight:500;color:var(--grey-5);
-  font-family:var(--font-body);transition:all var(--transition);box-shadow:var(--shadow-sm);
+  display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.125rem;border-radius:100px;
+  border:1.5px solid var(--grey-2);background:var(--white);cursor:pointer;
+  font-size:.78rem;font-weight:500;color:var(--grey-5);font-family:var(--ff-b);
+  transition:all var(--tr);box-shadow:var(--sh-sm);
 }
 .grp-chip:hover{border-color:var(--grey-3);background:var(--grey-0)}
 .grp-chip.active{color:#fff;border-color:transparent}
@@ -231,104 +346,84 @@ body{
 .grp-panel{display:none}.grp-panel.active{display:block}
 .grp-meta{
   display:flex;align-items:center;justify-content:space-between;
-  background:var(--cobalt-xlt);border-radius:var(--radius-sm);
-  padding:.6rem 1rem;margin-bottom:1rem;border:1px solid var(--cobalt-lt);
+  background:var(--cobalt-xlt);border-radius:var(--r-sm);padding:.6rem 1rem;margin-bottom:1rem;border:1px solid var(--cobalt-lt);
 }
 .grp-meta .gm-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cobalt-mid);font-weight:600}
-.grp-meta .gm-val{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--klein)}
+.grp-meta .gm-val{font-family:var(--ff-d);font-size:1.1rem;font-weight:600;color:var(--klein)}
 
-/* ─── DIVIDER ─────────────────────────────────────────────── */
 .sep{height:1px;background:var(--grey-1);margin:1rem 0}
 
-/* ─── IMPORT ZONE ─────────────────────────────────────────── */
 .drop-zone{
-  border:2px dashed var(--grey-2);border-radius:var(--radius-lg);
-  padding:2.5rem 2rem;text-align:center;cursor:pointer;
-  transition:border-color var(--transition),background var(--transition);background:var(--grey-0);
+  border:2px dashed var(--grey-2);border-radius:var(--r-lg);padding:2.5rem 2rem;text-align:center;cursor:pointer;
+  transition:border-color var(--tr),background var(--tr);background:var(--grey-0);
 }
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--cobalt-mid);background:var(--cobalt-xlt)}
 .drop-zone .dz-icon{font-size:2.25rem;color:var(--grey-3);display:block;margin-bottom:.75rem}
-.drop-zone .dz-title{font-family:var(--font-display);font-size:.95rem;font-weight:600;color:var(--grey-5);margin-bottom:.3rem}
+.drop-zone .dz-title{font-family:var(--ff-d);font-size:.95rem;font-weight:600;color:var(--grey-5);margin-bottom:.3rem}
 .drop-zone .dz-hint{font-size:.74rem;color:var(--grey-4)}
 .import-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.875rem;margin-top:1.25rem}
-.import-card{background:var(--grey-0);border:1px solid var(--grey-2);border-radius:var(--radius);padding:1rem 1.125rem}
+.import-card{background:var(--grey-0);border:1px solid var(--grey-2);border-radius:var(--r);padding:1rem 1.125rem}
 .import-card .ic-title{font-size:.78rem;font-weight:600;color:var(--grey-5);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem}
 .import-card .ic-title i{color:var(--cobalt-mid)}
 .import-card .ic-desc{font-size:.71rem;color:var(--grey-4);line-height:1.55}
 .col-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
-.ctag{
-  display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .7rem;border-radius:100px;
-  font-size:.68rem;font-weight:500;background:var(--cobalt-lt);color:var(--klein);border:1px solid rgba(0,47,167,.15);
-}
+.ctag{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .7rem;border-radius:100px;font-size:.68rem;font-weight:500;background:var(--cobalt-lt);color:var(--klein);border:1px solid rgba(0,47,167,.15)}
 
-/* ─── SLIDER ──────────────────────────────────────────────── */
 .slider-block{margin-bottom:.875rem}
 .slider-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem}
 .slider-header label{font-size:.75rem;font-weight:500;color:var(--grey-5)}
-.slider-val{font-family:var(--font-display);font-size:.85rem;font-weight:600;color:var(--klein)}
+.slider-val{font-family:var(--ff-d);font-size:.85rem;font-weight:600;color:var(--klein)}
 input[type=range]{width:100%;height:4px;border-radius:2px;appearance:none;background:var(--grey-2);cursor:pointer}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:var(--klein);border:2px solid var(--white);box-shadow:0 1px 4px rgba(0,47,167,.3);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--klein);border:2px solid var(--white);box-shadow:0 1px 4px rgba(0,47,167,.3);cursor:pointer}
 input[type=range]:focus{outline:none}
 
-/* ─── CHART LEGEND ────────────────────────────────────────── */
 .chart-legend{display:flex;flex-wrap:wrap;gap:.875rem;margin-bottom:.75rem}
 .chart-legend span{display:flex;align-items:center;gap:.35rem;font-size:.7rem;color:var(--grey-4)}
 .cl-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
 
-/* ─── PRECIFICAR LAYOUT ───────────────────────────────────── */
 .prec-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:1.25rem;align-items:start}
 .sim-donut-wrap{position:relative;display:flex;align-items:center;justify-content:center}
-.donut-center-label{
-  position:absolute;text-align:center;pointer-events:none;
-}
+.donut-center-label{position:absolute;text-align:center;pointer-events:none}
 .donut-center-label .dcl-top{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);font-weight:500}
-.donut-center-label .dcl-val{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--ink);margin-top:2px}
+.donut-center-label .dcl-val{font-family:var(--ff-d);font-size:1.05rem;font-weight:600;color:var(--ink);margin-top:2px}
 .breakdown-list{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
 .bl-row{display:flex;align-items:center;gap:.625rem;font-size:.77rem}
 .bl-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 .bl-name{flex:1;color:var(--grey-5)}
 .bl-bar-wrap{width:90px;height:5px;background:var(--grey-1);border-radius:3px;overflow:hidden}
 .bl-bar{height:100%;border-radius:3px;transition:width .4s ease}
-.bl-val{font-weight:600;color:var(--ink);min-width:72px;text-align:right;font-family:var(--font-display);font-size:.75rem}
+.bl-val{font-weight:600;color:var(--ink);min-width:72px;text-align:right;font-family:var(--ff-d);font-size:.75rem}
 .bl-pct{color:var(--grey-4);min-width:38px;text-align:right;font-size:.7rem}
 
-/* ─── OVERHEAD CARD ───────────────────────────────────────── */
 .overhead-card{
   background:linear-gradient(135deg,var(--purple-lt) 0%,#F8F6FE 100%);
-  border:1px solid rgba(90,62,168,.2);border-radius:var(--radius);
+  border:1px solid rgba(90,62,168,.2);border-radius:var(--r);
   padding:1.125rem 1.25rem;position:relative;overflow:hidden;
 }
 .overhead-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,var(--purple),var(--cobalt-mid));
-  border-radius:var(--radius) var(--radius) 0 0;
+  border-radius:var(--r) var(--r) 0 0;
 }
 .overhead-card .kc-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--purple);margin-bottom:.5rem;font-weight:600}
-.overhead-card .kc-val{font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--purple);letter-spacing:-.02em}
+.overhead-card .kc-val{font-family:var(--ff-d);font-size:1.35rem;font-weight:600;color:var(--purple);letter-spacing:-.02em}
 .overhead-card .kc-sub{font-size:.68rem;color:rgba(90,62,168,.6);margin-top:.2rem}
 
-/* ─── PROGRESS ────────────────────────────────────────────── */
 .prog-bar-wrap{background:var(--grey-1);border-radius:100px;height:5px;margin-top:.5rem;overflow:hidden}
 .prog-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--klein),var(--cobalt-mid));transition:width .4s ease}
 
-/* ─── TOAST ───────────────────────────────────────────────── */
 .toast{
-  position:fixed;bottom:1.75rem;right:1.75rem;
-  background:var(--ink);color:#fff;
-  padding:.65rem 1.25rem;border-radius:var(--radius);
-  font-size:.77rem;font-weight:500;letter-spacing:.01em;
+  position:fixed;bottom:1.75rem;right:1.75rem;background:var(--ink);color:#fff;
+  padding:.65rem 1.25rem;border-radius:var(--r);font-size:.77rem;font-weight:500;
   opacity:0;pointer-events:none;transform:translateY(6px);
-  transition:opacity .25s,transform .25s;z-index:999;box-shadow:var(--shadow);
+  transition:opacity .25s,transform .25s;z-index:200;box-shadow:var(--sh);
 }
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* ─── SCROLLBAR ───────────────────────────────────────────── */
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--grey-2);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--grey-3)}
-
-/* ─── UTIL ────────────────────────────────────────────────── */
 .empty-row td{text-align:center;color:var(--grey-4);padding:2rem;font-size:.78rem}
 .fw6{font-weight:600}
 .chart-wrap{position:relative;width:100%}
@@ -336,50 +431,49 @@ input[type=range]:focus{outline:none}
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════
+     MOBILE TOP BAR
+══════════════════════════════════════════════ -->
+<div class="mob-topbar" id="mob-topbar">
+  <div>
+    <div class="mt-brand">TradePrice</div>
+    <div class="mt-page" id="mob-page-sub">Dashboard</div>
+  </div>
+  <div class="mob-topbar-actions">
+    <button class="mob-icon-btn" onclick="exportCSV()" aria-label="Exportar CSV"><i class="ti ti-download"></i></button>
+    <button class="mob-icon-btn" onclick="switchView('importar')" aria-label="Importar"><i class="ti ti-upload"></i></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SHELL (desktop: row / mobile: column)
+══════════════════════════════════════════════ -->
 <div class="shell">
 
-<!-- ─── SIDEBAR ─────────────────────────────────────────────── -->
+<!-- ─── DESKTOP SIDEBAR ─────────────────────── -->
 <aside class="sidebar" role="navigation" aria-label="Menu principal">
   <div class="sidebar-logo">
     <div class="wordmark">TradePrice</div>
     <div class="sub">Importação &amp; Exportação</div>
   </div>
-
   <div class="sidebar-label">Análise</div>
-  <button class="nav-item active" onclick="switchView('dashboard')">
-    <i class="ti ti-layout-dashboard"></i> Dashboard
-  </button>
-
+  <button class="nav-item active" onclick="switchView('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
   <div class="sidebar-label">Gestão</div>
-  <button class="nav-item" onclick="switchView('grupos')">
-    <i class="ti ti-layers-difference"></i> Grupos de custo
-  </button>
-  <button class="nav-item" onclick="switchView('precificar')">
-    <i class="ti ti-calculator"></i> Precificar
-  </button>
-
+  <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> Grupos de custo</button>
+  <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
   <div class="sidebar-label">Dados</div>
-  <button class="nav-item" onclick="switchView('importar')">
-    <i class="ti ti-upload"></i> Importar dados
-  </button>
-  <button class="nav-item" onclick="switchView('exportar')">
-    <i class="ti ti-download"></i> Exportar
-  </button>
-
+  <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
+  <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
   <div style="flex:1"></div>
-
-  <!-- PWA Install Banner -->
-  <div id="pwa-banner" onclick="installPWA()">
-    <i class="ti ti-device-mobile-down"></i> Instalar aplicativo
-  </div>
-
+  <div id="pwa-banner" onclick="installPWA()"><i class="ti ti-device-mobile-down"></i> Instalar aplicativo</div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
     <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v 2.1 PWA · 2025</div>
   </div>
 </aside>
 
-<!-- ─── MAIN ──────────────────────────────────────────────────── -->
-<main class="main">
+<!-- ─── MAIN ─────────────────────────────────── -->
+<main class="main" id="main-area">
+  <!-- Desktop topbar -->
   <header class="topbar">
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
@@ -393,65 +487,52 @@ input[type=range]:focus{outline:none}
 
   <div class="content">
 
-<!-- ──────────────── DASHBOARD ──────────────────────────────── -->
+<!-- ──── DASHBOARD ────────────────────────────── -->
 <div id="view-dashboard" class="view active">
   <div class="kpis" id="kpi-area"></div>
   <div class="grid2">
     <div class="panel">
-      <div class="panel-head">
-        <div>
-          <div class="panel-title"><i class="ti ti-chart-bar"></i> Custo total por grupo</div>
-          <div class="panel-hint">Valor absoluto mensal por categoria</div>
-        </div>
-      </div>
+      <div class="panel-head"><div>
+        <div class="panel-title"><i class="ti ti-chart-bar"></i> Custo total por grupo</div>
+        <div class="panel-hint">Valor absoluto mensal por categoria</div>
+      </div></div>
       <div class="chart-legend" id="leg-bar"></div>
       <div class="chart-wrap" style="height:215px"><canvas id="c-grupos"></canvas></div>
     </div>
     <div class="panel">
-      <div class="panel-head">
-        <div>
-          <div class="panel-title"><i class="ti ti-chart-donut-3"></i> Participação percentual</div>
-          <div class="panel-hint">Peso de cada grupo no custo total</div>
-        </div>
-      </div>
+      <div class="panel-head"><div>
+        <div class="panel-title"><i class="ti ti-chart-donut-3"></i> Participação percentual</div>
+        <div class="panel-hint">Peso de cada grupo no custo total</div>
+      </div></div>
       <div class="chart-legend" id="leg-pie"></div>
       <div class="chart-wrap" style="height:215px"><canvas id="c-pie"></canvas></div>
     </div>
   </div>
   <div class="panel">
-    <div class="panel-head">
-      <div>
-        <div class="panel-title"><i class="ti ti-list-details"></i> Top itens por custo mensal</div>
-        <div class="panel-hint">8 maiores despesas individuais cadastradas</div>
-      </div>
-    </div>
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-list-details"></i> Top itens por custo mensal</div>
+      <div class="panel-hint">8 maiores despesas individuais</div>
+    </div></div>
     <div class="chart-wrap" style="height:205px"><canvas id="c-detail"></canvas></div>
   </div>
 </div>
 
-<!-- ──────────────── GRUPOS ──────────────────────────────────── -->
+<!-- ──── GRUPOS ───────────────────────────────── -->
 <div id="view-grupos" class="view">
   <div class="groups-bar" id="groups-bar"></div>
   <div id="grupos-panels"></div>
 </div>
 
-<!-- ──────────────── PRECIFICAR ─────────────────────────────── -->
+<!-- ──── PRECIFICAR ───────────────────────────── -->
 <div id="view-precificar" class="view">
   <div class="panel">
-    <div class="panel-head">
-      <div>
-        <div class="panel-title"><i class="ti ti-adjustments-horizontal"></i> Simulador de precificação</div>
-        <div class="panel-hint">Base automática: soma dos grupos cadastrados · ajuste overhead, markup e volume</div>
-      </div>
-    </div>
-
-    <!-- KPI row including overhead card -->
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-adjustments-horizontal"></i> Simulador de precificação</div>
+      <div class="panel-hint">Base automática: grupos cadastrados · ajuste overhead, markup e volume</div>
+    </div></div>
     <div class="kpis" id="prec-kpis" style="margin-bottom:1.375rem"></div>
-
     <div class="sep"></div>
-
     <div class="prec-grid">
-      <!-- Sliders -->
       <div>
         <div class="slider-block">
           <div class="slider-header"><label>Overhead (%)</label><span class="slider-val" id="sv-overhead">15%</span></div>
@@ -470,19 +551,15 @@ input[type=range]:focus{outline:none}
           <div class="slider-header"><label>Frete / extras (R$)</label><span class="slider-val" id="sv-extra">R$ 0</span></div>
           <input type="range" id="sl-extra" min="0" max="20000" step="200" value="0" oninput="runSim()"/>
         </div>
-
-        <!-- Breakdown list -->
         <div class="sep"></div>
         <div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.625rem">Detalhamento por grupo /un.</div>
         <div class="breakdown-list" id="breakdown-list"></div>
       </div>
-
-      <!-- Donut chart -->
       <div>
         <div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.875rem">Composição do preço unitário</div>
         <div class="sim-donut-wrap" style="height:280px">
           <canvas id="c-sim" style="max-width:280px;max-height:280px"></canvas>
-          <div class="donut-center-label" id="donut-center">
+          <div class="donut-center-label">
             <div class="dcl-top">Preço</div>
             <div class="dcl-val" id="donut-preco">—</div>
           </div>
@@ -493,20 +570,18 @@ input[type=range]:focus{outline:none}
   </div>
 </div>
 
-<!-- ──────────────── IMPORTAR ────────────────────────────────── -->
+<!-- ──── IMPORTAR ─────────────────────────────── -->
 <div id="view-importar" class="view">
   <div class="panel">
-    <div class="panel-head">
-      <div>
-        <div class="panel-title"><i class="ti ti-cloud-upload"></i> Carregar arquivo</div>
-        <div class="panel-hint">Excel, CSV ou exportações do Power BI · dados processados localmente, sem servidor</div>
-      </div>
-    </div>
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-cloud-upload"></i> Carregar arquivo</div>
+      <div class="panel-hint">Excel, CSV ou Power BI · processado localmente, sem servidor</div>
+    </div></div>
     <div class="drop-zone" id="drop-zone"
          onclick="document.getElementById('finp').click()"
          ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event)">
       <i class="ti ti-file-spreadsheet dz-icon"></i>
-      <div class="dz-title">Arraste o arquivo aqui ou clique para selecionar</div>
+      <div class="dz-title">Arraste ou toque para selecionar</div>
       <div class="dz-hint">.xlsx &nbsp;·&nbsp; .xls &nbsp;·&nbsp; .csv</div>
     </div>
     <input type="file" id="finp" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(event)"/>
@@ -516,87 +591,64 @@ input[type=range]:focus{outline:none}
     </div>
     <div id="imp-result" style="margin-top:.75rem"></div>
   </div>
-
   <div class="grid2">
     <div class="panel">
       <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-file-description"></i> Estrutura da planilha</div>
-      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">
-        Cada linha representa um item de custo. A coluna <strong style="color:var(--klein)">grupo</strong> define em qual categoria o item será inserido.
-      </p>
+      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">A coluna <strong style="color:var(--klein)">grupo</strong> define em qual categoria o item será inserido.</p>
       <div class="col-tags">
         <span class="ctag" style="background:rgba(0,47,167,.12)">* grupo</span>
         <span class="ctag" style="background:rgba(0,47,167,.12)">* nome</span>
         <span class="ctag" style="background:rgba(0,47,167,.12)">* custo_unitario</span>
-        <span class="ctag">quantidade</span>
-        <span class="ctag">categoria</span>
+        <span class="ctag">quantidade</span><span class="ctag">categoria</span>
       </div>
       <p style="font-size:.66rem;color:var(--grey-3);margin-top:.75rem">* campos obrigatórios</p>
     </div>
     <div class="panel">
       <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-layers-difference"></i> Grupos válidos</div>
-      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">
-        O campo <strong style="color:var(--klein)">grupo</strong> deve corresponder a um dos valores abaixo (ignora maiúsculas):
-      </p>
+      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Valores aceitos no campo <strong style="color:var(--klein)">grupo</strong> (ignora maiúsculas):</p>
       <div class="col-tags" id="valid-groups-tags"></div>
     </div>
   </div>
-
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-plug-connected"></i> Fontes compatíveis</div>
     <div class="import-grid">
-      <div class="import-card">
-        <div class="ic-title"><i class="ti ti-table"></i> Microsoft Excel</div>
-        <div class="ic-desc">Exporte como .xlsx ou .xls. Primeira linha deve conter os cabeçalhos.</div>
-      </div>
-      <div class="import-card">
-        <div class="ic-title"><i class="ti ti-file-text"></i> CSV genérico</div>
-        <div class="ic-desc">Qualquer ERP, WMS ou planilha Google que exporte CSV. Vírgula ou ponto-e-vírgula.</div>
-      </div>
-      <div class="import-card">
-        <div class="ic-title"><i class="ti ti-chart-histogram"></i> Power BI</div>
-        <div class="ic-desc">Use "Exportar dados" em qualquer visual de tabela e importe o .xlsx gerado.</div>
-      </div>
-      <div class="import-card">
-        <div class="ic-title"><i class="ti ti-file-word"></i> Word / Outros</div>
-        <div class="ic-desc">Copie a tabela para o Excel, ajuste cabeçalhos e exporte como .xlsx antes de importar.</div>
-      </div>
+      <div class="import-card"><div class="ic-title"><i class="ti ti-table"></i> Microsoft Excel</div><div class="ic-desc">Exporte como .xlsx ou .xls. Primeira linha = cabeçalhos.</div></div>
+      <div class="import-card"><div class="ic-title"><i class="ti ti-file-text"></i> CSV genérico</div><div class="ic-desc">ERP, WMS ou Google Sheets. Vírgula ou ponto-e-vírgula.</div></div>
+      <div class="import-card"><div class="ic-title"><i class="ti ti-chart-histogram"></i> Power BI</div><div class="ic-desc">Use "Exportar dados" em qualquer visual de tabela e importe o .xlsx.</div></div>
+      <div class="import-card"><div class="ic-title"><i class="ti ti-file-word"></i> Word / Outros</div><div class="ic-desc">Copie a tabela para o Excel, ajuste cabeçalhos e salve como .xlsx.</div></div>
     </div>
   </div>
-
   <div class="panel">
     <div class="panel-title" style="margin-bottom:.875rem"><i class="ti ti-tools"></i> Ferramentas</div>
     <div class="btn-row" style="margin-top:0">
       <button class="btn btn-primary" onclick="document.getElementById('finp').click()"><i class="ti ti-upload"></i> Selecionar arquivo</button>
-      <button class="btn" onclick="downloadTemplate()"><i class="ti ti-file-download"></i> Baixar modelo .csv</button>
-      <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar dados atuais</button>
+      <button class="btn" onclick="downloadTemplate()"><i class="ti ti-file-download"></i> Baixar modelo</button>
+      <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar atual</button>
     </div>
   </div>
 </div>
 
-<!-- ──────────────── EXPORTAR ────────────────────────────────── -->
+<!-- ──── EXPORTAR ─────────────────────────────── -->
 <div id="view-exportar" class="view">
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-download"></i> Exportar dados</div>
-    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:1.25rem;line-height:1.65">Baixe os dados cadastrados para continuar em outro momento, compartilhar ou importar em outro sistema.</p>
+    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:1.25rem;line-height:1.65">Baixe os dados cadastrados para reutilizar, compartilhar ou importar em outro sistema.</p>
     <div class="btn-row" style="margin-top:0">
       <button class="btn btn-primary" onclick="exportCSV()"><i class="ti ti-file-text"></i> Exportar CSV</button>
       <button class="btn" onclick="exportJSON()"><i class="ti ti-braces"></i> Exportar JSON</button>
     </div>
   </div>
-
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">
-      Este arquivo é 100% standalone — zero dependências locais. Para hospedar no GitHub Pages:
-    </p>
+    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivo 100% standalone, zero dependências locais:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
-      <li>Faça upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">tradeprice.html</code> para um repositório</li>
+      <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">tradeprice.html</code> para o repositório</li>
       <li>Renomeie para <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code></li>
-      <li>Ative GitHub Pages em <em>Settings → Pages → Source → main branch</em></li>
+      <li>Ative GitHub Pages em <em>Settings → Pages → Source → main</em></li>
       <li>Acesse em <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">usuario.github.io/repositorio</code></li>
     </ol>
-    <div style="margin-top:1rem;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);border-radius:var(--radius-sm);padding:.75rem 1rem;font-size:.75rem;color:var(--cobalt-mid)">
-      <i class="ti ti-device-mobile"></i> &nbsp;O app pode ser instalado no Android e desktop via Chrome como PWA — botão de instalação aparece na barra lateral após abrir no navegador.
+    <div style="margin-top:1rem;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);border-radius:var(--r-sm);padding:.75rem 1rem;font-size:.75rem;color:var(--cobalt-mid)">
+      <i class="ti ti-device-mobile"></i> &nbsp;Instalável como PWA no Android e desktop via Chrome — botão aparece no menu lateral ou na barra de endereço.
     </div>
   </div>
 </div>
@@ -605,136 +657,171 @@ input[type=range]:focus{outline:none}
 </main>
 </div><!-- /.shell -->
 
+<!-- ══════════════════════════════════════════════
+     MOBILE: OVERLAY + SHEET + FAB
+══════════════════════════════════════════════ -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeSheet()"></div>
+
+<div class="mob-sheet" id="mob-sheet" role="navigation" aria-label="Menu de navegação">
+  <div class="mob-sheet-handle"></div>
+  <div class="mob-sheet-title">Navegação</div>
+  <div class="mob-nav-grid">
+    <button class="mob-nav-btn active" data-view="dashboard" onclick="switchView('dashboard');closeSheet()">
+      <i class="ti ti-layout-dashboard"></i><span>Dashboard</span><div class="mob-dot"></div>
+    </button>
+    <button class="mob-nav-btn" data-view="grupos" onclick="switchView('grupos');closeSheet()">
+      <i class="ti ti-layers-difference"></i><span>Grupos</span><div class="mob-dot"></div>
+    </button>
+    <button class="mob-nav-btn" data-view="precificar" onclick="switchView('precificar');closeSheet()">
+      <i class="ti ti-calculator"></i><span>Precificar</span><div class="mob-dot"></div>
+    </button>
+    <button class="mob-nav-btn" data-view="importar" onclick="switchView('importar');closeSheet()">
+      <i class="ti ti-upload"></i><span>Importar</span><div class="mob-dot"></div>
+    </button>
+    <button class="mob-nav-btn" data-view="exportar" onclick="switchView('exportar');closeSheet()">
+      <i class="ti ti-download"></i><span>Exportar</span><div class="mob-dot"></div>
+    </button>
+  </div>
+</div>
+
+<button class="mob-fab" id="mob-fab" onclick="toggleSheet()" aria-label="Abrir menu">
+  <i class="ti ti-apps" id="mob-fab-icon"></i>
+</button>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ─── DATA ───────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════ */
 const GROUPS=[
   {id:'pessoal',label:'Pessoal',icon:'ti-users',color:'#002FA7',
-    items:[
-      {nome:'Líder de operações',qtd:1,unit:5800,cat:'CLT'},
-      {nome:'Auxiliares',qtd:4,unit:2100,cat:'CLT'},
-      {nome:'Motoristas',qtd:2,unit:2800,cat:'CLT'},
-      {nome:'Vistoriadores',qtd:2,unit:3200,cat:'CLT'},
-      {nome:'Operadores',qtd:3,unit:2400,cat:'CLT'},
-    ]},
+    items:[{nome:'Líder de operações',qtd:1,unit:5800,cat:'CLT'},{nome:'Auxiliares',qtd:4,unit:2100,cat:'CLT'},{nome:'Motoristas',qtd:2,unit:2800,cat:'CLT'},{nome:'Vistoriadores',qtd:2,unit:3200,cat:'CLT'},{nome:'Operadores',qtd:3,unit:2400,cat:'CLT'}]},
   {id:'equipamentos',label:'Equipamentos',icon:'ti-forklift',color:'#0A7E59',
-    items:[
-      {nome:'Empilhadeira',qtd:2,unit:1800,cat:'Aluguel/mês'},
-      {nome:'Rampa de acesso',qtd:1,unit:600,cat:'Aluguel/mês'},
-      {nome:'Implementos empilhadeira',qtd:1,unit:350,cat:'Manutenção'},
-      {nome:'Outdoor',qtd:1,unit:900,cat:'Marketing'},
-      {nome:'Coletes de segurança',qtd:10,unit:45,cat:'EPI'},
-      {nome:'Celulares corporativos',qtd:5,unit:120,cat:'Mensal'},
-    ]},
+    items:[{nome:'Empilhadeira',qtd:2,unit:1800,cat:'Aluguel/mês'},{nome:'Rampa de acesso',qtd:1,unit:600,cat:'Aluguel/mês'},{nome:'Implementos empilhadeira',qtd:1,unit:350,cat:'Manutenção'},{nome:'Outdoor',qtd:1,unit:900,cat:'Marketing'},{nome:'Coletes de segurança',qtd:10,unit:45,cat:'EPI'},{nome:'Celulares corporativos',qtd:5,unit:120,cat:'Mensal'}]},
   {id:'sistema',label:'Sistema',icon:'ti-cpu',color:'#5A3EA8',
-    items:[
-      {nome:'Licença ERP mensal',qtd:1,unit:1200,cat:'SaaS'},
-      {nome:'Hospedagem cloud',qtd:1,unit:480,cat:'Infraestrutura'},
-    ]},
+    items:[{nome:'Licença ERP mensal',qtd:1,unit:1200,cat:'SaaS'},{nome:'Hospedagem cloud',qtd:1,unit:480,cat:'Infraestrutura'}]},
   {id:'internet',label:'Internet',icon:'ti-wifi',color:'#B46A0A',
-    items:[
-      {nome:'5G corporativo',qtd:5,unit:110,cat:'Mensal'},
-    ]},
+    items:[{nome:'5G corporativo',qtd:5,unit:110,cat:'Mensal'}]},
   {id:'insumos',label:'Insumos',icon:'ti-package',color:'#B0306A',
-    items:[
-      {nome:'Etiquetas BOPP',qtd:5000,unit:0.08,cat:'Consumível'},
-      {nome:'Ribbon para impressora',qtd:20,unit:18,cat:'Consumível'},
-      {nome:'Materiais de escritório',qtd:1,unit:280,cat:'Mensal'},
-    ]},
+    items:[{nome:'Etiquetas BOPP',qtd:5000,unit:0.08,cat:'Consumível'},{nome:'Ribbon para impressora',qtd:20,unit:18,cat:'Consumível'},{nome:'Materiais de escritório',qtd:1,unit:280,cat:'Mensal'}]},
 ];
 
-let activeGroup='pessoal';
-let charts={};
+let activeGroup='pessoal', charts={};
+const isMobile=()=>window.innerWidth<768;
 
-/* ─── UTILS ──────────────────────────────────────────────────── */
-function groupTotal(g){return g.items.reduce((a,i)=>a+i.qtd*i.unit,0)}
-function allTotal(){return GROUPS.reduce((a,g)=>a+groupTotal(g),0)}
-function fmt(v){return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
-function fmtShort(v){
-  if(v>=1000000)return 'R$ '+(v/1000000).toFixed(1)+'M';
-  if(v>=1000)return 'R$ '+(v/1000).toFixed(1)+'k';
-  return fmt(v);
-}
-function dc(key){if(charts[key]){charts[key].destroy();delete charts[key];}}
-function toast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
-}
+/* ══════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════ */
+const gT=g=>g.items.reduce((a,i)=>a+i.qtd*i.unit,0);
+const allT=()=>GROUPS.reduce((a,g)=>a+gT(g),0);
+const fmt=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtS=v=>v>=1000000?'R$ '+(v/1e6).toFixed(1)+'M':v>=1000?'R$ '+(v/1e3).toFixed(1)+'k':fmt(v);
+const dc=k=>{if(charts[k]){charts[k].destroy();delete charts[k];}};
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
 
-/* ─── NAVIGATION ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
 const PAGE_META={
   dashboard:{title:'Dashboard',sub:'Visão consolidada de todos os grupos de custo'},
   grupos:{title:'Grupos de custo',sub:'Adicione, edite e organize itens por categoria'},
-  precificar:{title:'Precificação',sub:'Simule o preço de venda com base nos custos reais'},
-  importar:{title:'Importar dados',sub:'Carregue planilhas Excel, CSV ou exportações do Power BI'},
-  exportar:{title:'Exportar / GitHub',sub:'Baixe os dados ou publique no GitHub Pages'},
+  precificar:{title:'Precificação',sub:'Simule o preço com base nos custos reais'},
+  importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
+  exportar:{title:'Exportar / GitHub',sub:'Baixe dados ou publique no GitHub Pages'},
 };
 function switchView(v){
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.mob-nav-btn').forEach(x=>x.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');
   const keys=['dashboard','grupos','precificar','importar','exportar'];
   const idx=keys.indexOf(v);
-  if(idx>=0)document.querySelectorAll('.nav-item')[idx].classList.add('active');
-  document.getElementById('page-title').textContent=PAGE_META[v].title;
-  document.getElementById('page-sub').textContent=PAGE_META[v].sub;
+  if(idx>=0){
+    document.querySelectorAll('.nav-item')[idx].classList.add('active');
+    document.querySelectorAll('.mob-nav-btn')[idx].classList.add('active');
+  }
+  const m=PAGE_META[v];
+  document.getElementById('page-title').textContent=m.title;
+  document.getElementById('page-sub').textContent=m.sub;
+  document.getElementById('mob-page-sub').textContent=m.title;
+  // scroll to top on mobile
+  if(isMobile())document.getElementById('main-area').scrollTo(0,0);
   if(v==='dashboard')setTimeout(renderDashboard,30);
   if(v==='grupos')renderGrupos();
   if(v==='precificar')setTimeout(runSim,30);
   if(v==='importar')renderImportMeta();
 }
 
-/* ─── DASHBOARD ──────────────────────────────────────────────── */
-function renderDashboard(){
-  const total=allTotal();
-  const biggest=GROUPS.slice().sort((a,b)=>groupTotal(b)-groupTotal(a))[0];
-  const itemCount=GROUPS.reduce((a,g)=>a+g.items.length,0);
-  const pessoalPct=(groupTotal(GROUPS.find(g=>g.id==='pessoal'))/total*100).toFixed(1);
+/* ══════════════════════════════════════════════
+   MOBILE SHEET
+══════════════════════════════════════════════ */
+let sheetOpen=false;
+function toggleSheet(){
+  sheetOpen?closeSheet():openSheet();
+}
+function openSheet(){
+  sheetOpen=true;
+  document.getElementById('mob-sheet').classList.add('open');
+  document.getElementById('mob-overlay').classList.add('show');
+  document.getElementById('mob-fab').classList.add('open');
+  document.getElementById('mob-fab-icon').className='ti ti-x';
+}
+function closeSheet(){
+  sheetOpen=false;
+  document.getElementById('mob-sheet').classList.remove('open');
+  document.getElementById('mob-overlay').classList.remove('show');
+  document.getElementById('mob-fab').classList.remove('open');
+  document.getElementById('mob-fab-icon').className='ti ti-apps';
+}
 
-  const kpiDefs=[
-    {label:'Custo total mensal',val:fmt(total),sub:'todos os grupos',cls:'red',accent:'#C23B3B'},
-    {label:'Grupos ativos',val:GROUPS.length,sub:'categorias configuradas',cls:'blue',accent:'#002FA7'},
-    {label:'Itens cadastrados',val:itemCount,sub:'despesas individuais',cls:'',accent:'#7A849A'},
-    {label:'Maior grupo',val:biggest.label,sub:fmt(groupTotal(biggest))+'/mês',cls:'amber',accent:'#B96B0A'},
-    {label:'Peso — Pessoal',val:pessoalPct+'%',sub:'do custo total',cls:'',accent:'#0047AB'},
+/* ══════════════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════════════ */
+function renderDashboard(){
+  const total=allT();
+  const biggest=GROUPS.slice().sort((a,b)=>gT(b)-gT(a))[0];
+  const itemCount=GROUPS.reduce((a,g)=>a+g.items.length,0);
+  const pessoalPct=(gT(GROUPS.find(g=>g.id==='pessoal'))/total*100).toFixed(1);
+  const defs=[
+    {label:'Custo total mensal',val:fmt(total),sub:'todos os grupos',cls:'red',acc:'#C23B3B'},
+    {label:'Grupos ativos',val:GROUPS.length,sub:'categorias',cls:'blue',acc:'#002FA7'},
+    {label:'Itens cadastrados',val:itemCount,sub:'despesas',cls:'',acc:'#7A849A'},
+    {label:'Maior grupo',val:biggest.label,sub:fmt(gT(biggest))+'/mês',cls:'amber',acc:'#B96B0A'},
+    {label:'Peso Pessoal',val:pessoalPct+'%',sub:'do total',cls:'',acc:'#0047AB'},
   ];
-  document.getElementById('kpi-area').innerHTML=kpiDefs.map(k=>`
-    <div class="kpi-card" style="--kpi-accent:${k.accent}">
+  document.getElementById('kpi-area').innerHTML=defs.map(k=>`
+    <div class="kpi-card" style="--kpi-accent:${k.acc}">
       <div class="kc-label">${k.label}</div>
       <div class="kc-val ${k.cls}">${k.val}</div>
       <div class="kc-sub">${k.sub}</div>
     </div>`).join('');
 
   const labels=GROUPS.map(g=>g.label);
-  const totals=GROUPS.map(g=>Math.round(groupTotal(g)));
+  const totals=GROUPS.map(g=>Math.round(gT(g)));
   const colors=GROUPS.map(g=>g.color);
+  const mob=isMobile();
 
   document.getElementById('leg-bar').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label}</span>`).join('');
-  document.getElementById('leg-pie').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${(groupTotal(g)/total*100).toFixed(1)}%</strong></span>`).join('');
+  document.getElementById('leg-pie').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${(gT(g)/total*100).toFixed(1)}%</strong></span>`).join('');
 
   dc('grp');
   charts.grp=new Chart(document.getElementById('c-grupos'),{
     type:'bar',
     data:{labels,datasets:[{label:'Custo mensal',data:totals,backgroundColor:colors.map(c=>c+'DD'),borderRadius:5,borderSkipped:false}]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
+    options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
       scales:{
-        x:{grid:{display:false},ticks:{font:{family:'Inter',size:11},color:'#7A849A'}},
-        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:11},color:'#7A849A',callback:v=>fmtShort(v)}},
-      }
-    },
-    plugins:[{id:'bv',afterDatasetsDraw(chart){
-      const{ctx,data}=chart;ctx.save();
-      data.datasets.forEach((ds,i)=>{
-        chart.getDatasetMeta(i).data.forEach((bar,j)=>{
-          ctx.fillStyle='#3D4455';ctx.font='500 10.5px Inter';
-          ctx.textAlign='center';ctx.textBaseline='bottom';
-          ctx.fillText(fmtShort(ds.data[j]),bar.x,bar.y-4);
-        });
-      });
-      ctx.restore();
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:'#7A849A',maxRotation:mob?45:0}},
+        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:11},color:'#7A849A',callback:v=>fmtS(v)}},
+      }},
+    plugins:[{id:'bv',afterDatasetsDraw(c){
+      const{ctx,data}=c;ctx.save();
+      data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
+        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10.5}px Inter`;
+        ctx.textAlign='center';ctx.textBaseline='bottom';
+        ctx.fillText(fmtS(ds.data[j]),bar.x,bar.y-3);
+      });});ctx.restore();
     }}]
   });
 
@@ -742,51 +829,45 @@ function renderDashboard(){
   charts.pie=new Chart(document.getElementById('c-pie'),{
     type:'doughnut',
     data:{labels,datasets:[{data:totals,backgroundColor:colors.map(c=>c+'DD'),borderWidth:2,borderColor:'#fff',hoverOffset:6}]},
-    options:{
-      responsive:true,maintainAspectRatio:false,cutout:'58%',
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed)+' ('+((ctx.parsed/total)*100).toFixed(1)+'%)'}}}
-    },
-    plugins:[{id:'ct',afterDraw(chart){
-      const{ctx,chartArea:{left,right,top,bottom}}=chart;
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed)+' ('+((ctx.parsed/total)*100).toFixed(1)+'%)'}}}},
+    plugins:[{id:'ct',afterDraw(c){
+      const{ctx,chartArea:{left,right,top,bottom}}=c;
       const cx=(left+right)/2,cy=(top+bottom)/2;
       ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillStyle='#7A849A';ctx.font='11px Inter';ctx.fillText('TOTAL',cx,cy-12);
-      ctx.fillStyle='#1A1E2E';ctx.font='600 14px DM Sans';ctx.fillText(fmtShort(total),cx,cy+8);
+      ctx.fillStyle='#7A849A';ctx.font=`${mob?10:11}px Inter`;ctx.fillText('TOTAL',cx,cy-12);
+      ctx.fillStyle='#1A1E2E';ctx.font=`600 ${mob?12:14}px DM Sans`;ctx.fillText(fmtS(total),cx,cy+8);
       ctx.restore();
     }}]
   });
 
   const allItems=[];
   GROUPS.forEach(g=>g.items.forEach(i=>allItems.push({label:i.nome.length>16?i.nome.slice(0,16)+'…':i.nome,val:Math.round(i.qtd*i.unit),color:g.color})));
-  allItems.sort((a,b)=>b.val-a.val);const top8=allItems.slice(0,8);
-
+  allItems.sort((a,b)=>b.val-a.val);const top8=allItems.slice(0,mob?6:8);
   dc('detail');
   charts.detail=new Chart(document.getElementById('c-detail'),{
     type:'bar',
     data:{labels:top8.map(i=>i.label),datasets:[{label:'Custo/mês',data:top8.map(i=>i.val),backgroundColor:top8.map(i=>i.color+'DD'),borderRadius:4,borderSkipped:false}]},
-    options:{
-      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.x)}}},
       scales:{
-        x:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:10},color:'#7A849A',callback:v=>fmtShort(v)}},
-        y:{grid:{display:false},ticks:{font:{family:'Inter',size:11},color:'#3D4455'}},
-      }
-    },
-    plugins:[{id:'hv',afterDatasetsDraw(chart){
-      const{ctx,data}=chart;ctx.save();
-      data.datasets.forEach((ds,i)=>{
-        chart.getDatasetMeta(i).data.forEach((bar,j)=>{
-          ctx.fillStyle='#3D4455';ctx.font='500 10px Inter';
-          ctx.textAlign='left';ctx.textBaseline='middle';
-          ctx.fillText(fmtShort(ds.data[j]),bar.x+5,bar.y);
-        });
-      });
-      ctx.restore();
+        x:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',callback:v=>fmtS(v)}},
+        y:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:'#3D4455'}},
+      }},
+    plugins:[{id:'hv',afterDatasetsDraw(c){
+      const{ctx,data}=c;ctx.save();
+      data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
+        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10}px Inter`;
+        ctx.textAlign='left';ctx.textBaseline='middle';
+        ctx.fillText(fmtS(ds.data[j]),bar.x+4,bar.y);
+      });});ctx.restore();
     }}]
   });
 }
 
-/* ─── GRUPOS ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   GRUPOS
+══════════════════════════════════════════════ */
 function renderGrupos(){
   document.getElementById('groups-bar').innerHTML=GROUPS.map(g=>`
     <button class="grp-chip${g.id===activeGroup?' active':''}"
@@ -802,120 +883,89 @@ function renderGrupos(){
       <div class="panel">
         <div class="grp-meta">
           <div class="gm-label"><i class="ti ${g.icon}" style="margin-right:.3rem"></i>${g.label}</div>
-          <div class="gm-val" id="gm-val-${g.id}">${fmt(groupTotal(g))}<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span></div>
+          <div class="gm-val" id="gm-val-${g.id}">${fmt(gT(g))}<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span></div>
         </div>
-        <div style="overflow-x:auto">
+        <div class="tp-table-wrap">
           <table class="tp-table">
-            <thead><tr><th>Item</th><th>Qtd</th><th>Custo unit. (R$)</th><th>Total/mês</th><th>Regime</th><th></th></tr></thead>
+            <thead><tr><th>Item</th><th>Qtd</th><th>Unit. (R$)</th><th>Total/mês</th><th>Regime</th><th></th></tr></thead>
             <tbody id="tb-${g.id}">${renderRows(g)}</tbody>
           </table>
         </div>
         <div class="sep"></div>
         <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.625rem">Adicionar item</div>
-        <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1.4fr auto;gap:.625rem;align-items:end">
+        <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1.4fr auto;gap:.625rem;align-items:end" id="add-row-${g.id}">
           <div class="fg"><label>Nome</label><input id="ai-nome-${g.id}" placeholder="Descrição do item"/></div>
           <div class="fg"><label>Qtd</label><input id="ai-qtd-${g.id}" type="number" value="1" min="0.01" step="any"/></div>
           <div class="fg"><label>Custo unit.</label><input id="ai-unit-${g.id}" type="number" placeholder="0,00" step="any"/></div>
-          <div class="fg"><label>Regime / Categoria</label><select id="ai-cat-${g.id}">${catOptions(g.id)}</select></div>
-          <div class="fg"><label>&nbsp;</label><button class="btn btn-primary" onclick="addItem('${g.id}')"><i class="ti ti-plus"></i> Adicionar</button></div>
+          <div class="fg"><label>Regime</label><select id="ai-cat-${g.id}">${catOpts(g.id)}</select></div>
+          <div class="fg"><label>&nbsp;</label><button class="btn btn-primary" onclick="addItem('${g.id}')"><i class="ti ti-plus"></i><span class="desk-only"> Adicionar</span></button></div>
         </div>
       </div>
       <div class="panel">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title" style="color:${g.color}"><i class="ti ${g.icon}"></i> Distribuição — ${g.label}</div>
-            <div class="panel-hint">Custo mensal por item (qtd × unitário)</div>
-          </div>
-        </div>
+        <div class="panel-head"><div>
+          <div class="panel-title" style="color:${g.color}"><i class="ti ${g.icon}"></i> Distribuição — ${g.label}</div>
+          <div class="panel-hint">Custo mensal por item</div>
+        </div></div>
         <div class="chart-wrap" style="height:185px"><canvas id="cg-${g.id}"></canvas></div>
       </div>
     </div>`).join('');
 
-  GROUPS.forEach(g=>{rebindEdits(g.id);renderGroupChart(g);});
+  GROUPS.forEach(g=>{rebind(g.id);renderGrpChart(g);});
 }
 
-function catOptions(gid){
-  return (gid==='pessoal'
-    ?['CLT','PJ','Diarista','Outro']
-    :['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'])
-    .map(o=>`<option>${o}</option>`).join('');
+function catOpts(gid){
+  return(gid==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro']).map(o=>`<option>${o}</option>`).join('');
 }
-
 function renderRows(g){
-  if(!g.items.length)return`<tr class="empty-row"><td colspan="6">Nenhum item cadastrado. Use o formulário abaixo para adicionar.</td></tr>`;
+  if(!g.items.length)return`<tr class="empty-row"><td colspan="6">Nenhum item. Adicione abaixo.</td></tr>`;
   return g.items.map((it,idx)=>`
     <tr>
       <td class="fw6">${it.nome}</td>
       <td><input class="edit-cell" type="number" value="${it.qtd}" min="0.01" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="qtd"/></td>
       <td><input class="edit-cell" type="number" value="${it.unit}" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="unit"/></td>
-      <td class="fw6" style="color:${g.color}" id="row-total-${g.id}-${idx}">${fmt(it.qtd*it.unit)}</td>
-      <td>
-        <select class="edit-cell" style="width:110px" data-gid="${g.id}" data-idx="${idx}" data-field="cat">
-          ${(g.id==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro'])
-            .map(o=>`<option${o===it.cat?' selected':''}>${o}</option>`).join('')}
-        </select>
-      </td>
+      <td class="fw6" style="color:${g.color}" id="rt-${g.id}-${idx}">${fmt(it.qtd*it.unit)}</td>
+      <td><select class="edit-cell" style="width:110px" data-gid="${g.id}" data-idx="${idx}" data-field="cat">
+        ${(g.id==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro']).map(o=>`<option${o===it.cat?' selected':''}>${o}</option>`).join('')}
+      </select></td>
       <td><button class="btn btn-danger" onclick="removeItem('${g.id}',${idx})" style="padding:.33rem .6rem;font-size:.7rem"><i class="ti ti-trash"></i></button></td>
     </tr>`).join('');
 }
-
-function rebindEdits(gid){
+function rebind(gid){
   const g=GROUPS.find(x=>x.id===gid);
   document.querySelectorAll(`#tb-${gid} [data-gid]`).forEach(el=>{
     el.onchange=function(){
       const idx=+this.dataset.idx,field=this.dataset.field;
       g.items[idx][field]=field==='cat'?this.value:(parseFloat(this.value)||0);
-      const tc=document.getElementById(`row-total-${gid}-${idx}`);
+      const tc=document.getElementById(`rt-${gid}-${idx}`);
       if(tc)tc.textContent=fmt(g.items[idx].qtd*g.items[idx].unit);
-      updateGroupMeta(g);renderGroupChart(g);updateGroupChip(g);
+      updMeta(g);renderGrpChart(g);updChip(g);
     };
   });
 }
-function updateGroupMeta(g){
-  const el=document.getElementById('gm-val-'+g.id);
-  if(el)el.innerHTML=fmt(groupTotal(g))+'<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span>';
-}
-function updateGroupChip(g){
-  const chips=document.querySelectorAll('.grp-chip');
-  const idx=GROUPS.findIndex(x=>x.id===g.id);
-  const cnt=chips[idx]?.querySelector('.chip-count');
-  if(cnt)cnt.textContent=g.items.length;
-}
-function renderGroupChart(g){
+function updMeta(g){const el=document.getElementById('gm-val-'+g.id);if(el)el.innerHTML=fmt(gT(g))+'<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span>';}
+function updChip(g){const chips=document.querySelectorAll('.grp-chip');const idx=GROUPS.findIndex(x=>x.id===g.id);const c=chips[idx]?.querySelector('.chip-count');if(c)c.textContent=g.items.length;}
+function renderGrpChart(g){
   const el=document.getElementById('cg-'+g.id);if(!el||!g.items.length)return;
-  const key='gc_'+g.id;dc(key);
-  const vals=g.items.map(i=>Math.round(i.qtd*i.unit));
-  charts[key]=new Chart(el,{
+  const k='gc_'+g.id;dc(k);const mob=isMobile();
+  charts[k]=new Chart(el,{
     type:'bar',
-    data:{
-      labels:g.items.map(i=>i.nome.length>14?i.nome.slice(0,14)+'…':i.nome),
-      datasets:[{label:'Custo/mês',data:vals,backgroundColor:g.color+'CC',borderRadius:4,borderSkipped:false}]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
+    data:{labels:g.items.map(i=>i.nome.length>14?i.nome.slice(0,14)+'…':i.nome),datasets:[{label:'Custo/mês',data:g.items.map(i=>Math.round(i.qtd*i.unit)),backgroundColor:g.color+'CC',borderRadius:4,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
-      scales:{
-        x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#7A849A',maxRotation:35}},
-        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:10},color:'#7A849A',callback:v=>fmtShort(v)}},
-      }
-    },
-    plugins:[{id:'bv2',afterDatasetsDraw(chart){
-      const{ctx,data}=chart;ctx.save();
-      data.datasets.forEach((ds,i)=>{
-        chart.getDatasetMeta(i).data.forEach((bar,j)=>{
-          ctx.fillStyle='#3D4455';ctx.font='500 10px Inter';
-          ctx.textAlign='center';ctx.textBaseline='bottom';
-          ctx.fillText(fmtShort(ds.data[j]),bar.x,bar.y-3);
-        });
-      });
-      ctx.restore();
+      scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',maxRotation:35}},y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',callback:v=>fmtS(v)}}}},
+    plugins:[{id:'bv2',afterDatasetsDraw(c){
+      const{ctx,data}=c;ctx.save();
+      data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
+        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10}px Inter`;
+        ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(fmtS(ds.data[j]),bar.x,bar.y-3);
+      });});ctx.restore();
     }}]
   });
 }
 function selectGroup(id){
   activeGroup=id;const g=GROUPS.find(x=>x.id===id);
   const chips=document.querySelectorAll('.grp-chip');
-  chips.forEach((b,i)=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';b.style.color='';});
+  chips.forEach(b=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';b.style.color='';});
   const idx=GROUPS.findIndex(x=>x.id===id);
   chips[idx].classList.add('active');chips[idx].style.background=g.color;chips[idx].style.borderColor=g.color;chips[idx].style.color='#fff';
   document.querySelectorAll('.grp-panel').forEach(p=>p.classList.remove('active'));
@@ -932,16 +982,17 @@ function addItem(gid){
   ['nome','unit'].forEach(f=>{const el=document.getElementById(`ai-${f}-${gid}`);if(el)el.value='';});
   document.getElementById(`ai-qtd-${gid}`).value='1';
   document.getElementById(`tb-${gid}`).innerHTML=renderRows(g);
-  rebindEdits(gid);updateGroupMeta(g);renderGroupChart(g);updateGroupChip(g);
-  toast('Item adicionado');
+  rebind(gid);updMeta(g);renderGrpChart(g);updChip(g);toast('Item adicionado');
 }
 function removeItem(gid,idx){
   const g=GROUPS.find(x=>x.id===gid);g.items.splice(idx,1);
   document.getElementById(`tb-${gid}`).innerHTML=renderRows(g);
-  rebindEdits(gid);updateGroupMeta(g);renderGroupChart(g);updateGroupChip(g);toast('Item removido');
+  rebind(gid);updMeta(g);renderGrpChart(g);updChip(g);toast('Item removido');
 }
 
-/* ─── PRECIFICAR ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   PRECIFICAR
+══════════════════════════════════════════════ */
 let simChart=null;
 function runSim(){
   const overhead=+document.getElementById('sl-overhead').value;
@@ -953,114 +1004,74 @@ function runSim(){
   document.getElementById('sv-un').textContent=un+' un.';
   document.getElementById('sv-extra').textContent='R$ '+extra.toLocaleString('pt-BR');
 
-  const base=allTotal();
-  const overheadVal=base*(overhead/100);
-  const totalCusto=base+overheadVal+extra;
+  const base=allT();
+  const ohVal=base*(overhead/100);
+  const totalCusto=base+ohVal+extra;
   const custoUnit=totalCusto/un;
   const precoUnit=custoUnit*(1+markup/100);
   const margemUnit=precoUnit-custoUnit;
   const fat=precoUnit*un;
 
-  const kpiDefs=[
-    {label:'Custo base/mês',val:fmt(base),sub:'grupos cadastrados',cls:'red',accent:'#C23B3B'},
-    {label:'Overhead',val:fmt(overheadVal),sub:overhead+'% sobre o custo base',special:'overhead'},
-    {label:'Custo unitário',val:fmt(custoUnit),sub:'total ÷ '+un+' un.',cls:'',accent:'#7A849A'},
-    {label:'Preço sugerido',val:fmt(precoUnit),sub:'markup '+markup+'%',cls:'green',accent:'#1B8F6E'},
-    {label:'Margem unitária',val:fmt(margemUnit),sub:((margemUnit/precoUnit)*100).toFixed(1)+'% sobre preço',cls:'amber',accent:'#B96B0A'},
-    {label:'Receita potencial',val:fmt(fat),sub:un+' unidades/mês',cls:'blue',accent:'#002FA7'},
-  ];
-  document.getElementById('prec-kpis').innerHTML=kpiDefs.map(k=>k.special==='overhead'?`
-    <div class="overhead-card">
-      <div class="kc-label">${k.label}</div>
-      <div class="kc-val">${k.val}</div>
-      <div class="kc-sub">${k.sub}</div>
-    </div>`:`
-    <div class="kpi-card" style="--kpi-accent:${k.accent}">
-      <div class="kc-label">${k.label}</div>
-      <div class="kc-val ${k.cls}">${k.val}</div>
-      <div class="kc-sub">${k.sub}</div>
-    </div>`).join('');
+  document.getElementById('prec-kpis').innerHTML=`
+    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Custo base/mês</div><div class="kc-val red">${fmt(base)}</div><div class="kc-sub">grupos cadastrados</div></div>
+    <div class="overhead-card"><div class="kc-label">Overhead</div><div class="kc-val">${fmt(ohVal)}</div><div class="kc-sub">${overhead}% sobre o custo</div></div>
+    <div class="kpi-card" style="--kpi-accent:#7A849A"><div class="kc-label">Custo unitário</div><div class="kc-val">${fmt(custoUnit)}</div><div class="kc-sub">total ÷ ${un} un.</div></div>
+    <div class="kpi-card" style="--kpi-accent:#1B8F6E"><div class="kc-label">Preço sugerido</div><div class="kc-val green">${fmt(precoUnit)}</div><div class="kc-sub">markup ${markup}%</div></div>
+    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Margem unitária</div><div class="kc-val amber">${fmt(margemUnit)}</div><div class="kc-sub">${((margemUnit/precoUnit)*100).toFixed(1)}% sobre preço</div></div>
+    <div class="kpi-card" style="--kpi-accent:#002FA7"><div class="kc-label">Receita potencial</div><div class="kc-val blue">${fmt(fat)}</div><div class="kc-sub">${un} un./mês</div></div>
+  `;
 
-  // Donut datasets: one segment per group + overhead + extras + margem
-  const segments=[
-    ...GROUPS.map(g=>({label:g.label,val:parseFloat((groupTotal(g)/un).toFixed(2)),color:g.color})),
-    {label:'Overhead',val:parseFloat((overheadVal/un).toFixed(2)),color:'#5A3EA8'},
-    {label:'Frete / Extras',val:parseFloat((extra/un).toFixed(2)),color:'#7A849A'},
+  const segs=[
+    ...GROUPS.map(g=>({label:g.label,val:parseFloat((gT(g)/un).toFixed(2)),color:g.color})),
+    {label:'Overhead',val:parseFloat((ohVal/un).toFixed(2)),color:'#5A3EA8'},
+    {label:'Frete/Extras',val:parseFloat((extra/un).toFixed(2)),color:'#7A849A'},
     {label:'Margem',val:parseFloat(margemUnit.toFixed(2)),color:'#1B8F6E'},
   ].filter(s=>s.val>0);
 
-  // Breakdown list
-  const maxVal=Math.max(...segments.map(s=>s.val));
-  document.getElementById('breakdown-list').innerHTML=segments.map(s=>`
+  const maxV=Math.max(...segs.map(s=>s.val));
+  document.getElementById('breakdown-list').innerHTML=segs.map(s=>`
     <div class="bl-row">
       <span class="bl-dot" style="background:${s.color}"></span>
       <span class="bl-name">${s.label}</span>
-      <span class="bl-bar-wrap"><span class="bl-bar" style="width:${(s.val/maxVal*100).toFixed(0)}%;background:${s.color}"></span></span>
+      <span class="bl-bar-wrap"><span class="bl-bar" style="width:${(s.val/maxV*100).toFixed(0)}%;background:${s.color}"></span></span>
       <span class="bl-val">${fmt(s.val)}</span>
       <span class="bl-pct">${((s.val/precoUnit)*100).toFixed(1)}%</span>
     </div>`).join('');
 
-  // Legend
-  document.getElementById('sim-legend').innerHTML=segments.map(s=>`
-    <span><span class="cl-dot" style="background:${s.color}"></span>${s.label} <strong>${fmt(s.val)}</strong></span>`).join('');
-
-  // Center label
+  document.getElementById('sim-legend').innerHTML=segs.map(s=>`<span><span class="cl-dot" style="background:${s.color}"></span>${s.label} <strong>${fmt(s.val)}</strong></span>`).join('');
   document.getElementById('donut-preco').textContent=fmt(precoUnit);
 
-  // Donut chart
   if(simChart)simChart.destroy();
   simChart=new Chart(document.getElementById('c-sim'),{
     type:'doughnut',
-    data:{
-      labels:segments.map(s=>s.label),
-      datasets:[{
-        data:segments.map(s=>s.val),
-        backgroundColor:segments.map(s=>s.color+'EE'),
-        borderWidth:2,borderColor:'#fff',hoverOffset:8,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:true,cutout:'60%',
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{
-          label:ctx=>' '+ctx.label+': '+fmt(ctx.parsed)+' ('+((ctx.parsed/precoUnit)*100).toFixed(1)+'%)',
-        }}
-      }
-    },
-    plugins:[{
-      id:'donutLabels',
-      afterDatasetsDraw(chart){
-        const{ctx}=chart;
-        ctx.save();
-        chart.data.datasets.forEach((ds,i)=>{
-          const meta=chart.getDatasetMeta(i);
-          meta.data.forEach((arc,j)=>{
-            const val=ds.data[j];
-            const pct=((val/precoUnit)*100).toFixed(0);
-            if(parseFloat(pct)<4)return; // skip tiny slices
-            const midAngle=arc.startAngle+(arc.endAngle-arc.startAngle)/2;
-            const r=(arc.innerRadius+arc.outerRadius)/2;
-            const x=arc.x+Math.cos(midAngle)*r;
-            const y=arc.y+Math.sin(midAngle)*r;
-            ctx.fillStyle='#fff';
-            ctx.font='bold 10.5px Inter';
-            ctx.textAlign='center';ctx.textBaseline='middle';
-            ctx.fillText(pct+'%',x,y);
-          });
+    data:{labels:segs.map(s=>s.label),datasets:[{data:segs.map(s=>s.val),backgroundColor:segs.map(s=>s.color+'EE'),borderWidth:2,borderColor:'#fff',hoverOffset:8}]},
+    options:{responsive:true,maintainAspectRatio:true,cutout:'60%',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+ctx.label+': '+fmt(ctx.parsed)+' ('+((ctx.parsed/precoUnit)*100).toFixed(1)+'%)'}}}},
+    plugins:[{id:'dl',afterDatasetsDraw(c){
+      const{ctx}=c;ctx.save();
+      c.data.datasets.forEach((ds,i)=>{
+        c.getDatasetMeta(i).data.forEach((arc,j)=>{
+          const val=ds.data[j],pct=((val/precoUnit)*100).toFixed(0);
+          if(parseFloat(pct)<5)return;
+          const mid=arc.startAngle+(arc.endAngle-arc.startAngle)/2;
+          const r=(arc.innerRadius+arc.outerRadius)/2;
+          ctx.fillStyle='#fff';ctx.font='bold 10px Inter';
+          ctx.textAlign='center';ctx.textBaseline='middle';
+          ctx.fillText(pct+'%',arc.x+Math.cos(mid)*r,arc.y+Math.sin(mid)*r);
         });
-        ctx.restore();
-      }
-    }]
+      });ctx.restore();
+    }}]
   });
 }
 
-/* ─── IMPORT ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   IMPORT / EXPORT
+══════════════════════════════════════════════ */
 function renderImportMeta(){
-  const tags=document.getElementById('valid-groups-tags');
-  if(tags)tags.innerHTML=GROUPS.map(g=>`<span class="ctag" style="background:rgba(${hexRgb(g.color)},.08);color:${g.color};border-color:rgba(${hexRgb(g.color)},.2)">${g.label}</span>`).join('');
+  const t=document.getElementById('valid-groups-tags');
+  if(t)t.innerHTML=GROUPS.map(g=>`<span class="ctag" style="background:rgba(${hRgb(g.color)},.08);color:${g.color};border-color:rgba(${hRgb(g.color)},.2)">${g.label}</span>`).join('');
 }
-function hexRgb(h){const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return`${r},${g},${b}`;}
+function hRgb(h){const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return`${r},${g},${b}`;}
 function dzOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('drag-over');}
 function dzLeave(){document.getElementById('drop-zone').classList.remove('drag-over');}
 function dzDrop(e){e.preventDefault();dzLeave();const f=e.dataTransfer.files[0];if(f)processFile(f);}
@@ -1071,42 +1082,37 @@ function processFile(file){
   const lbl=document.getElementById('imp-progress-label');
   prog.style.display='block';bar.style.width='20%';lbl.textContent='Lendo arquivo…';
   const reader=new FileReader();
-  reader.onload=function(ev){
-    bar.style.width='60%';lbl.textContent='Processando dados…';
+  reader.onload=ev=>{
+    bar.style.width='60%';lbl.textContent='Processando…';
     setTimeout(()=>{
       try{
         const data=new Uint8Array(ev.target.result);
         const wb=XLSX.read(data,{type:'array'});
-        const ws=wb.Sheets[wb.SheetNames[0]];
-        const rows=XLSX.utils.sheet_to_json(ws);
+        const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
         let added=0,skipped=0;
         rows.forEach(row=>{
           const gr=String(row['grupo']||row['Grupo']||'').toLowerCase().trim();
           const g=GROUPS.find(x=>x.id===gr||x.label.toLowerCase()===gr);
           if(!g){skipped++;return;}
           const nome=String(row['nome']||row['Nome']||'').trim();if(!nome){skipped++;return;}
-          g.items.push({
-            nome,qtd:parseFloat(row['quantidade']||row['Quantidade']||1),
-            unit:parseFloat(row['custo_unitario']||row['Custo Unitário']||row['custo unitario']||row['Custo_Unitario']||0),
-            cat:String(row['categoria']||row['Categoria']||'Outro')
-          });added++;
+          g.items.push({nome,qtd:parseFloat(row['quantidade']||row['Quantidade']||1),unit:parseFloat(row['custo_unitario']||row['Custo Unitário']||row['custo unitario']||0),cat:String(row['categoria']||row['Categoria']||'Outro')});
+          added++;
         });
         bar.style.width='100%';lbl.textContent='Concluído';
         document.getElementById('imp-result').innerHTML=`
-          <div style="display:flex;align-items:center;gap:.625rem;background:var(--green-lt);border:1px solid rgba(27,143,110,.2);border-radius:var(--radius);padding:.75rem 1rem;font-size:.79rem">
+          <div style="display:flex;align-items:center;gap:.625rem;background:var(--green-lt);border:1px solid rgba(27,143,110,.2);border-radius:var(--r);padding:.75rem 1rem;font-size:.79rem">
             <i class="ti ti-circle-check" style="color:var(--green);font-size:1.2rem"></i>
-            <div><div style="font-weight:600;color:var(--green)">${added} item(s) importado(s) com sucesso</div>
-            ${skipped?`<div style="color:var(--amber);margin-top:.1rem">${skipped} linha(s) ignorada(s) — grupo não reconhecido ou nome ausente</div>`:''}</div>
+            <div><div style="font-weight:600;color:var(--green)">${added} item(s) importado(s)</div>
+            ${skipped?`<div style="color:var(--amber);margin-top:.1rem">${skipped} linha(s) ignorada(s)</div>`:''}</div>
           </div>`;
-        toast(`${added} itens importados`);
-        setTimeout(()=>{prog.style.display='none';},1200);
+        toast(`${added} itens importados`);setTimeout(()=>{prog.style.display='none';},1200);
       }catch(err){
         bar.style.width='100%';bar.style.background='var(--red)';
         document.getElementById('imp-result').innerHTML=`
-          <div style="display:flex;align-items:center;gap:.625rem;background:var(--red-lt);border:1px solid rgba(194,59,59,.2);border-radius:var(--radius);padding:.75rem 1rem;font-size:.79rem">
+          <div style="display:flex;align-items:center;gap:.625rem;background:var(--red-lt);border:1px solid rgba(194,59,59,.2);border-radius:var(--r);padding:.75rem 1rem;font-size:.79rem">
             <i class="ti ti-alert-circle" style="color:var(--red);font-size:1.2rem"></i>
-            <div><div style="font-weight:600;color:var(--red)">Erro ao processar o arquivo</div>
-            <div style="color:var(--grey-4);margin-top:.1rem">Verifique se o formato está correto e os cabeçalhos estão na primeira linha</div></div>
+            <div><div style="font-weight:600;color:var(--red)">Erro ao processar</div>
+            <div style="color:var(--grey-4);margin-top:.1rem">Verifique o formato e os cabeçalhos</div></div>
           </div>`;
         setTimeout(()=>{prog.style.display='none';bar.style.background='';},2000);
       }
@@ -1114,16 +1120,13 @@ function processFile(file){
   };
   reader.readAsArrayBuffer(file);
 }
-
-/* ─── EXPORT ─────────────────────────────────────────────────── */
 function exportCSV(){
   const hdr='grupo,nome,quantidade,custo_unitario,categoria,total_mensal';
-  const rows=[];
-  GROUPS.forEach(g=>g.items.forEach(i=>rows.push(`${g.label},"${i.nome}",${i.qtd},${i.unit},"${i.cat}",${(i.qtd*i.unit).toFixed(2)}`)));
+  const rows=[];GROUPS.forEach(g=>g.items.forEach(i=>rows.push(`${g.label},"${i.nome}",${i.qtd},${i.unit},"${i.cat}",${(i.qtd*i.unit).toFixed(2)}`)));
   dl(new Blob(['\uFEFF'+[hdr,...rows].join('\n')],{type:'text/csv;charset=utf-8;'}),'tradeprice_custos.csv');toast('CSV exportado');
 }
 function exportJSON(){
-  dl(new Blob([JSON.stringify(GROUPS.map(g=>({grupo:g.label,total:Math.round(groupTotal(g)),itens:g.items})),null,2)],{type:'application/json'}),'tradeprice.json');toast('JSON exportado');
+  dl(new Blob([JSON.stringify(GROUPS.map(g=>({grupo:g.label,total:Math.round(gT(g)),itens:g.items})),null,2)],{type:'application/json'}),'tradeprice.json');toast('JSON exportado');
 }
 function downloadTemplate(){
   const hdr='grupo,nome,quantidade,custo_unitario,categoria';
@@ -1132,7 +1135,9 @@ function downloadTemplate(){
 }
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
-/* ─── PWA ────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   PWA
+══════════════════════════════════════════════ */
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();deferredPrompt=e;
@@ -1146,45 +1151,39 @@ function installPWA(){
     deferredPrompt=null;
   });
 }
-window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('TradePrice instalado com sucesso');});
+window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('TradePrice instalado');});
 
-/* ─── SERVICE WORKER (inline via blob) ──────────────────────── */
+/* SERVICE WORKER via blob */
 if('serviceWorker' in navigator){
-  const swCode=`
-const CACHE='tradeprice-v1';
-const ASSETS=[
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap',
-  'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
-];
-self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS).catch(()=>{})).then(()=>self.skipWaiting()));
-});
-self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
-});
-self.addEventListener('fetch',e=>{
-  if(e.request.method!=='GET')return;
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
-    if(res.ok&&e.request.url.startsWith('http')){
-      const c=res.clone();caches.open(CACHE).then(cache=>cache.put(e.request,c));
-    }
-    return res;
-  }).catch(()=>caches.match(e.request))));
-});`;
-  const swBlob=new Blob([swCode],{type:'application/javascript'});
-  const swUrl=URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl,{scope:'./'})
-    .then(()=>console.log('TradePrice SW registered'))
-    .catch(()=>{});
+  const sw=`
+const CACHE='tradeprice-v2';
+const ASSETS=['https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css','https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js','https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS).catch(()=>{})).then(()=>self.skipWaiting()));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res.ok)caches.open(CACHE).then(c=>c.put(e.request,res.clone()));return res;}).catch(()=>caches.match(e.request))));});`;
+  const blob=new Blob([sw],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob),{scope:'./'}).catch(()=>{});
 }
 
-/* ─── INIT ───────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════
+   RESIZE HANDLER (re-render charts on orientation change)
+══════════════════════════════════════════════ */
+let resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{
+    const active=document.querySelector('.view.active');
+    if(!active)return;
+    const id=active.id.replace('view-','');
+    if(id==='dashboard')renderDashboard();
+    if(id==='precificar')runSim();
+  },250);
+});
+
+/* ══════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════ */
 renderDashboard();
 </script>
 </body>
 </html>
-
-
-
