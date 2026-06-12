@@ -39,8 +39,7 @@
   --tr:.16s ease;
   /* mobile nav heights */
   --mob-topbar:52px;
-  --mob-fab:56px;
-  --mob-sheet:260px;
+  --mob-bottomnav:64px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;-webkit-text-size-adjust:100%}
@@ -134,83 +133,39 @@ body{
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;font-size:.95rem;
   }
-
   /* Scrollable content area */
   .main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .content{
-    padding:1rem 1rem 5rem;/* bottom room for FAB */
-    padding-bottom:calc(5rem + env(safe-area-inset-bottom));
+    padding:1rem 1rem 1rem;
+    padding-bottom:calc(var(--mob-bottomnav) + 1rem + env(safe-area-inset-bottom));
   }
 
-  /* ── FAB (floating menu trigger) ── */
-  .mob-fab{
-    display:flex;
-    position:fixed;
-    bottom:calc(1.25rem + env(safe-area-inset-bottom));
-    left:50%;transform:translateX(-50%);
-    z-index:50;
-    width:52px;height:52px;border-radius:50%;
-    background:var(--klein);
-    box-shadow:0 4px 20px rgba(0,47,167,.35),0 1px 4px rgba(0,0,0,.15);
-    border:none;cursor:pointer;
-    align-items:center;justify-content:center;
-    color:#fff;font-size:1.3rem;
-    transition:transform .2s ease,box-shadow .2s ease;
-  }
-  .mob-fab:active{transform:translateX(-50%) scale(.93)}
-  .mob-fab.open{background:var(--grey-5);box-shadow:0 4px 20px rgba(0,0,0,.25)}
-
-  /* ── Bottom Sheet ── */
-  .mob-sheet{
-    display:block;
-    position:fixed;bottom:0;left:0;right:0;
-    background:var(--white);
-    border-radius:20px 20px 0 0;
-    box-shadow:0 -4px 32px rgba(0,47,167,.13);
-    z-index:45;
-    transform:translateY(100%);
-    transition:transform .32s cubic-bezier(.4,0,.2,1);
-    padding-bottom:env(safe-area-inset-bottom);
-  }
-  .mob-sheet.open{transform:translateY(0)}
-  .mob-sheet-handle{
-    width:36px;height:4px;border-radius:2px;background:var(--grey-2);
-    margin:.75rem auto .5rem;
-  }
-  .mob-sheet-title{
-    font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;
-    color:var(--grey-4);padding:.25rem 1.25rem .5rem;
-  }
+  /* ── FIXED BOTTOM NAV ── */
+  .mob-fab,.mob-sheet,.mob-overlay,.mob-sheet-handle,.mob-sheet-title{display:none!important}
   .mob-nav-grid{
-    display:grid;grid-template-columns:repeat(5,1fr);
-    gap:0;padding:.25rem .5rem .75rem;
+    display:grid;grid-template-columns:repeat(6,1fr);
+    gap:0;
+    position:fixed;left:0;right:0;bottom:0;z-index:45;
+    background:var(--white);
+    border-top:1px solid var(--grey-2);
+    box-shadow:0 -2px 16px rgba(0,47,167,.07);
+    padding:.35rem .15rem;
+    padding-bottom:calc(.35rem + env(safe-area-inset-bottom));
   }
   .mob-nav-btn{
-    display:flex;flex-direction:column;align-items:center;gap:.3rem;
-    padding:.625rem .25rem;border:none;background:none;cursor:pointer;
-    border-radius:10px;transition:background var(--tr);
+    display:flex;flex-direction:column;align-items:center;gap:.2rem;
+    padding:.35rem .1rem;border:none;background:none;cursor:pointer;
+    border-radius:8px;transition:background var(--tr);
     font-family:var(--ff-b);
   }
   .mob-nav-btn:active{background:var(--grey-1)}
-  .mob-nav-btn i{font-size:1.35rem;color:var(--grey-4);transition:color var(--tr)}
-  .mob-nav-btn span{font-size:.62rem;font-weight:500;color:var(--grey-4);transition:color var(--tr);text-align:center;line-height:1.2}
+  .mob-nav-btn i{font-size:1.18rem;color:var(--grey-4);transition:color var(--tr)}
+  .mob-nav-btn span{font-size:.56rem;font-weight:500;color:var(--grey-4);transition:color var(--tr);text-align:center;line-height:1.15}
   .mob-nav-btn.active i{color:var(--klein)}
   .mob-nav-btn.active span{color:var(--klein);font-weight:600}
-  .mob-nav-btn .mob-dot{
-    width:4px;height:4px;border-radius:50%;background:var(--klein);
-    opacity:0;margin-top:1px;transition:opacity var(--tr);
-  }
-  .mob-nav-btn.active .mob-dot{opacity:1}
+  .mob-nav-btn .mob-dot{display:none}
 
-  /* Overlay behind sheet */
-  .mob-overlay{
-    display:block;position:fixed;inset:0;
-    background:rgba(0,0,0,.35);z-index:40;
-    opacity:0;pointer-events:none;transition:opacity .28s ease;
-  }
-  .mob-overlay.show{opacity:1;pointer-events:all}
 
-  /* ── Content adjustments ── */
   .kpis{grid-template-columns:repeat(2,1fr);gap:.625rem;margin-bottom:1rem}
   .kpi-card{padding:.875rem 1rem}
   .kpi-card .kc-val{font-size:1.15rem}
@@ -257,8 +212,8 @@ body{
   .btn{padding:.55rem .875rem;font-size:.79rem}
   .btn-row{gap:.5rem}
 
-  /* Toast above FAB */
-  .toast{bottom:calc(5.5rem + env(safe-area-inset-bottom));right:1rem;left:1rem;text-align:center}
+  /* Toast above bottom nav */
+  .toast{bottom:calc(var(--mob-bottomnav) + .75rem + env(safe-area-inset-bottom));right:1rem;left:1rem;text-align:center}
 
   /* Breakdown list on mobile */
   .bl-bar-wrap{width:60px}
@@ -461,6 +416,7 @@ input[type=range]:focus{outline:none}
   <div class="sidebar-label">Gestão</div>
   <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> Grupos de custo</button>
   <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
+  <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
   <div class="sidebar-label">Dados</div>
   <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
   <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
@@ -548,8 +504,9 @@ input[type=range]:focus{outline:none}
           <input type="range" id="sl-un" min="1" max="500" step="1" value="30" oninput="runSim()"/>
         </div>
         <div class="slider-block">
-          <div class="slider-header"><label>Frete / extras (R$)</label><span class="slider-val" id="sv-extra">R$ 0</span></div>
-          <input type="range" id="sl-extra" min="0" max="20000" step="200" value="0" oninput="runSim()"/>
+          <div class="slider-header"><label>Amortização (R$/mês)</label><span class="slider-val" id="sv-extra">R$ 0</span></div>
+          <input type="range" id="sl-extra" min="0" max="50000" step="100" value="0" oninput="syncAmort('sl-extra');runSim()"/>
+          <div style="font-size:.67rem;color:var(--grey-4);margin-top:.3rem">Investimentos amortizados por mês · também ajustável na aba Ajustes</div>
         </div>
         <div class="sep"></div>
         <div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--grey-4);margin-bottom:.625rem">Detalhamento por grupo /un.</div>
@@ -567,10 +524,79 @@ input[type=range]:focus{outline:none}
         <div class="chart-legend" id="sim-legend" style="margin-top:.875rem;justify-content:center"></div>
       </div>
     </div>
-  </div>
 </div>
 
-<!-- ──── IMPORTAR ─────────────────────────────── -->
+<!-- ──── AJUSTES ──────────────────────────────── -->
+<div id="view-ajustes" class="view">
+  <div class="kpis" id="adj-kpis" style="margin-bottom:1rem"></div>
+
+  <div class="panel">
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-receipt-2"></i> Custos envolvidos</div>
+      <div class="panel-hint">Despesas mensais adicionais não cobertas pelos grupos de custo</div>
+    </div></div>
+    <div class="prec-grid" style="grid-template-columns:1fr 1fr">
+      <div class="slider-block">
+        <div class="slider-header"><label>Custos envolvidos (R$)</label><span class="slider-val" id="sv-adj-custos">R$ 0</span></div>
+        <input type="range" id="sl-adj-custos" min="0" max="50000" step="100" value="0" oninput="setAdj('custos',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>Recursos humanos (R$)</label><span class="slider-val" id="sv-adj-rh">R$ 0</span></div>
+        <input type="range" id="sl-adj-rh" min="0" max="100000" step="100" value="0" oninput="setAdj('rh',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>Despesas operacionais/comerciais (R$)</label><span class="slider-val" id="sv-adj-opex">R$ 0</span></div>
+        <input type="range" id="sl-adj-opex" min="0" max="50000" step="100" value="0" oninput="setAdj('opex',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>Despesas administrativas (R$)</label><span class="slider-val" id="sv-adj-admin">R$ 0</span></div>
+        <input type="range" id="sl-adj-admin" min="0" max="50000" step="100" value="0" oninput="setAdj('admin',this.value)"/>
+      </div>
+      <div class="slider-block" style="grid-column:1 / -1">
+        <div class="slider-header"><label>Outras despesas (R$)</label><span class="slider-val" id="sv-adj-outras">R$ 0</span></div>
+        <input type="range" id="sl-adj-outras" min="0" max="50000" step="100" value="0" oninput="setAdj('outras',this.value)"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-building-bank"></i> Investimentos</div>
+      <div class="panel-hint">Valor mensal de amortização de investimentos, incorporado ao custo do produto</div>
+    </div></div>
+    <div class="slider-block" style="margin-bottom:0">
+      <div class="slider-header"><label>Amortização mensal (R$)</label><span class="slider-val" id="sv-adj-amort">R$ 0</span></div>
+      <input type="range" id="sl-adj-amort" min="0" max="50000" step="100" value="0" oninput="syncAmort('sl-adj-amort')"/>
+      <div style="font-size:.67rem;color:var(--grey-4);margin-top:.3rem">Sincronizado com o slider de Amortização na aba Precificar</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div>
+      <div class="panel-title"><i class="ti ti-percentage"></i> Impostos</div>
+      <div class="panel-hint">Carga tributária sobre o preço de venda — aplicada no cálculo de precificação</div>
+    </div></div>
+    <div class="prec-grid" style="grid-template-columns:1fr 1fr">
+      <div class="slider-block">
+        <div class="slider-header"><label>PIS (%)</label><span class="slider-val" id="sv-adj-pis">0.65%</span></div>
+        <input type="range" id="sl-adj-pis" min="0" max="5" step="0.01" value="0.65" oninput="setAdj('pis',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>COFINS (%)</label><span class="slider-val" id="sv-adj-cofins">3.00%</span></div>
+        <input type="range" id="sl-adj-cofins" min="0" max="10" step="0.01" value="3" oninput="setAdj('cofins',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>ISS (%)</label><span class="slider-val" id="sv-adj-iss">0.00%</span></div>
+        <input type="range" id="sl-adj-iss" min="0" max="5" step="0.01" value="0" oninput="setAdj('iss',this.value)"/>
+      </div>
+      <div class="slider-block">
+        <div class="slider-header"><label>Simples Nacional (%)</label><span class="slider-val" id="sv-adj-simples">0.00%</span></div>
+        <input type="range" id="sl-adj-simples" min="0" max="33" step="0.01" value="0" oninput="setAdj('simples',this.value)"/>
+      </div>
+    </div>
+    <div style="font-size:.67rem;color:var(--grey-4);margin-top:.5rem">Se usar Simples Nacional, normalmente PIS/COFINS/ISS já estão inclusos na alíquota — ajuste apenas o que se aplica ao seu regime.</div>
+  </div>
+</div>
 <div id="view-importar" class="view">
   <div class="panel">
     <div class="panel-head"><div>
@@ -602,6 +628,14 @@ input[type=range]:focus{outline:none}
         <span class="ctag">quantidade</span><span class="ctag">categoria</span>
       </div>
       <p style="font-size:.66rem;color:var(--grey-3);margin-top:.75rem">* campos obrigatórios</p>
+      <div class="sep"></div>
+      <p style="font-size:.78rem;color:var(--grey-4);margin-bottom:.625rem;line-height:1.65">Colunas opcionais reconhecidas automaticamente para a aba <strong style="color:var(--klein)">Ajustes</strong> (qualquer linha):</p>
+      <div class="col-tags">
+        <span class="ctag">custos_envolvidos</span><span class="ctag">recursos_humanos</span>
+        <span class="ctag">despesas_operacionais</span><span class="ctag">despesas_administrativas</span>
+        <span class="ctag">outras_despesas</span><span class="ctag">amortizacao_mensal</span>
+        <span class="ctag">pis</span><span class="ctag">cofins</span><span class="ctag">iss</span><span class="ctag">simples_nacional</span>
+      </div>
     </div>
     <div class="panel">
       <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-layers-difference"></i> Grupos válidos</div>
@@ -658,35 +692,28 @@ input[type=range]:focus{outline:none}
 </div><!-- /.shell -->
 
 <!-- ══════════════════════════════════════════════
-     MOBILE: OVERLAY + SHEET + FAB
+     MOBILE: FIXED BOTTOM NAV
 ══════════════════════════════════════════════ -->
-<div class="mob-overlay" id="mob-overlay" onclick="closeSheet()"></div>
-
-<div class="mob-sheet" id="mob-sheet" role="navigation" aria-label="Menu de navegação">
-  <div class="mob-sheet-handle"></div>
-  <div class="mob-sheet-title">Navegação</div>
-  <div class="mob-nav-grid">
-    <button class="mob-nav-btn active" data-view="dashboard" onclick="switchView('dashboard');closeSheet()">
-      <i class="ti ti-layout-dashboard"></i><span>Dashboard</span><div class="mob-dot"></div>
-    </button>
-    <button class="mob-nav-btn" data-view="grupos" onclick="switchView('grupos');closeSheet()">
-      <i class="ti ti-layers-difference"></i><span>Grupos</span><div class="mob-dot"></div>
-    </button>
-    <button class="mob-nav-btn" data-view="precificar" onclick="switchView('precificar');closeSheet()">
-      <i class="ti ti-calculator"></i><span>Precificar</span><div class="mob-dot"></div>
-    </button>
-    <button class="mob-nav-btn" data-view="importar" onclick="switchView('importar');closeSheet()">
-      <i class="ti ti-upload"></i><span>Importar</span><div class="mob-dot"></div>
-    </button>
-    <button class="mob-nav-btn" data-view="exportar" onclick="switchView('exportar');closeSheet()">
-      <i class="ti ti-download"></i><span>Exportar</span><div class="mob-dot"></div>
-    </button>
-  </div>
+<div class="mob-nav-grid" role="navigation" aria-label="Menu de navegação">
+  <button class="mob-nav-btn active" data-view="dashboard" onclick="switchView('dashboard')">
+    <i class="ti ti-layout-dashboard"></i><span>Dashboard</span>
+  </button>
+  <button class="mob-nav-btn" data-view="grupos" onclick="switchView('grupos')">
+    <i class="ti ti-layers-difference"></i><span>Grupos</span>
+  </button>
+  <button class="mob-nav-btn" data-view="precificar" onclick="switchView('precificar')">
+    <i class="ti ti-calculator"></i><span>Precificar</span>
+  </button>
+  <button class="mob-nav-btn" data-view="ajustes" onclick="switchView('ajustes')">
+    <i class="ti ti-adjustments"></i><span>Ajustes</span>
+  </button>
+  <button class="mob-nav-btn" data-view="importar" onclick="switchView('importar')">
+    <i class="ti ti-upload"></i><span>Importar</span>
+  </button>
+  <button class="mob-nav-btn" data-view="exportar" onclick="switchView('exportar')">
+    <i class="ti ti-download"></i><span>Exportar</span>
+  </button>
 </div>
-
-<button class="mob-fab" id="mob-fab" onclick="toggleSheet()" aria-label="Abrir menu">
-  <i class="ti ti-apps" id="mob-fab-icon"></i>
-</button>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -710,6 +737,10 @@ const GROUPS=[
 let activeGroup='pessoal', charts={};
 const isMobile=()=>window.innerWidth<768;
 
+/* Additional adjustments: extra costs, investments, taxes */
+const ADJ={custos:0,rh:0,opex:0,admin:0,outras:0,amort:0,pis:0.65,cofins:3,iss:0,simples:0};
+const ADJ_LABELS={custos:'Custos envolvidos',rh:'Recursos humanos',opex:'Despesas operacionais/comerciais',admin:'Despesas administrativas',outras:'Outras despesas'};
+
 /* ══════════════════════════════════════════════
    UTILS
 ══════════════════════════════════════════════ */
@@ -727,6 +758,7 @@ const PAGE_META={
   dashboard:{title:'Dashboard',sub:'Visão consolidada de todos os grupos de custo'},
   grupos:{title:'Grupos de custo',sub:'Adicione, edite e organize itens por categoria'},
   precificar:{title:'Precificação',sub:'Simule o preço com base nos custos reais'},
+  ajustes:{title:'Ajustes',sub:'Custos adicionais, investimentos e impostos'},
   importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
   exportar:{title:'Exportar / GitHub',sub:'Baixe dados ou publique no GitHub Pages'},
 };
@@ -735,7 +767,7 @@ function switchView(v){
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.mob-nav-btn').forEach(x=>x.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');
-  const keys=['dashboard','grupos','precificar','importar','exportar'];
+  const keys=['dashboard','grupos','precificar','ajustes','importar','exportar'];
   const idx=keys.indexOf(v);
   if(idx>=0){
     document.querySelectorAll('.nav-item')[idx].classList.add('active');
@@ -750,29 +782,8 @@ function switchView(v){
   if(v==='dashboard')setTimeout(renderDashboard,30);
   if(v==='grupos')renderGrupos();
   if(v==='precificar')setTimeout(runSim,30);
+  if(v==='ajustes')renderAjustes();
   if(v==='importar')renderImportMeta();
-}
-
-/* ══════════════════════════════════════════════
-   MOBILE SHEET
-══════════════════════════════════════════════ */
-let sheetOpen=false;
-function toggleSheet(){
-  sheetOpen?closeSheet():openSheet();
-}
-function openSheet(){
-  sheetOpen=true;
-  document.getElementById('mob-sheet').classList.add('open');
-  document.getElementById('mob-overlay').classList.add('show');
-  document.getElementById('mob-fab').classList.add('open');
-  document.getElementById('mob-fab-icon').className='ti ti-x';
-}
-function closeSheet(){
-  sheetOpen=false;
-  document.getElementById('mob-sheet').classList.remove('open');
-  document.getElementById('mob-overlay').classList.remove('show');
-  document.getElementById('mob-fab').classList.remove('open');
-  document.getElementById('mob-fab-icon').className='ti ti-apps';
 }
 
 /* ══════════════════════════════════════════════
@@ -994,22 +1005,68 @@ function removeItem(gid,idx){
    PRECIFICAR
 ══════════════════════════════════════════════ */
 let simChart=null;
+function syncAmort(srcId){
+  const val=document.getElementById(srcId).value;
+  ['sl-extra','sl-adj-amort'].forEach(id=>{const el=document.getElementById(id);if(el&&el.id!==srcId)el.value=val;});
+  ADJ.amort=+val;
+  const active=document.querySelector('.view.active');
+  if(active&&active.id==='view-ajustes')renderAjustes();
+  if(active&&active.id==='view-precificar')runSim();
+}
+function setAdj(key,val){
+  ADJ[key]=parseFloat(val)||0;
+  renderAjustes();
+}
+function syncAdjSliders(){
+  Object.keys(ADJ).forEach(k=>{
+    const el=document.getElementById('sl-adj-'+k);
+    if(el)el.value=ADJ[k];
+  });
+  const extraEl=document.getElementById('sl-extra');
+  if(extraEl)extraEl.value=ADJ.amort;
+}
+function renderAjustes(){
+  syncAdjSliders();
+  Object.keys(ADJ_LABELS).forEach(k=>{
+    const sv=document.getElementById('sv-adj-'+k);
+    if(sv)sv.textContent='R$ '+ADJ[k].toLocaleString('pt-BR');
+  });
+  const amortEl=document.getElementById('sv-adj-amort');
+  if(amortEl)amortEl.textContent='R$ '+ADJ.amort.toLocaleString('pt-BR');
+  ['pis','cofins','iss','simples'].forEach(k=>{
+    const sv=document.getElementById('sv-adj-'+k);
+    if(sv)sv.textContent=ADJ[k].toFixed(2)+'%';
+  });
+  const extraCustos=ADJ.custos+ADJ.rh+ADJ.opex+ADJ.admin+ADJ.outras;
+  const taxPct=ADJ.pis+ADJ.cofins+ADJ.iss+ADJ.simples;
+  const kEl=document.getElementById('adj-kpis');
+  if(kEl)kEl.innerHTML=`
+    <div class="kpi-card" style="--kpi-accent:#0047AB"><div class="kc-label">Custos adicionais/mês</div><div class="kc-val blue">${fmt(extraCustos)}</div><div class="kc-sub">soma dos blocos acima</div></div>
+    <div class="kpi-card" style="--kpi-accent:#5A3EA8"><div class="kc-label">Amortização/mês</div><div class="kc-val purple">${fmt(ADJ.amort)}</div><div class="kc-sub">investimentos</div></div>
+    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Carga tributária</div><div class="kc-val amber">${taxPct.toFixed(2)}%</div><div class="kc-sub">PIS+COFINS+ISS+Simples</div></div>
+  `;
+}
 function runSim(){
   const overhead=+document.getElementById('sl-overhead').value;
   const markup=+document.getElementById('sl-markup').value;
   const un=+document.getElementById('sl-un').value;
-  const extra=+document.getElementById('sl-extra').value;
+  const amort=+document.getElementById('sl-extra').value;
+  ADJ.amort=amort;
   document.getElementById('sv-overhead').textContent=overhead+'%';
   document.getElementById('sv-markup').textContent=markup+'%';
   document.getElementById('sv-un').textContent=un+' un.';
-  document.getElementById('sv-extra').textContent='R$ '+extra.toLocaleString('pt-BR');
+  document.getElementById('sv-extra').textContent='R$ '+amort.toLocaleString('pt-BR');
+
+  const extraCustos=ADJ.custos+ADJ.rh+ADJ.opex+ADJ.admin+ADJ.outras;
+  const taxPct=Math.min(ADJ.pis+ADJ.cofins+ADJ.iss+ADJ.simples,95);
 
   const base=allT();
   const ohVal=base*(overhead/100);
-  const totalCusto=base+ohVal+extra;
+  const totalCusto=base+ohVal+amort+extraCustos;
   const custoUnit=totalCusto/un;
-  const precoUnit=custoUnit*(1+markup/100);
-  const margemUnit=precoUnit-custoUnit;
+  const precoUnit=(custoUnit*(1+markup/100))/(1-taxPct/100);
+  const taxVal=precoUnit*(taxPct/100);
+  const margemUnit=precoUnit-custoUnit-taxVal;
   const fat=precoUnit*un;
 
   document.getElementById('prec-kpis').innerHTML=`
@@ -1019,12 +1076,15 @@ function runSim(){
     <div class="kpi-card" style="--kpi-accent:#1B8F6E"><div class="kc-label">Preço sugerido</div><div class="kc-val green">${fmt(precoUnit)}</div><div class="kc-sub">markup ${markup}%</div></div>
     <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Margem unitária</div><div class="kc-val amber">${fmt(margemUnit)}</div><div class="kc-sub">${((margemUnit/precoUnit)*100).toFixed(1)}% sobre preço</div></div>
     <div class="kpi-card" style="--kpi-accent:#002FA7"><div class="kc-label">Receita potencial</div><div class="kc-val blue">${fmt(fat)}</div><div class="kc-sub">${un} un./mês</div></div>
+    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Impostos/un.</div><div class="kc-val red">${fmt(taxVal)}</div><div class="kc-sub">${taxPct.toFixed(2)}% sobre o preço</div></div>
   `;
 
   const segs=[
     ...GROUPS.map(g=>({label:g.label,val:parseFloat((gT(g)/un).toFixed(2)),color:g.color})),
     {label:'Overhead',val:parseFloat((ohVal/un).toFixed(2)),color:'#5A3EA8'},
-    {label:'Frete/Extras',val:parseFloat((extra/un).toFixed(2)),color:'#7A849A'},
+    {label:'Custos adicionais',val:parseFloat((extraCustos/un).toFixed(2)),color:'#7A849A'},
+    {label:'Amortização',val:parseFloat((amort/un).toFixed(2)),color:'#B0306A'},
+    {label:'Impostos',val:parseFloat(taxVal.toFixed(2)),color:'#B96B0A'},
     {label:'Margem',val:parseFloat(margemUnit.toFixed(2)),color:'#1B8F6E'},
   ].filter(s=>s.val>0);
 
@@ -1089,8 +1149,29 @@ function processFile(file){
         const data=new Uint8Array(ev.target.result);
         const wb=XLSX.read(data,{type:'array'});
         const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-        let added=0,skipped=0;
+        let added=0,skipped=0,adjFound=0;
+        const ADJ_COLS={
+          custos_envolvidos:'custos',custos:'custos',
+          recursos_humanos:'rh',rh:'rh',
+          despesas_operacionais:'opex',despesas_comerciais:'opex',despesas_operacionais_comerciais:'opex',
+          despesas_administrativas:'admin',admin:'admin',
+          outras_despesas:'outras',outras:'outras',
+          amortizacao:'amort',amortizacao_mensal:'amort',amortização:'amort','amortização_mensal':'amort',
+          pis:'pis',cofins:'cofins',iss:'iss',
+          simples_nacional:'simples',simples:'simples',
+        };
+        const norm=s=>String(s).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'_');
         rows.forEach(row=>{
+          // detect adjustment columns (any header that matches, case/accent-insensitive)
+          Object.keys(row).forEach(h=>{
+            const key=ADJ_COLS[norm(h)];
+            if(!key)return;
+            const v=parseFloat(row[h]);
+            if(isNaN(v))return;
+            if(['pis','cofins','iss','simples'].includes(key)){ADJ[key]=v;}
+            else{ADJ[key]+=v;}
+            adjFound++;
+          });
           const gr=String(row['grupo']||row['Grupo']||'').toLowerCase().trim();
           const g=GROUPS.find(x=>x.id===gr||x.label.toLowerCase()===gr);
           if(!g){skipped++;return;}
@@ -1103,8 +1184,10 @@ function processFile(file){
           <div style="display:flex;align-items:center;gap:.625rem;background:var(--green-lt);border:1px solid rgba(27,143,110,.2);border-radius:var(--r);padding:.75rem 1rem;font-size:.79rem">
             <i class="ti ti-circle-check" style="color:var(--green);font-size:1.2rem"></i>
             <div><div style="font-weight:600;color:var(--green)">${added} item(s) importado(s)</div>
+            ${adjFound?`<div style="color:var(--klein);margin-top:.1rem">${adjFound} campo(s) de ajuste atualizado(s) (custos, amortização ou impostos)</div>`:''}
             ${skipped?`<div style="color:var(--amber);margin-top:.1rem">${skipped} linha(s) ignorada(s)</div>`:''}</div>
           </div>`;
+        if(adjFound){syncAdjSliders();renderAjustes();}
         toast(`${added} itens importados`);setTimeout(()=>{prog.style.display='none';},1200);
       }catch(err){
         bar.style.width='100%';bar.style.background='var(--red)';
@@ -1123,14 +1206,23 @@ function processFile(file){
 function exportCSV(){
   const hdr='grupo,nome,quantidade,custo_unitario,categoria,total_mensal';
   const rows=[];GROUPS.forEach(g=>g.items.forEach(i=>rows.push(`${g.label},"${i.nome}",${i.qtd},${i.unit},"${i.cat}",${(i.qtd*i.unit).toFixed(2)}`)));
-  dl(new Blob(['\uFEFF'+[hdr,...rows].join('\n')],{type:'text/csv;charset=utf-8;'}),'tradeprice_custos.csv');toast('CSV exportado');
+  const adjHdr='\n\ncusto_envolvidos,recursos_humanos,despesas_operacionais,despesas_administrativas,outras_despesas,amortizacao,pis,cofins,iss,simples_nacional';
+  const adjRow=`${ADJ.custos},${ADJ.rh},${ADJ.opex},${ADJ.admin},${ADJ.outras},${ADJ.amort},${ADJ.pis},${ADJ.cofins},${ADJ.iss},${ADJ.simples}`;
+  dl(new Blob(['\uFEFF'+[hdr,...rows].join('\n')+adjHdr+'\n'+adjRow],{type:'text/csv;charset=utf-8;'}),'tradeprice_custos.csv');toast('CSV exportado');
 }
 function exportJSON(){
-  dl(new Blob([JSON.stringify(GROUPS.map(g=>({grupo:g.label,total:Math.round(gT(g)),itens:g.items})),null,2)],{type:'application/json'}),'tradeprice.json');toast('JSON exportado');
+  dl(new Blob([JSON.stringify({grupos:GROUPS.map(g=>({grupo:g.label,total:Math.round(gT(g)),itens:g.items})),ajustes:ADJ},null,2)],{type:'application/json'}),'tradeprice.json');toast('JSON exportado');
 }
 function downloadTemplate(){
-  const hdr='grupo,nome,quantidade,custo_unitario,categoria';
-  const ex=['Pessoal,Líder de operações,1,5800,CLT','Pessoal,Auxiliares,4,2100,PJ','Equipamentos,Empilhadeira,2,1800,Aluguel/mês','Sistema,Licença ERP mensal,1,1200,SaaS','Internet,5G corporativo,5,110,Mensal','Insumos,Etiquetas BOPP,5000,0.08,Consumível'];
+  const hdr='grupo,nome,quantidade,custo_unitario,categoria,custos_envolvidos,recursos_humanos,despesas_operacionais,despesas_administrativas,outras_despesas,amortizacao_mensal,pis,cofins,iss,simples_nacional';
+  const ex=[
+    'Pessoal,Líder de operações,1,5800,CLT,2000,15000,3000,1500,500,1200,0.65,3,0,0',
+    'Pessoal,Auxiliares,4,2100,PJ,,,,,,,,,,',
+    'Equipamentos,Empilhadeira,2,1800,Aluguel/mês,,,,,,,,,,',
+    'Sistema,Licença ERP mensal,1,1200,SaaS,,,,,,,,,,',
+    'Internet,5G corporativo,5,110,Mensal,,,,,,,,,,',
+    'Insumos,Etiquetas BOPP,5000,0.08,Consumível,,,,,,,,,,'
+  ];
   dl(new Blob(['\uFEFF'+[hdr,...ex].join('\n')],{type:'text/csv;charset=utf-8;'}),'modelo_tradeprice.csv');toast('Modelo baixado');
 }
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
@@ -1184,6 +1276,7 @@ window.addEventListener('resize',()=>{
    INIT
 ══════════════════════════════════════════════ */
 renderDashboard();
+renderAjustes();
 </script>
 </body>
 </html>
