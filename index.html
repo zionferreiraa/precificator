@@ -43,13 +43,39 @@
   /* mobile nav heights */
   --mob-topbar:52px;
   --mob-bottomnav:64px;
+  /* fixed brand surfaces (unaffected by theme) */
+  --brand:#002FA7; --toast-bg:#1A1E2E; --toast-on:#FFFFFF;
+  --topbar-bg:rgba(255,255,255,.92);
+  --dot-opacity:.042;
+}
+/* ══════════════════════════════════════════════
+   DARK THEME OVERRIDES
+══════════════════════════════════════════════ */
+:root[data-theme="dark"]{
+  --white:#1B2233; --grey-0:#0E1320; --grey-1:#222A40;
+  --grey-2:#323B58; --grey-3:#4A5478; --grey-4:#9AA4C7;
+  --grey-5:#D2D7EC; --ink:#F2F4FB;
+  --klein:#6E9BFF; --cobalt-mid:#8DB4FF;
+  --green:#3FD6AA; --amber:#F0A95C; --red:#F0888D; --purple:#B79CFF;
+  --cobalt-lt:rgba(110,155,255,.16); --cobalt-xlt:rgba(110,155,255,.08);
+  --green-lt:rgba(63,214,170,.14); --amber-lt:rgba(240,169,92,.14);
+  --red-lt:rgba(240,136,141,.14); --purple-lt:rgba(183,156,255,.14);
+  --topbar-bg:rgba(14,19,32,.82);
+  --dot-opacity:.10;
+  --sh-sm:0 1px 3px rgba(0,0,0,.4);
+  --sh:0 4px 20px rgba(0,0,0,.5);
+}
+:root{transition:none}
+html[data-theme]{transition:background-color var(--tr)}
+body,.panel,.kpi-card,.btn,.modal,.modal-form,.modal-head,.modal-foot,.fg input,.fg select,.fg textarea,.edit-cell,.grp-chip,.mob-nav-grid,.topbar{
+  transition:background-color var(--tr),border-color var(--tr),color var(--tr);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;-webkit-text-size-adjust:100%}
 body{
   font-family:var(--ff-b);color:var(--ink);min-height:100vh;
   -webkit-font-smoothing:antialiased;background-color:var(--grey-0);
-  background-image:radial-gradient(circle at 1px 1px,rgba(0,47,167,.042) 1px,transparent 0);
+  background-image:radial-gradient(circle at 1px 1px,rgba(0,47,167,var(--dot-opacity)) 1px,transparent 0);
   background-size:24px 24px;
 }
 /* ══════════════════════════════════════════════
@@ -59,7 +85,7 @@ body{
 
 /* — Sidebar — */
 .sidebar{
-  width:224px;flex-shrink:0;background:var(--klein);
+  width:224px;flex-shrink:0;background:var(--brand);
   display:flex;flex-direction:column;padding:0 0 1.5rem;
   position:relative;z-index:20;
 }
@@ -89,7 +115,7 @@ body{
 /* — Main — */
 .main{flex:1;overflow-y:auto;display:flex;flex-direction:column;position:relative}
 .topbar{
-  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  background:var(--topbar-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--grey-2);padding:.875rem 2rem;
   display:flex;align-items:center;justify-content:space-between;
   flex-shrink:0;position:sticky;top:0;z-index:10;
@@ -120,7 +146,7 @@ body{
   /* Mobile top bar */
   .mob-topbar{
     display:flex;align-items:center;justify-content:space-between;
-    background:var(--klein);
+    background:var(--brand);
     padding:.75rem 1rem .75rem 1.125rem;
     height:var(--mob-topbar);flex-shrink:0;
     position:sticky;top:0;z-index:30;
@@ -246,6 +272,14 @@ body{
 .kpi-card .kc-val.red{color:var(--red)}.kpi-card .kc-val.amber{color:var(--amber)}
 .kpi-card .kc-val.purple{color:var(--purple)}
 
+/* — KPI update micro-animation — */
+.kc-val,.overhead-card .kc-val{display:inline-block;transform-origin:left center}
+@keyframes kpiPulse{
+  0%{transform:scale(1.1);filter:brightness(1.35)}
+  100%{transform:scale(1);filter:brightness(1)}
+}
+.kc-val.kpi-pulse{animation:kpiPulse .4s cubic-bezier(.34,1.56,.64,1)}
+
 .panel{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--grey-2);box-shadow:var(--sh-sm);padding:1.375rem 1.5rem;margin-bottom:1rem}
 .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.125rem}
 .panel-title{font-family:var(--ff-d);font-size:.88rem;font-weight:600;color:var(--ink);letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem}
@@ -260,7 +294,7 @@ body{
   transition:background var(--tr),border-color var(--tr),color var(--tr);white-space:nowrap;
 }
 .btn:hover{background:var(--grey-1);border-color:var(--grey-3)}
-.btn-primary{background:var(--klein);border-color:var(--klein);color:#fff}
+.btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn-primary:hover{background:var(--cobalt);border-color:var(--cobalt)}
 .btn-danger{color:var(--red);border-color:var(--grey-2)}
 .btn-danger:hover{background:var(--red-lt);border-color:var(--red-lt)}
@@ -332,7 +366,7 @@ body{
 .slider-header label{font-size:.75rem;font-weight:500;color:var(--grey-5)}
 .slider-val{font-family:var(--ff-d);font-size:.85rem;font-weight:600;color:var(--klein)}
 input[type=range]{width:100%;height:4px;border-radius:2px;appearance:none;background:var(--grey-2);cursor:pointer}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--klein);border:2px solid var(--white);box-shadow:0 1px 4px rgba(0,47,167,.3);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--brand);border:2px solid var(--white);box-shadow:0 1px 4px rgba(0,47,167,.3);cursor:pointer}
 input[type=range]:focus{outline:none}
 
 .chart-legend{display:flex;flex-wrap:wrap;gap:.875rem;margin-bottom:.75rem}
@@ -371,7 +405,7 @@ input[type=range]:focus{outline:none}
 .prog-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--klein),var(--cobalt-mid));transition:width .4s ease}
 
 .toast{
-  position:fixed;bottom:1.75rem;right:1.75rem;background:var(--ink);color:#fff;
+  position:fixed;bottom:1.75rem;right:1.75rem;background:var(--toast-bg);color:var(--toast-on);
   padding:.65rem 1.25rem;border-radius:var(--r);font-size:.77rem;font-weight:500;
   opacity:0;pointer-events:none;transform:translateY(6px);
   transition:opacity .25s,transform .25s;z-index:200;box-shadow:var(--sh);
@@ -499,6 +533,7 @@ input[type=range]:focus{outline:none}
     <div class="mt-page" id="mob-page-sub">Dashboard</div>
   </div>
   <div class="mob-topbar-actions">
+    <button class="mob-icon-btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon-mob"></i></button>
     <button class="mob-icon-btn" onclick="exportCSV()" aria-label="Exportar CSV"><i class="ti ti-download"></i></button>
     <button class="mob-icon-btn" onclick="switchView('importar')" aria-label="Importar"><i class="ti ti-upload"></i></button>
   </div>
@@ -539,6 +574,7 @@ input[type=range]:focus{outline:none}
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
     </div>
     <div class="topbar-actions">
+      <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
       <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar CSV</button>
       <button class="btn btn-primary" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
     </div>
@@ -893,6 +929,7 @@ const GROUPS=[
 ];
 
 let activeGroup='pessoal', charts={};
+let currentView='dashboard';
 const isMobile=()=>window.innerWidth<768;
 
 /* Additional adjustments: extra costs, investments, taxes */
@@ -930,6 +967,18 @@ const allT=()=>GROUPS.reduce((a,g)=>a+gT(g),0);
 const fmt=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtS=v=>v>=1000000?'R$ '+(v/1e6).toFixed(1)+'M':v>=1000?'R$ '+(v/1e3).toFixed(1)+'k':fmt(v);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* KPI update micro-animation: returns 'kpi-pulse' if value changed since last render */
+const KPI_PREV={};
+function kpiCls(key,val,base){
+  const k=String(val);
+  const changed=KPI_PREV[key]!==undefined&&KPI_PREV[key]!==k;
+  KPI_PREV[key]=k;
+  return (base||'')+(changed?' kpi-pulse':'');
+}
+
+/* Read a CSS custom property's current (theme-aware) value, for Chart.js configs */
+const cv=name=>getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const dc=k=>{if(charts[k]){charts[k].destroy();delete charts[k];}};
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
 
@@ -945,6 +994,7 @@ const PAGE_META={
   exportar:{title:'Exportar / GitHub',sub:'Baixe dados ou publique no GitHub Pages'},
 };
 function switchView(v){
+  currentView=v;
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.mob-nav-btn').forEach(x=>x.classList.remove('active'));
@@ -969,6 +1019,43 @@ function switchView(v){
 }
 
 /* ══════════════════════════════════════════════
+   APP THEME (LIGHT / DARK)
+══════════════════════════════════════════════ */
+let APP_THEME='light';
+function applyAppTheme(theme){
+  APP_THEME=theme;
+  const isDark=theme==='dark';
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  const icon=document.getElementById('theme-icon');
+  const iconMob=document.getElementById('theme-icon-mob');
+  const label=document.getElementById('theme-label');
+  if(icon)icon.className='ti '+(isDark?'ti-sun':'ti-moon');
+  if(iconMob)iconMob.className='ti '+(isDark?'ti-sun':'ti-moon');
+  if(label)label.textContent=isDark?'Modo claro':'Dark mode';
+  refreshChartsForTheme();
+}
+function toggleTheme(){
+  applyAppTheme(APP_THEME==='dark'?'light':'dark');
+  try{localStorage.setItem('tp-theme',APP_THEME);}catch(e){}
+}
+function initTheme(){
+  let theme='light';
+  try{
+    const saved=localStorage.getItem('tp-theme');
+    if(saved==='dark'||saved==='light')theme=saved;
+    else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)theme='dark';
+  }catch(e){
+    if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)theme='dark';
+  }
+  applyAppTheme(theme);
+}
+function refreshChartsForTheme(){
+  if(currentView==='dashboard')renderDashboard();
+  else if(currentView==='grupos'){renderGrupos();GROUPS.forEach(g=>renderGrpChart(g));}
+  else if(currentView==='precificar')runSim();
+}
+
+/* ══════════════════════════════════════════════
    DASHBOARD
 ══════════════════════════════════════════════ */
 function renderDashboard(){
@@ -983,10 +1070,10 @@ function renderDashboard(){
     {label:'Maior grupo',val:biggest.label,sub:fmt(gT(biggest))+'/mês',cls:'amber',acc:'#B96B0A'},
     {label:'Peso Pessoal',val:pessoalPct+'%',sub:'do total',cls:'',acc:'#0047AB'},
   ];
-  document.getElementById('kpi-area').innerHTML=defs.map(k=>`
+  document.getElementById('kpi-area').innerHTML=defs.map((k,i)=>`
     <div class="kpi-card" style="--kpi-accent:${k.acc}">
       <div class="kc-label">${k.label}</div>
-      <div class="kc-val ${k.cls}">${k.val}</div>
+      <div class="kc-val ${kpiCls('dash-'+i,k.val,k.cls)}">${k.val}</div>
       <div class="kc-sub">${k.sub}</div>
     </div>`).join('');
 
@@ -994,6 +1081,7 @@ function renderDashboard(){
   const totals=GROUPS.map(g=>Math.round(gT(g)));
   const colors=GROUPS.map(g=>g.color);
   const mob=isMobile();
+  const cGrid=cv('--grey-1'),cTick=cv('--grey-4'),cLabel=cv('--grey-5'),cInk=cv('--ink'),cWhite=cv('--white');
 
   document.getElementById('leg-bar').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label}</span>`).join('');
   document.getElementById('leg-pie').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${(gT(g)/total*100).toFixed(1)}%</strong></span>`).join('');
@@ -1005,13 +1093,13 @@ function renderDashboard(){
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
       scales:{
-        x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:'#7A849A',maxRotation:mob?45:0}},
-        y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:11},color:'#7A849A',callback:v=>fmtS(v)}},
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:cTick,maxRotation:mob?45:0}},
+        y:{grid:{color:cGrid},ticks:{font:{family:'Inter',size:mob?9:11},color:cTick,callback:v=>fmtS(v)}},
       }},
     plugins:[{id:'bv',afterDatasetsDraw(c){
       const{ctx,data}=c;ctx.save();
       data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
-        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10.5}px Inter`;
+        ctx.fillStyle=cLabel;ctx.font=`500 ${mob?9:10.5}px Inter`;
         ctx.textAlign='center';ctx.textBaseline='bottom';
         ctx.fillText(fmtS(ds.data[j]),bar.x,bar.y-3);
       });});ctx.restore();
@@ -1021,15 +1109,15 @@ function renderDashboard(){
   dc('pie');
   charts.pie=new Chart(document.getElementById('c-pie'),{
     type:'doughnut',
-    data:{labels,datasets:[{data:totals,backgroundColor:colors.map(c=>c+'DD'),borderWidth:2,borderColor:'#fff',hoverOffset:6}]},
+    data:{labels,datasets:[{data:totals,backgroundColor:colors.map(c=>c+'DD'),borderWidth:2,borderColor:cWhite,hoverOffset:6}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed)+' ('+((ctx.parsed/total)*100).toFixed(1)+'%)'}}}},
     plugins:[{id:'ct',afterDraw(c){
       const{ctx,chartArea:{left,right,top,bottom}}=c;
       const cx=(left+right)/2,cy=(top+bottom)/2;
       ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillStyle='#7A849A';ctx.font=`${mob?10:11}px Inter`;ctx.fillText('TOTAL',cx,cy-12);
-      ctx.fillStyle='#1A1E2E';ctx.font=`600 ${mob?12:14}px DM Sans`;ctx.fillText(fmtS(total),cx,cy+8);
+      ctx.fillStyle=cTick;ctx.font=`${mob?10:11}px Inter`;ctx.fillText('TOTAL',cx,cy-12);
+      ctx.fillStyle=cInk;ctx.font=`600 ${mob?12:14}px DM Sans`;ctx.fillText(fmtS(total),cx,cy+8);
       ctx.restore();
     }}]
   });
@@ -1044,13 +1132,13 @@ function renderDashboard(){
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.x)}}},
       scales:{
-        x:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',callback:v=>fmtS(v)}},
-        y:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:'#3D4455'}},
+        x:{grid:{color:cGrid},ticks:{font:{family:'Inter',size:mob?9:10},color:cTick,callback:v=>fmtS(v)}},
+        y:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:cLabel}},
       }},
     plugins:[{id:'hv',afterDatasetsDraw(c){
       const{ctx,data}=c;ctx.save();
       data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
-        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10}px Inter`;
+        ctx.fillStyle=cLabel;ctx.font=`500 ${mob?9:10}px Inter`;
         ctx.textAlign='left';ctx.textBaseline='middle';
         ctx.fillText(fmtS(ds.data[j]),bar.x+4,bar.y);
       });});ctx.restore();
@@ -1145,11 +1233,11 @@ function renderGrpChart(g){
     data:{labels:g.items.map(i=>i.nome.length>14?i.nome.slice(0,14)+'…':i.nome),datasets:[{label:'Custo/mês',data:g.items.map(i=>Math.round(i.qtd*i.unit)),backgroundColor:g.color+'CC',borderRadius:4,borderSkipped:false}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.y)}}},
-      scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',maxRotation:35}},y:{grid:{color:'#EFF1F5'},ticks:{font:{family:'Inter',size:mob?9:10},color:'#7A849A',callback:v=>fmtS(v)}}}},
+      scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:10},color:cv('--grey-4'),maxRotation:35}},y:{grid:{color:cv('--grey-1')},ticks:{font:{family:'Inter',size:mob?9:10},color:cv('--grey-4'),callback:v=>fmtS(v)}}}},
     plugins:[{id:'bv2',afterDatasetsDraw(c){
       const{ctx,data}=c;ctx.save();
       data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
-        ctx.fillStyle='#3D4455';ctx.font=`500 ${mob?9:10}px Inter`;
+        ctx.fillStyle=cv('--grey-5');ctx.font=`500 ${mob?9:10}px Inter`;
         ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(fmtS(ds.data[j]),bar.x,bar.y-3);
       });});ctx.restore();
     }}]
@@ -1222,9 +1310,9 @@ function renderAjustes(){
   const taxPct=ADJ.pis+ADJ.cofins+ADJ.iss+ADJ.simples;
   const kEl=document.getElementById('adj-kpis');
   if(kEl)kEl.innerHTML=`
-    <div class="kpi-card" style="--kpi-accent:#0047AB"><div class="kc-label">Custos adicionais/mês</div><div class="kc-val blue">${fmt(extraCustos)}</div><div class="kc-sub">soma dos blocos acima</div></div>
-    <div class="kpi-card" style="--kpi-accent:#5A3EA8"><div class="kc-label">Amortização/mês</div><div class="kc-val purple">${fmt(ADJ.amort)}</div><div class="kc-sub">investimentos</div></div>
-    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Carga tributária</div><div class="kc-val amber">${taxPct.toFixed(2)}%</div><div class="kc-sub">PIS+COFINS+ISS+Simples</div></div>
+    <div class="kpi-card" style="--kpi-accent:#0047AB"><div class="kc-label">Custos adicionais/mês</div><div class="kc-val ${kpiCls('adj-custos',fmt(extraCustos),'blue')}">${fmt(extraCustos)}</div><div class="kc-sub">soma dos blocos acima</div></div>
+    <div class="kpi-card" style="--kpi-accent:#5A3EA8"><div class="kc-label">Amortização/mês</div><div class="kc-val ${kpiCls('adj-amort',fmt(ADJ.amort),'purple')}">${fmt(ADJ.amort)}</div><div class="kc-sub">investimentos</div></div>
+    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Carga tributária</div><div class="kc-val ${kpiCls('adj-tax',taxPct.toFixed(2),'amber')}">${taxPct.toFixed(2)}%</div><div class="kc-sub">PIS+COFINS+ISS+Simples</div></div>
   `;
 }
 function runSim(){
@@ -1251,13 +1339,13 @@ function runSim(){
   const fat=precoUnit*un;
 
   document.getElementById('prec-kpis').innerHTML=`
-    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Custo base/mês</div><div class="kc-val red">${fmt(base)}</div><div class="kc-sub">grupos cadastrados</div></div>
-    <div class="overhead-card"><div class="kc-label">Overhead</div><div class="kc-val">${fmt(ohVal)}</div><div class="kc-sub">${overhead}% sobre o custo</div></div>
-    <div class="kpi-card" style="--kpi-accent:#7A849A"><div class="kc-label">Custo unitário</div><div class="kc-val">${fmt(custoUnit)}</div><div class="kc-sub">total ÷ ${un} un.</div></div>
-    <div class="kpi-card" style="--kpi-accent:#1B8F6E"><div class="kc-label">Preço sugerido</div><div class="kc-val green">${fmt(precoUnit)}</div><div class="kc-sub">markup ${markup}%</div></div>
-    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Margem unitária</div><div class="kc-val amber">${fmt(margemUnit)}</div><div class="kc-sub">${((margemUnit/precoUnit)*100).toFixed(1)}% sobre preço</div></div>
-    <div class="kpi-card" style="--kpi-accent:#002FA7"><div class="kc-label">Receita potencial</div><div class="kc-val blue">${fmt(fat)}</div><div class="kc-sub">${un} un./mês</div></div>
-    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Impostos/un.</div><div class="kc-val red">${fmt(taxVal)}</div><div class="kc-sub">${taxPct.toFixed(2)}% sobre o preço</div></div>
+    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Custo base/mês</div><div class="kc-val ${kpiCls('prec-base',fmt(base),'red')}">${fmt(base)}</div><div class="kc-sub">grupos cadastrados</div></div>
+    <div class="overhead-card"><div class="kc-label">Overhead</div><div class="kc-val ${kpiCls('prec-oh',fmt(ohVal))}">${fmt(ohVal)}</div><div class="kc-sub">${overhead}% sobre o custo</div></div>
+    <div class="kpi-card" style="--kpi-accent:#7A849A"><div class="kc-label">Custo unitário</div><div class="kc-val ${kpiCls('prec-custounit',fmt(custoUnit))}">${fmt(custoUnit)}</div><div class="kc-sub">total ÷ ${un} un.</div></div>
+    <div class="kpi-card" style="--kpi-accent:#1B8F6E"><div class="kc-label">Preço sugerido</div><div class="kc-val ${kpiCls('prec-preco',fmt(precoUnit),'green')}">${fmt(precoUnit)}</div><div class="kc-sub">markup ${markup}%</div></div>
+    <div class="kpi-card" style="--kpi-accent:#B96B0A"><div class="kc-label">Margem unitária</div><div class="kc-val ${kpiCls('prec-margem',fmt(margemUnit),'amber')}">${fmt(margemUnit)}</div><div class="kc-sub">${((margemUnit/precoUnit)*100).toFixed(1)}% sobre preço</div></div>
+    <div class="kpi-card" style="--kpi-accent:#002FA7"><div class="kc-label">Receita potencial</div><div class="kc-val ${kpiCls('prec-fat',fmt(fat),'blue')}">${fmt(fat)}</div><div class="kc-sub">${un} un./mês</div></div>
+    <div class="kpi-card" style="--kpi-accent:#C23B3B"><div class="kc-label">Impostos/un.</div><div class="kc-val ${kpiCls('prec-tax',fmt(taxVal),'red')}">${fmt(taxVal)}</div><div class="kc-sub">${taxPct.toFixed(2)}% sobre o preço</div></div>
   `;
 
   const segs=[
@@ -1602,6 +1690,7 @@ window.addEventListener('resize',()=>{
 /* ══════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════ */
+initTheme();
 renderDashboard();
 renderAjustes();
 </script>
