@@ -418,6 +418,26 @@ input[type=range]:focus{outline:none}
 ::-webkit-scrollbar-thumb:hover{background:var(--grey-3)}
 .empty-row td{text-align:center;color:var(--grey-4);padding:2rem;font-size:.78rem}
 .fw6{font-weight:600}
+.pareto-banner{display:flex;flex-wrap:wrap;gap:.625rem;margin-bottom:1rem}
+.pareto-chip{
+  display:flex;align-items:center;gap:.5rem;padding:.5rem .875rem;border-radius:var(--r-sm);
+  background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);font-size:.74rem;color:var(--grey-5);flex:1;min-width:220px;
+}
+.pareto-chip.amber{background:var(--amber-lt);border-color:rgba(185,107,10,.2)}
+.pareto-chip i{font-size:1rem;color:var(--cobalt-mid);flex-shrink:0}
+.pareto-chip.amber i{color:var(--amber)}
+.pareto-chip b{color:var(--ink)}
+.grp-meta{flex-wrap:wrap;gap:.75rem .875rem}
+.grp-meta .gm-payment{display:flex;flex-direction:column;gap:.25rem;min-width:170px}
+.grp-meta .gm-payment label{font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cobalt-mid);font-weight:600}
+.grp-meta .gm-payment select{
+  padding:.4rem .625rem;border:1px solid var(--cobalt-lt);border-radius:var(--r-sm);
+  background:var(--white);color:var(--ink);font-size:.78rem;font-family:var(--ff-b);
+}
+.grp-rename{border:1px solid var(--grey-2);border-radius:var(--r-sm);padding:.5rem .75rem;font-size:.85rem;font-family:var(--ff-d);font-weight:600;background:var(--white);color:var(--ink);width:100%}
+.grp-rename:focus{outline:none;border-color:var(--cobalt-mid)}
+.groupmgr-row{display:flex;align-items:center;gap:.625rem;margin-bottom:.625rem}
+.groupmgr-row .chip-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
 .chart-wrap{position:relative;width:100%}
 
 /* ══════════════════════════════════════════════
@@ -604,16 +624,54 @@ input[type=range]:focus{outline:none}
     </div>
   </div>
   <div class="panel">
-    <div class="panel-head"><div>
+    <div class="panel-head" style="flex-wrap:wrap;gap:.75rem"><div>
       <div class="panel-title"><i class="ti ti-list-details"></i> Top itens por custo mensal</div>
-      <div class="panel-hint">8 maiores despesas individuais</div>
-    </div></div>
-    <div class="chart-wrap" style="height:205px"><canvas id="c-detail"></canvas></div>
+      <div class="panel-hint" id="top-items-hint">Participação percentual (%) no custo total</div>
+    </div>
+      <div class="fg" style="width:165px">
+        <label>Intervalo</label>
+        <select id="sel-topn" onchange="renderDashboard()">
+          <option value="5">Top 5</option>
+          <option value="10" selected>Top 10</option>
+          <option value="15">Top 15</option>
+          <option value="20">Top 20</option>
+          <option value="999">Todos os itens</option>
+        </select>
+      </div>
+    </div>
+    <div class="pareto-banner" id="pareto-banner"></div>
+    <div class="chart-wrap" style="height:265px"><canvas id="c-detail"></canvas></div>
   </div>
 </div>
 
 <!-- ──── GRUPOS ───────────────────────────────── -->
 <div id="view-grupos" class="view">
+  <div class="panel" style="margin-bottom:1rem">
+    <div class="panel-head" style="flex-wrap:wrap;gap:.75rem">
+      <div>
+        <div class="panel-title"><i class="ti ti-layers-difference"></i> Configuração dos grupos</div>
+        <div class="panel-hint">Defina os grupos de custo, a unidade de exibição e a forma de pagamento de cada operação</div>
+      </div>
+      <div style="display:flex;gap:.625rem;flex-wrap:wrap;align-items:end">
+        <div class="fg" style="width:175px">
+          <label>Exibir totais em</label>
+          <select id="sel-period" onchange="onPeriodChange()">
+            <option value="mes">Total/mês</option>
+            <option value="semana">Total/semana</option>
+            <option value="dia">Total/dia</option>
+            <option value="hora">Total/hora</option>
+            <option value="container">Por container</option>
+            <option value="veiculo">Por veículo</option>
+          </select>
+        </div>
+        <div class="fg" id="fg-period-qty" style="width:155px;display:none">
+          <label id="period-qty-label">Containers/mês</label>
+          <input type="number" id="period-qty" min="0.01" step="any" value="1" oninput="onPeriodQtyChange()"/>
+        </div>
+        <button class="btn btn-primary" onclick="openGroupManager()"><i class="ti ti-plus"></i> Novo grupo</button>
+      </div>
+    </div>
+  </div>
   <div class="groups-bar" id="groups-bar"></div>
   <div id="grupos-panels"></div>
 </div>
@@ -911,22 +969,95 @@ input[type=range]:focus{outline:none}
   </div>
 </div>
 
+<!-- ─── GROUP MANAGER MODAL ─────────────────── -->
+<div class="modal-overlay" id="groupmgr-overlay" onclick="if(event.target===this)closeGroupManager()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="groupmgr-title" style="max-width:500px">
+    <div class="modal-head">
+      <div class="modal-title" id="groupmgr-title"><i class="ti ti-layers-difference"></i> Grupos de custo</div>
+      <button class="modal-close" onclick="closeGroupManager()" aria-label="Fechar"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" style="grid-template-columns:1fr;display:block;padding:1.25rem">
+      <div class="modal-section-title" style="margin-top:0"><i class="ti ti-pencil"></i> Grupos cadastrados</div>
+      <div style="font-size:.71rem;color:var(--grey-4);margin-bottom:.875rem">Renomeie os grupos padrão ou os grupos que você criou — os itens cadastrados são mantidos.</div>
+      <div id="groupmgr-list"></div>
+      <div class="sep"></div>
+      <div class="modal-section-title"><i class="ti ti-plus"></i> Adicionar novo grupo</div>
+      <div style="display:flex;gap:.625rem;align-items:end">
+        <div class="fg" style="flex:1"><label>Nome do grupo</label><input id="new-group-name" placeholder="Ex.: Frete internacional" onkeydown="if(event.key==='Enter')addGroup()"/></div>
+        <button class="btn btn-primary" onclick="addGroup()" style="height:38px"><i class="ti ti-plus"></i><span class="desk-only"> Adicionar</span></button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <span style="font-size:.7rem;color:var(--grey-4)"><i class="ti ti-info-circle"></i> As alterações são aplicadas imediatamente</span>
+      <div class="btn-row" style="margin-top:0">
+        <button class="btn btn-primary" onclick="closeGroupManager()">Concluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ══════════════════════════════════════════════
    DATA
 ══════════════════════════════════════════════ */
 const GROUPS=[
-  {id:'pessoal',label:'Pessoal',icon:'ti-users',color:'#002FA7',
+  {id:'pessoal',label:'Pessoal',icon:'ti-users',color:'#002FA7',payment:'clt',
     items:[{nome:'Líder de operações',qtd:1,unit:5800,cat:'CLT'},{nome:'Auxiliares',qtd:4,unit:2100,cat:'CLT'},{nome:'Motoristas',qtd:2,unit:2800,cat:'CLT'},{nome:'Vistoriadores',qtd:2,unit:3200,cat:'CLT'},{nome:'Operadores',qtd:3,unit:2400,cat:'CLT'}]},
-  {id:'equipamentos',label:'Equipamentos',icon:'ti-forklift',color:'#0A7E59',
+  {id:'equipamentos',label:'Equipamentos',icon:'ti-forklift',color:'#0A7E59',payment:'boleto',
     items:[{nome:'Empilhadeira',qtd:2,unit:1800,cat:'Aluguel/mês'},{nome:'Rampa de acesso',qtd:1,unit:600,cat:'Aluguel/mês'},{nome:'Implementos empilhadeira',qtd:1,unit:350,cat:'Manutenção'},{nome:'Outdoor',qtd:1,unit:900,cat:'Marketing'},{nome:'Coletes de segurança',qtd:10,unit:45,cat:'EPI'},{nome:'Celulares corporativos',qtd:5,unit:120,cat:'Mensal'}]},
-  {id:'sistema',label:'Sistema',icon:'ti-cpu',color:'#5A3EA8',
+  {id:'sistema',label:'Sistema',icon:'ti-cpu',color:'#5A3EA8',payment:'cartao',
     items:[{nome:'Licença ERP mensal',qtd:1,unit:1200,cat:'SaaS'},{nome:'Hospedagem cloud',qtd:1,unit:480,cat:'Infraestrutura'}]},
-  {id:'internet',label:'Internet',icon:'ti-wifi',color:'#B46A0A',
+  {id:'internet',label:'Internet',icon:'ti-wifi',color:'#B46A0A',payment:'cartao',
     items:[{nome:'5G corporativo',qtd:5,unit:110,cat:'Mensal'}]},
-  {id:'insumos',label:'Insumos',icon:'ti-package',color:'#B0306A',
+  {id:'insumos',label:'Insumos',icon:'ti-package',color:'#B0306A',payment:'pix',
     items:[{nome:'Etiquetas BOPP',qtd:5000,unit:0.08,cat:'Consumível'},{nome:'Ribbon para impressora',qtd:20,unit:18,cat:'Consumível'},{nome:'Materiais de escritório',qtd:1,unit:280,cat:'Mensal'}]},
 ];
+
+/* Payment methods available for each cost group */
+const PAYMENT_OPTIONS=[
+  {value:'pix',label:'Pix'},
+  {value:'boleto',label:'Boleto bancário'},
+  {value:'cartao',label:'Cartão de crédito'},
+  {value:'debito',label:'Cartão de débito'},
+  {value:'transferencia',label:'Transferência (TED/DOC)'},
+  {value:'dinheiro',label:'Dinheiro'},
+  {value:'cheque',label:'Cheque'},
+  {value:'clt',label:'Folha de pagamento (CLT)'},
+  {value:'prazo',label:'Faturado / a prazo'},
+];
+
+/* Display period: converts the monthly base totals into the unit the user wants to see */
+let PERIOD={unit:'mes',qty:1};
+const GROUP_COLOR_PALETTE=['#0A7E59','#5A3EA8','#B46A0A','#B0306A','#1A5FCC','#C23B3B','#2F8F4E','#7A4FB5','#0E7C8C','#A6650A'];
+function periodDivisor(){
+  switch(PERIOD.unit){
+    case 'semana':return 30/7;
+    case 'dia':return 30;
+    case 'hora':return 30*24;
+    case 'container':case 'veiculo':return Math.max(parseFloat(PERIOD.qty)||0.0001,0.0001);
+    default:return 1;
+  }
+}
+function periodSuffix(){
+  switch(PERIOD.unit){
+    case 'semana':return '/semana';
+    case 'dia':return '/dia';
+    case 'hora':return '/hora';
+    case 'container':return '/container';
+    case 'veiculo':return '/veículo';
+    default:return '/mês';
+  }
+}
+function periodColLabel(){
+  switch(PERIOD.unit){
+    case 'semana':return 'Total/semana';
+    case 'dia':return 'Total/dia';
+    case 'hora':return 'Total/hora';
+    case 'container':return 'Total/container';
+    case 'veiculo':return 'Total/veículo';
+    default:return 'Total/mês';
+  }
+}
 
 let activeGroup='pessoal', charts={};
 let currentView='dashboard';
@@ -1123,16 +1254,46 @@ function renderDashboard(){
   });
 
   const allItems=[];
-  GROUPS.forEach(g=>g.items.forEach(i=>allItems.push({label:i.nome.length>16?i.nome.slice(0,16)+'…':i.nome,val:Math.round(i.qtd*i.unit),color:g.color})));
-  allItems.sort((a,b)=>b.val-a.val);const top8=allItems.slice(0,mob?6:8);
+  GROUPS.forEach(g=>g.items.forEach(i=>{
+    const val=i.qtd*i.unit;
+    allItems.push({label:i.nome.length>16?i.nome.slice(0,16)+'…':i.nome,val,pct:total?(val/total*100):0,color:g.color,gid:g.id});
+  }));
+  allItems.sort((a,b)=>b.val-a.val);
+
+  /* Regra 80/20 (Pareto): quantos itens, do total, somam ~80% do custo */
+  let cum=0,paretoCount=0;
+  for(const it of allItems){cum+=it.pct;paretoCount++;if(cum>=80)break;}
+
+  /* Grupo com a maior participação no custo total */
+  const biggestGroup=GROUPS.slice().sort((a,b)=>gT(b)-gT(a))[0];
+  const biggestPct=total?(gT(biggestGroup)/total*100):0;
+
+  const topNsel=document.getElementById('sel-topn');
+  let topN=topNsel?parseInt(topNsel.value):10;
+  if(mob)topN=Math.min(topN,8);
+  const topItems=allItems.slice(0,Math.min(topN,allItems.length));
+
+  const pb=document.getElementById('pareto-banner');
+  if(pb)pb.innerHTML=`
+    <div class="pareto-chip"><i class="ti ti-crown"></i><span><b>${esc(biggestGroup.label)}</b> concentra <b>${biggestPct.toFixed(1)}%</b> do custo total — é o grupo com maior participação</span></div>
+    <div class="pareto-chip amber"><i class="ti ti-chart-pie-2"></i><span>Regra 80/20: <b>${paretoCount}</b> de ${allItems.length} ${allItems.length===1?'item':'itens'} já somam <b>≈${cum.toFixed(0)}%</b> do custo total</span></div>
+  `;
+
   dc('detail');
   charts.detail=new Chart(document.getElementById('c-detail'),{
     type:'bar',
-    data:{labels:top8.map(i=>i.label),datasets:[{label:'Custo/mês',data:top8.map(i=>i.val),backgroundColor:top8.map(i=>i.color+'DD'),borderRadius:4,borderSkipped:false}]},
+    data:{labels:topItems.map(i=>i.label),datasets:[{label:'% do custo total',data:topItems.map(i=>+i.pct.toFixed(2)),
+      backgroundColor:topItems.map(i=>i.color+(i.gid===biggestGroup.id?'FF':'99')),
+      borderColor:topItems.map(i=>i.color),
+      borderWidth:topItems.map(i=>i.gid===biggestGroup.id?2:0),
+      borderRadius:4,borderSkipped:false}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmt(ctx.parsed.x)}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{
+        const it=topItems[ctx.dataIndex];
+        return ' '+fmt(it.val)+'  ('+it.pct.toFixed(1)+'% do total)';
+      }}}},
       scales:{
-        x:{grid:{color:cGrid},ticks:{font:{family:'Inter',size:mob?9:10},color:cTick,callback:v=>fmtS(v)}},
+        x:{grid:{color:cGrid},ticks:{font:{family:'Inter',size:mob?9:10},color:cTick,callback:v=>v+'%'}},
         y:{grid:{display:false},ticks:{font:{family:'Inter',size:mob?9:11},color:cLabel}},
       }},
     plugins:[{id:'hv',afterDatasetsDraw(c){
@@ -1140,7 +1301,7 @@ function renderDashboard(){
       data.datasets.forEach((ds,i)=>{c.getDatasetMeta(i).data.forEach((bar,j)=>{
         ctx.fillStyle=cLabel;ctx.font=`500 ${mob?9:10}px Inter`;
         ctx.textAlign='left';ctx.textBaseline='middle';
-        ctx.fillText(fmtS(ds.data[j]),bar.x+4,bar.y);
+        ctx.fillText(ds.data[j].toFixed(1)+'%',bar.x+4,bar.y);
       });});ctx.restore();
     }}]
   });
@@ -1164,11 +1325,15 @@ function renderGrupos(){
       <div class="panel">
         <div class="grp-meta">
           <div class="gm-label"><i class="ti ${g.icon}" style="margin-right:.3rem"></i>${g.label}</div>
-          <div class="gm-val" id="gm-val-${g.id}">${fmt(gT(g))}<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span></div>
+          <div class="gm-payment">
+            <label>Forma de pagamento</label>
+            <select onchange="setPayment('${g.id}',this.value)">${paymentOpts(g.payment)}</select>
+          </div>
+          <div class="gm-val" id="gm-val-${g.id}">${fmt(gT(g)/periodDivisor())}<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">${periodSuffix()}</span></div>
         </div>
         <div class="tp-table-wrap">
           <table class="tp-table">
-            <thead><tr><th>Item</th><th>Qtd</th><th>Unit. (R$)</th><th>Total/mês</th><th>Regime</th><th></th></tr></thead>
+            <thead><tr><th>Item</th><th>Qtd</th><th>Unit. (R$)</th><th id="th-total-${g.id}">${periodColLabel()}</th><th>Regime</th><th></th></tr></thead>
             <tbody id="tb-${g.id}">${renderRows(g)}</tbody>
           </table>
         </div>
@@ -1194,6 +1359,33 @@ function renderGrupos(){
   GROUPS.forEach(g=>{rebind(g.id);renderGrpChart(g);});
 }
 
+function paymentOpts(current){
+  return PAYMENT_OPTIONS.map(o=>`<option value="${o.value}"${o.value===current?' selected':''}>${o.label}</option>`).join('');
+}
+function setPayment(gid,val){
+  const g=GROUPS.find(x=>x.id===gid);if(!g)return;
+  g.payment=val;
+}
+/* Período de exibição dos totais (mês, semana, dia, hora, container, veículo) */
+function onPeriodChange(){
+  const sel=document.getElementById('sel-period');
+  PERIOD.unit=sel.value;
+  const fg=document.getElementById('fg-period-qty');
+  const lbl=document.getElementById('period-qty-label');
+  if(PERIOD.unit==='container'||PERIOD.unit==='veiculo'){
+    fg.style.display='';
+    lbl.textContent=PERIOD.unit==='container'?'Containers/mês':'Veículos/mês';
+  }else{
+    fg.style.display='none';
+  }
+  renderGrupos();
+}
+function onPeriodQtyChange(){
+  const v=parseFloat(document.getElementById('period-qty').value);
+  PERIOD.qty=(v&&v>0)?v:1;
+  renderGrupos();
+}
+
 function catOpts(gid){
   return(gid==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro']).map(o=>`<option>${o}</option>`).join('');
 }
@@ -1204,7 +1396,7 @@ function renderRows(g){
       <td class="fw6">${it.nome}</td>
       <td><input class="edit-cell" type="number" value="${it.qtd}" min="0.01" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="qtd"/></td>
       <td><input class="edit-cell" type="number" value="${it.unit}" step="any" data-gid="${g.id}" data-idx="${idx}" data-field="unit"/></td>
-      <td class="fw6" style="color:${g.color}" id="rt-${g.id}-${idx}">${fmt(it.qtd*it.unit)}</td>
+      <td class="fw6" style="color:${g.color}" id="rt-${g.id}-${idx}">${fmt(it.qtd*it.unit/periodDivisor())}</td>
       <td><select class="edit-cell" style="width:110px" data-gid="${g.id}" data-idx="${idx}" data-field="cat">
         ${(g.id==='pessoal'?['CLT','PJ','Diarista','Outro']:['Aluguel/mês','Manutenção','Marketing','EPI','Mensal','SaaS','Infraestrutura','Consumível','Outro']).map(o=>`<option${o===it.cat?' selected':''}>${o}</option>`).join('')}
       </select></td>
@@ -1218,12 +1410,12 @@ function rebind(gid){
       const idx=+this.dataset.idx,field=this.dataset.field;
       g.items[idx][field]=field==='cat'?this.value:(parseFloat(this.value)||0);
       const tc=document.getElementById(`rt-${gid}-${idx}`);
-      if(tc)tc.textContent=fmt(g.items[idx].qtd*g.items[idx].unit);
+      if(tc)tc.textContent=fmt(g.items[idx].qtd*g.items[idx].unit/periodDivisor());
       updMeta(g);renderGrpChart(g);updChip(g);
     };
   });
 }
-function updMeta(g){const el=document.getElementById('gm-val-'+g.id);if(el)el.innerHTML=fmt(gT(g))+'<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">/mês</span>';}
+function updMeta(g){const el=document.getElementById('gm-val-'+g.id);if(el)el.innerHTML=fmt(gT(g)/periodDivisor())+'<span style="font-size:.7rem;font-weight:400;color:var(--cobalt-mid);margin-left:.4rem">'+periodSuffix()+'</span>';}
 function updChip(g){const chips=document.querySelectorAll('.grp-chip');const idx=GROUPS.findIndex(x=>x.id===g.id);const c=chips[idx]?.querySelector('.chip-count');if(c)c.textContent=g.items.length;}
 function renderGrpChart(g){
   const el=document.getElementById('cg-'+g.id);if(!el||!g.items.length)return;
@@ -1270,6 +1462,62 @@ function removeItem(gid,idx){
   document.getElementById(`tb-${gid}`).innerHTML=renderRows(g);
   rebind(gid);updMeta(g);renderGrpChart(g);updChip(g);toast('Item removido');
 }
+
+/* ══════════════════════════════════════════════
+   GERENCIADOR DE GRUPOS (renomear / criar / remover)
+══════════════════════════════════════════════ */
+function openGroupManager(){
+  renderGroupManagerList();
+  document.getElementById('groupmgr-overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeGroupManager(){
+  document.getElementById('groupmgr-overlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+function renderGroupManagerList(){
+  document.getElementById('groupmgr-list').innerHTML=GROUPS.map(g=>`
+    <div class="groupmgr-row">
+      <span class="chip-dot" style="background:${g.color}"></span>
+      <input class="grp-rename" value="${esc(g.label)}" onchange="renameGroup('${g.id}',this.value)"/>
+      <button class="btn btn-danger" onclick="deleteGroup('${g.id}')" style="padding:.4rem .6rem" title="Remover grupo"><i class="ti ti-trash"></i></button>
+    </div>`).join('');
+}
+function renameGroup(gid,val){
+  const g=GROUPS.find(x=>x.id===gid);if(!g)return;
+  const name=val.trim();
+  g.label=name||g.label;
+  renderGroupManagerList();
+  if(currentView==='grupos')renderGrupos();
+  else if(currentView==='dashboard')renderDashboard();
+  toast('Grupo atualizado');
+}
+function addGroup(){
+  const input=document.getElementById('new-group-name');
+  const name=input.value.trim();
+  if(!name){alert('Informe o nome do novo grupo.');return;}
+  const color=GROUP_COLOR_PALETTE[GROUPS.length%GROUP_COLOR_PALETTE.length];
+  const id='grp_'+Date.now();
+  GROUPS.push({id,label:name,icon:'ti-folder',color,payment:'pix',items:[]});
+  input.value='';
+  renderGroupManagerList();
+  activeGroup=id;
+  if(currentView==='grupos')renderGrupos();
+  toast('Grupo "'+name+'" adicionado');
+}
+function deleteGroup(gid){
+  if(GROUPS.length<=1){alert('É preciso manter ao menos um grupo de custo.');return;}
+  const g=GROUPS.find(x=>x.id===gid);if(!g)return;
+  if(g.items.length&&!confirm(`O grupo "${g.label}" tem ${g.items.length} item(ns). Remover mesmo assim?`))return;
+  const idx=GROUPS.findIndex(x=>x.id===gid);
+  GROUPS.splice(idx,1);
+  if(activeGroup===gid)activeGroup=GROUPS[0].id;
+  renderGroupManagerList();
+  if(currentView==='grupos')renderGrupos();
+  else if(currentView==='dashboard')renderDashboard();
+  toast('Grupo removido');
+}
+
 
 /* ══════════════════════════════════════════════
    PRECIFICAR
