@@ -4,18 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <meta name="theme-color" content="#002FA7"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="TradePrice"/>
 <meta name="description" content="Gestão de custos para importação e exportação"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
-<meta name="mobile-web-app-capable" content="yes"/>
 <title>TradePrice — Gestão de Custos</title>
-<!-- build: operacao-zero-editavel-v6-correto-20260623 -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial,sans-serif' font-size='26' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
-<link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='24' font-family='Arial,sans-serif' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
+<!-- build: operacao-zero-editavel-v9-botao-download-sem-pwa-20260623 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -45,7 +37,7 @@
   --tr:.16s ease;
   /* mobile nav heights */
   --mob-topbar:52px;
-  --mob-bottomnav:64px;
+  --mob-bottomnav:112px;
   /* fixed brand surfaces (unaffected by theme) */
   --brand:#002FA7; --toast-bg:#1A1E2E; --toast-on:#FFFFFF;
   --topbar-bg:rgba(255,255,255,.92);
@@ -106,14 +98,6 @@ body{
 .nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}
 .nav-item.active{color:#fff;background:rgba(255,255,255,.13);border-left-color:rgba(255,255,255,.8)}
 .sidebar-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:.7rem 1.25rem .2rem}
-#pwa-banner{
-  display:none;margin:.75rem 1rem;
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
-  border-radius:var(--r-sm);padding:.6rem .875rem;
-  font-size:.72rem;color:rgba(255,255,255,.8);cursor:pointer;transition:background var(--tr);
-}
-#pwa-banner:hover{background:rgba(255,255,255,.16)}
-#pwa-banner i{font-size:.9rem;vertical-align:middle;margin-right:.35rem}
 
 /* — Main — */
 .main{flex:1;overflow-y:auto;display:flex;flex-direction:column;position:relative}
@@ -129,7 +113,7 @@ body{
 .content{padding:1.75rem 2rem;flex:1}
 
 /* Mobile-only elements hidden on desktop */
-.mob-topbar,.mob-fab,.mob-sheet,.mob-overlay{display:none}
+.mob-topbar,.mob-fab,.mob-sheet,.mob-overlay,.mob-download-fab{display:none}
 
 /* ══════════════════════════════════════════════
    MOBILE LAYOUT  (<768px)
@@ -165,6 +149,14 @@ body{
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;font-size:.95rem;
   }
+  .mob-download-fab{
+    position:fixed;right:1rem;bottom:calc(var(--mob-bottomnav) + .85rem + env(safe-area-inset-bottom));z-index:32;
+    border:none;border-radius:999px;background:var(--brand);color:#fff;
+    box-shadow:0 8px 24px rgba(0,47,167,.28);
+    padding:.62rem .8rem;display:flex;align-items:center;gap:.4rem;
+    font-size:.72rem;font-weight:600;letter-spacing:-.01em;cursor:pointer;
+  }
+  .mob-download-fab i{font-size:1rem}
   /* Scrollable content area */
   .main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .content{
@@ -175,7 +167,7 @@ body{
   /* ── FIXED BOTTOM NAV ── */
   .mob-fab,.mob-sheet,.mob-overlay,.mob-sheet-handle,.mob-sheet-title{display:none!important}
   .mob-nav-grid{
-    display:grid;grid-template-columns:repeat(7,1fr);
+    display:grid;grid-template-columns:repeat(4,1fr);
     gap:0;
     position:fixed;left:0;right:0;bottom:0;z-index:45;
     background:var(--white);
@@ -557,6 +549,10 @@ input[type=range]:focus{outline:none}
   </div>
 </div>
 
+<button class="mob-download-fab" onclick="downloadAppHTML()" aria-label="Baixar app HTML">
+  <i class="ti ti-file-download"></i><span>Baixar app</span>
+</button>
+
 <!-- ══════════════════════════════════════════════
      SHELL (desktop: row / mobile: column)
 ══════════════════════════════════════════════ -->
@@ -578,10 +574,10 @@ input[type=range]:focus{outline:none}
   <div class="sidebar-label">Dados</div>
   <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
   <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
+  <button class="nav-item" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
   <div style="flex:1"></div>
-  <div id="pwa-banner" onclick="installPWA()"><i class="ti ti-device-mobile-down"></i> Instalar aplicativo</div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v 2.2 sem cache · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v 2.2 · 2026</div>
   </div>
 </aside>
 
@@ -595,6 +591,7 @@ input[type=range]:focus{outline:none}
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
+      <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
       <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar CSV</button>
       <button class="btn btn-primary" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
     </div>
@@ -767,75 +764,6 @@ input[type=range]:focus{outline:none}
 
   <div class="panel">
     <div class="panel-head"><div>
-      <div class="panel-title"><i class="ti ti-building-bank"></i> Investimentos</div>
-      <div class="panel-hint">Controle os valores que entram na precificação. Use o controle deslizante ou digite o número manualmente.</div>
-    </div></div>
-    <div class="prec-grid" style="grid-template-columns:1fr 1fr">
-      <div class="slider-block">
-        <div class="slider-header"><label>Amortização mensal (R$)</label><span class="slider-val" id="sv-inv-amort">R$ 0</span></div>
-        <input type="range" id="sl-inv-amort" min="0" max="50000" step="100" value="0" oninput="setInvestment('amort',this.value)"/>
-        <div class="fg" style="margin-top:.65rem;margin-bottom:0">
-          <label>Valor manual</label>
-          <input type="number" id="num-inv-amort" min="0" step="any" value="0" oninput="setInvestment('amort',this.value)"/>
-        </div>
-        <div style="font-size:.67rem;color:var(--grey-4);margin-top:.45rem">Valor sincronizado com Amortização na aba Precificar.</div>
-      </div>
-      <div class="slider-block">
-        <div class="slider-header"><label>Custos envolvidos (R$)</label><span class="slider-val" id="sv-inv-custos">R$ 0</span></div>
-        <input type="range" id="sl-inv-custos" min="0" max="50000" step="100" value="0" oninput="setInvestment('custos',this.value)"/>
-        <div class="fg" style="margin-top:.65rem;margin-bottom:0">
-          <label>Valor manual</label>
-          <input type="number" id="num-inv-custos" min="0" step="any" value="0" oninput="setInvestment('custos',this.value)"/>
-        </div>
-        <div style="font-size:.67rem;color:var(--grey-4);margin-top:.45rem">Custos adicionais não cobertos pelos grupos de custo.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><div>
-      <div class="panel-title"><i class="ti ti-list-check"></i> Impacto na precificação</div>
-      <div class="panel-hint">Resumo dos valores adicionais considerados no simulador</div>
-    </div></div>
-    <div class="breakdown-list" id="inv-breakdown"></div>
-  </div>
-</div>
-
-<!-- ──── AJUSTES ──────────────────────────────── -->
-<div id="view-ajustes" class="view">
-  <div class="kpis" id="adj-kpis" style="margin-bottom:1rem"></div>
-
-  <div class="panel">
-    <div class="panel-head"><div>
-      <div class="panel-title"><i class="ti ti-receipt-2"></i> Custos envolvidos</div>
-      <div class="panel-hint">Despesas mensais adicionais não cobertas pelos grupos de custo</div>
-    </div></div>
-    <div class="prec-grid" style="grid-template-columns:1fr 1fr">
-      <div class="slider-block">
-        <div class="slider-header"><label>Custos envolvidos (R$)</label><span class="slider-val" id="sv-adj-custos">R$ 0</span></div>
-        <input type="range" id="sl-adj-custos" min="0" max="50000" step="100" value="0" oninput="setAdj('custos',this.value)"/>
-      </div>
-      <div class="slider-block">
-        <div class="slider-header"><label>Recursos humanos (R$)</label><span class="slider-val" id="sv-adj-rh">R$ 0</span></div>
-        <input type="range" id="sl-adj-rh" min="0" max="100000" step="100" value="0" oninput="setAdj('rh',this.value)"/>
-      </div>
-      <div class="slider-block">
-        <div class="slider-header"><label>Despesas operacionais/comerciais (R$)</label><span class="slider-val" id="sv-adj-opex">R$ 0</span></div>
-        <input type="range" id="sl-adj-opex" min="0" max="50000" step="100" value="0" oninput="setAdj('opex',this.value)"/>
-      </div>
-      <div class="slider-block">
-        <div class="slider-header"><label>Despesas administrativas (R$)</label><span class="slider-val" id="sv-adj-admin">R$ 0</span></div>
-        <input type="range" id="sl-adj-admin" min="0" max="50000" step="100" value="0" oninput="setAdj('admin',this.value)"/>
-      </div>
-      <div class="slider-block" style="grid-column:1 / -1">
-        <div class="slider-header"><label>Outras despesas (R$)</label><span class="slider-val" id="sv-adj-outras">R$ 0</span></div>
-        <input type="range" id="sl-adj-outras" min="0" max="50000" step="100" value="0" oninput="setAdj('outras',this.value)"/>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><div>
       <div class="panel-title"><i class="ti ti-percentage"></i> Impostos</div>
       <div class="panel-hint">Carga tributária sobre o preço de venda — aplicada no cálculo de precificação</div>
     </div></div>
@@ -934,19 +862,20 @@ input[type=range]:focus{outline:none}
     <div class="btn-row" style="margin-top:0">
       <button class="btn btn-primary" onclick="exportCSV()"><i class="ti ti-file-text"></i> Exportar CSV</button>
       <button class="btn" onclick="exportJSON()"><i class="ti ti-braces"></i> Exportar JSON</button>
+      <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app HTML</button>
     </div>
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivo 100% standalone, zero dependências locais:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
-      <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">tradeprice.html</code> para o repositório</li>
+      <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code> para o repositório</li>
       <li>Renomeie para <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code></li>
       <li>Ative GitHub Pages em <em>Settings → Pages → Source → main</em></li>
       <li>Acesse em <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">usuario.github.io/repositorio</code></li>
     </ol>
     <div style="margin-top:1rem;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);border-radius:var(--r-sm);padding:.75rem 1rem;font-size:.75rem;color:var(--cobalt-mid)">
-      <i class="ti ti-device-mobile"></i> &nbsp;Instalável como PWA no Android e desktop via Chrome — botão aparece no menu lateral ou na barra de endereço.
+      <i class="ti ti-device-mobile"></i> &nbsp;Arquivo standalone sem PWA/cache local ativo — ideal para publicar direto no GitHub Pages sem travar versões antigas.
     </div>
   </div>
 </div>
@@ -1231,8 +1160,10 @@ function switchView(v){
   const keys=['dashboard','grupos','precificar','operacao','investimentos','ajustes','importar','exportar'];
   const idx=keys.indexOf(v);
   if(idx>=0){
-    document.querySelectorAll('.nav-item')[idx].classList.add('active');
-    document.querySelectorAll('.mob-nav-btn')[idx].classList.add('active');
+    const desktopItems=document.querySelectorAll('.nav-item');
+    const mobileItems=document.querySelectorAll('.mob-nav-btn');
+    if(desktopItems[idx]) desktopItems[idx].classList.add('active');
+    if(mobileItems[idx]) mobileItems[idx].classList.add('active');
   }
   const m=PAGE_META[v];
   document.getElementById('page-title').textContent=m.title;
@@ -2035,6 +1966,27 @@ function processFile(file){
   };
   reader.readAsArrayBuffer(file);
 }
+async function downloadAppHTML(){
+  const fileName='tradeprice_app.html';
+  const fallbackHTML=()=>`<!DOCTYPE html>\n${document.documentElement.outerHTML}`;
+  try{
+    let html='';
+    if(/^https?:$/i.test(location.protocol)){
+      try{
+        const res=await fetch(location.href.split('#')[0],{cache:'no-store'});
+        if(res.ok)html=await res.text();
+      }catch(e){}
+    }
+    if(!html||!/^\s*<!DOCTYPE html>/i.test(html))html=fallbackHTML();
+    dl(new Blob([html],{type:'text/html;charset=utf-8'}),fileName);
+    toast('App HTML baixado');
+  }catch(e){
+    try{
+      dl(new Blob([fallbackHTML()],{type:'text/html;charset=utf-8'}),fileName);
+      toast('App HTML baixado');
+    }catch(err){toast('Não foi possível baixar o app neste navegador');}
+  }
+}
 function exportCSV(){
   const hdr='grupo,nome,quantidade,custo_unitario,categoria,total_mensal';
   const rows=[];GROUPS.forEach(g=>g.items.forEach(i=>rows.push(`${g.label},"${i.nome}",${i.qtd},${i.unit},"${i.cat}",${(i.qtd*i.unit).toFixed(2)}`)));
@@ -2060,35 +2012,15 @@ function downloadTemplate(){
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
 /* ══════════════════════════════════════════════
-   PWA
+   LIMPEZA DE CACHE ANTIGO (sem registrar PWA novo)
 ══════════════════════════════════════════════ */
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();deferredPrompt=e;
-  document.getElementById('pwa-banner').style.display='block';
-});
-function installPWA(){
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(r=>{
-    if(r.outcome==='accepted'){toast('Aplicativo instalado!');document.getElementById('pwa-banner').style.display='none';}
-    deferredPrompt=null;
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister())).catch(()=>{});
   });
 }
-window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('TradePrice instalado');});
-
-/* CACHE / SERVICE WORKER RESET
-   Versão segura para GitHub Pages: não registra service worker.
-   Remove service workers e caches antigos que podem prender versões anteriores. */
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.getRegistrations()
-    .then(regs=>regs.forEach(reg=>reg.unregister()))
-    .catch(()=>{});
-}
 if('caches' in window){
-  caches.keys()
-    .then(keys=>Promise.all(keys.filter(k=>k.startsWith('tradeprice')).map(k=>caches.delete(k))))
-    .catch(()=>{});
+  caches.keys().then(keys=>Promise.all(keys.filter(k=>String(k).toLowerCase().includes('tradeprice')).map(k=>caches.delete(k)))).catch(()=>{});
 }
 
 /* ══════════════════════════════════════════════
@@ -2145,12 +2077,23 @@ function addOperacaoGroup(){
 function updateOperacaoGroup(i,key,val){
   const g=OP_ZERO_GROUPS[i];
   if(!g)return;
-  if(key==='label')g.label=val;
-  else if(key==='periodUnit'){
+  if(key==='label'){
+    // Não re-renderiza enquanto digita: evita perda de foco no campo de nome.
+    g.label=val;
+    return;
+  }
+  if(key==='periodUnit'){
     g.periodUnit=val;
     if(!needsQty(val))g.periodQty=1;
-  }else if(key==='periodQty')g.periodQty=Math.max(parseFloat(val)||1,0.0001);
-  renderOperacao();
+    renderOperacao();
+    return;
+  }
+  if(key==='periodQty'){
+    // Mantém o input ativo enquanto o usuário digita a quantidade manualmente.
+    const n=parseFloat(val);
+    if(!Number.isNaN(n)&&n>0)g.periodQty=n;
+    return;
+  }
 }
 function removeOperacaoGroup(i){
   OP_ZERO_GROUPS.splice(i,1);
