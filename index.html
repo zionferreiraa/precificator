@@ -7,7 +7,7 @@
 <meta name="description" content="Gestão de custos para importação e exportação"/>
 <title>TradePrice — Gestão de Custos</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='24' font-family='Arial,sans-serif' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
-<!-- build: operacao-zero-editavel-v12-operacao-design-icones-removidos-sem-pwa-20260623 -->
+<!-- build: operacao-zero-editavel-v13-confirmacao-visual-sem-pwa-20260623 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -111,6 +111,11 @@ body{
 .topbar-sub{font-size:.72rem;color:var(--grey-4);margin-top:1px}
 .topbar-actions{display:flex;gap:.5rem}
 .content{padding:1.75rem 2rem;flex:1}
+
+
+.build-chip{display:inline-flex;align-items:center;margin-top:.35rem;padding:.18rem .45rem;border-radius:999px;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);color:var(--cobalt-mid);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+@media(min-width:768px){.mob-topbar,.mob-download-fab,.mob-nav-grid,.mob-fab,.mob-sheet,.mob-overlay,.mob-sheet-handle,.mob-sheet-title{display:none!important;visibility:hidden!important;pointer-events:none!important}}
+.mob-fab,.mob-sheet,.mob-overlay,.mob-sheet-handle,.mob-sheet-title{display:none!important;visibility:hidden!important;pointer-events:none!important}
 
 /* Mobile-only elements hidden on desktop */
 .mob-topbar,.mob-fab,.mob-sheet,.mob-overlay,.mob-download-fab,.mob-nav-grid{display:none}
@@ -640,7 +645,7 @@ input[type=range]:focus{outline:none}
   <button class="nav-item" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
   <div style="flex:1"></div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v 2.2 · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v13 · 2026</div>
   </div>
 </aside>
 
@@ -651,6 +656,7 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v13</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
@@ -1014,6 +1020,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v13</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivo 100% standalone, zero dependências locais:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code> para o repositório</li>
