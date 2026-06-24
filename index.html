@@ -7,7 +7,7 @@
 <meta name="description" content="Gestão de custos para importação e exportação"/>
 <title>TradePrice — Gestão de Custos</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='24' font-family='Arial,sans-serif' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
-<!-- build: operacao-zero-editavel-v14-historico-pdf-alertas-mobilemais-sem-pwa-20260623 -->
+<!-- build: operacao-zero-editavel-v15-clientes-crm-pipeline-sem-pwa-20260623 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -639,6 +639,26 @@ input[type=range]:focus{outline:none}
 .pd-sign{flex:1;text-align:center;padding-top:2.25rem;border-top:1px solid var(--pd-line)}
 .pd-breakdown-note{font-size:.64rem;color:var(--pd-muted);margin-top:.4rem;font-style:italic}
 
+/* ─── CLIENTES / CRM ─────────────────────────────── */
+.crm-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:1rem;align-items:stretch;margin-bottom:1rem}
+.crm-hero-card{background:linear-gradient(135deg,rgba(0,47,167,.08),rgba(255,255,255,.96));border:1px solid rgba(0,47,167,.12);border-radius:var(--r-lg);padding:1.15rem;box-shadow:var(--shadow-sm)}
+.crm-eyebrow{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .55rem;border-radius:999px;background:var(--cobalt-xlt);color:var(--klein);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+.crm-title{font-family:var(--ff-d);font-size:1.45rem;font-weight:800;color:var(--ink);letter-spacing:-.04em;margin-bottom:.4rem}
+.crm-sub{font-size:.82rem;color:var(--grey-4);line-height:1.7;max-width:680px}
+.crm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.crm-stat{background:var(--white);border:1px solid var(--grey-2);border-radius:var(--r);padding:.85rem;min-height:94px;display:flex;flex-direction:column;justify-content:space-between}
+.crm-stat span{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey-4);font-weight:700}.crm-stat b{font-family:var(--ff-d);font-size:1.28rem;color:var(--ink)}
+.crm-subtabs-shell{background:var(--white);border:1px solid var(--grey-2);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);margin-bottom:1rem;overflow:hidden}
+.crm-subtabs-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1rem 1.05rem;cursor:pointer;user-select:none}
+.crm-subtabs-head strong{display:flex;align-items:center;gap:.5rem;font-family:var(--ff-d);font-size:.95rem;color:var(--ink)}
+.crm-subtabs-head span{font-size:.74rem;color:var(--grey-4);line-height:1.5}.crm-arrow{width:36px;height:36px;border-radius:999px;border:1px solid var(--grey-2);background:var(--grey-0);display:grid;place-items:center;color:var(--klein);transition:.18s ease}.crm-subtabs-shell.open .crm-arrow{transform:rotate(180deg);background:var(--cobalt-xlt)}
+.crm-subtabs{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding:0 1.05rem 1rem}.crm-subtabs-shell.open .crm-subtabs{display:grid}.crm-subtab{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:var(--r);padding:.85rem;display:flex;align-items:center;gap:.7rem;text-align:left;cursor:pointer;transition:.18s ease;color:var(--grey-5)}.crm-subtab i{font-size:1.25rem;color:var(--klein)}.crm-subtab b{display:block;color:var(--ink);font-size:.82rem}.crm-subtab span{display:block;color:var(--grey-4);font-size:.68rem;margin-top:.12rem}.crm-subtab.active{background:var(--cobalt-xlt);border-color:rgba(0,47,167,.22);box-shadow:inset 0 0 0 1px rgba(0,47,167,.08)}
+.crm-panel-grid{display:grid;grid-template-columns:minmax(300px,.88fr) minmax(0,1.12fr);gap:1rem;align-items:start}.crm-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.crm-form-grid .fg.full{grid-column:1/-1}.crm-form-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.9rem}.crm-list{display:grid;gap:.75rem;margin-top:.9rem}.crm-card{border:1px solid var(--grey-2);border-radius:var(--r);background:var(--white);padding:.9rem;display:grid;grid-template-columns:1fr auto;gap:.75rem;align-items:start}.crm-card-title{font-weight:800;color:var(--ink);font-size:.92rem}.crm-card-meta{font-size:.72rem;color:var(--grey-4);line-height:1.7;margin-top:.15rem}.crm-card-notes{font-size:.72rem;color:var(--grey-5);background:var(--grey-0);border-radius:10px;padding:.55rem .65rem;margin-top:.55rem;line-height:1.55}.crm-card-actions{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}.crm-empty{border:1px dashed var(--grey-2);border-radius:var(--r);padding:1rem;text-align:center;color:var(--grey-4);font-size:.78rem;background:var(--grey-0)}
+.crm-link-box{background:linear-gradient(135deg,var(--ink),#22304A);color:#fff;border-radius:var(--r-lg);padding:1rem;box-shadow:var(--shadow-md);margin-top:1rem}.crm-link-box .panel-title,.crm-link-box label{color:#fff}.crm-link-box .panel-hint{color:rgba(255,255,255,.68)}.crm-link-box select,.crm-link-box input,.crm-link-box textarea{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.18)}.crm-link-box select option{color:#111}.crm-link-box input::placeholder,.crm-link-box textarea::placeholder{color:rgba(255,255,255,.48)}
+.crm-pipeline-view{display:none}.crm-pipeline-view.active,.crm-cadastro-view.active{display:block}.crm-cadastro-view{display:none}.pipeline-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem;margin-bottom:1rem}.pipeline-kpi{background:var(--white);border:1px solid var(--grey-2);border-radius:var(--r);padding:.9rem}.pipeline-kpi span{font-size:.64rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey-4);font-weight:800}.pipeline-kpi b{display:block;font-family:var(--ff-d);font-size:1.15rem;color:var(--ink);margin-top:.35rem}.pipeline-charts{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:1rem;margin-bottom:1rem}.pipeline-chart-card{background:var(--white);border:1px solid var(--grey-2);border-radius:var(--r-lg);padding:1rem;box-shadow:var(--shadow-sm);min-height:320px}.pipeline-chart-card canvas{max-height:240px}.pipeline-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}.pipeline-col{background:var(--grey-0);border:1px solid var(--grey-2);border-radius:var(--r-lg);padding:.8rem}.pipeline-col-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.7rem}.pipeline-col-title{display:flex;align-items:center;gap:.45rem;font-size:.76rem;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}.pipeline-count{font-size:.68rem;color:var(--grey-4);background:var(--white);border:1px solid var(--grey-2);border-radius:999px;padding:.15rem .45rem}.deal-card{background:var(--white);border:1px solid var(--grey-2);border-radius:var(--r);padding:.8rem;margin-bottom:.65rem;box-shadow:0 8px 20px rgba(16,24,40,.04)}.deal-card b{display:block;color:var(--ink);font-size:.84rem}.deal-card .deal-client{font-size:.7rem;color:var(--grey-4);margin:.15rem 0 .5rem}.deal-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.deal-metrics span{background:var(--grey-0);border-radius:9px;padding:.42rem;font-size:.66rem;color:var(--grey-4)}.deal-metrics strong{display:block;color:var(--ink);font-size:.72rem;margin-top:.12rem}.deal-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.65rem}.deal-next{font-size:.68rem;color:var(--grey-5);line-height:1.45;margin-top:.55rem;border-top:1px solid var(--grey-1);padding-top:.5rem}.pipeline-empty{grid-column:1/-1;background:var(--white);border:1px dashed var(--grey-2);border-radius:var(--r-lg);padding:1.25rem;text-align:center;color:var(--grey-4);font-size:.82rem}
+@media(max-width:1100px){.crm-hero,.crm-panel-grid,.pipeline-charts{grid-template-columns:1fr}.pipeline-board{grid-template-columns:1fr 1fr}.pipeline-kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:767px){.crm-hero-card{padding:1rem}.crm-title{font-size:1.18rem}.crm-stats,.crm-form-grid,.crm-subtabs,.pipeline-kpis,.pipeline-board{grid-template-columns:1fr}.crm-panel-grid{gap:.85rem}.crm-card{grid-template-columns:1fr}.crm-card-actions{justify-content:flex-start}.crm-link-box{padding:.9rem}.pipeline-chart-card{min-height:280px}.crm-subtabs-head{align-items:flex-start}.crm-subtabs-head span{display:none}}
+
 @media(max-width:900px){
   .modal-body{grid-template-columns:1fr}
   .modal-form{border-right:none;border-bottom:1px solid var(--grey-2);max-height:42vh}
@@ -688,6 +708,7 @@ input[type=range]:focus{outline:none}
   <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> Grupos de custo</button>
   <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
   <button class="nav-item" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação do Zero</button>
+  <button class="nav-item" onclick="switchView('clientes')"><i class="ti ti-users-group"></i> Clientes</button>
   <button class="nav-item" onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
   <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
   <div class="sidebar-label">Dados</div>
@@ -901,6 +922,108 @@ input[type=range]:focus{outline:none}
   </div>
 </div>
 
+
+<!-- ──── CLIENTES / CRM ─────────────────────────────── -->
+<div id="view-clientes" class="view">
+  <div class="crm-hero">
+    <div class="crm-hero-card">
+      <div class="crm-eyebrow"><i class="ti ti-users-group"></i> Clientes + propostas</div>
+      <div class="crm-title">Organize clientes, propostas e precificações em um só lugar</div>
+      <div class="crm-sub">Cadastre clientes, vincule a precificação atual ou uma simulação salva e acompanhe cada oportunidade no pipeline comercial.</div>
+    </div>
+    <div class="crm-stats" id="crm-stats"></div>
+  </div>
+
+  <div class="crm-subtabs-shell open" id="clientes-subtabs-shell">
+    <div class="crm-subtabs-head" onclick="toggleClientSubtabs()">
+      <div>
+        <strong><i class="ti ti-chevron-down"></i> Área de Clientes</strong>
+        <span>Clique na seta para abrir as opções da aba e alternar entre cadastro e pipeline.</span>
+      </div>
+      <button class="crm-arrow" type="button" aria-label="Abrir opções"><i class="ti ti-chevron-down"></i></button>
+    </div>
+    <div class="crm-subtabs">
+      <button class="crm-subtab active" id="client-tab-cadastro" onclick="setClientSubtab('cadastro');event.stopPropagation()">
+        <i class="ti ti-user-plus"></i><div><b>Cadastro de clientes</b><span>Dados simples e vínculo com precificação</span></div>
+      </button>
+      <button class="crm-subtab" id="client-tab-pipeline" onclick="setClientSubtab('pipeline');event.stopPropagation()">
+        <i class="ti ti-chart-dots-3"></i><div><b>Pipeline de propostas</b><span>Funil visual com gráficos e status</span></div>
+      </button>
+    </div>
+  </div>
+
+  <div id="clientes-cadastro-view" class="crm-cadastro-view active">
+    <div class="crm-panel-grid">
+      <div>
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title"><i class="ti ti-user-plus"></i> Cadastro de cliente</div>
+              <div class="panel-hint">Campos simples para identificar e acompanhar o relacionamento.</div>
+            </div>
+          </div>
+          <input type="hidden" id="crm-client-id"/>
+          <div class="crm-form-grid">
+            <div class="fg"><label>Nome do contato</label><input id="crm-client-name" placeholder="Ex.: João Silva"/></div>
+            <div class="fg"><label>Empresa</label><input id="crm-client-company" placeholder="Ex.: ABC Logística"/></div>
+            <div class="fg"><label>Telefone / WhatsApp</label><input id="crm-client-phone" placeholder="(00) 00000-0000"/></div>
+            <div class="fg"><label>E-mail</label><input id="crm-client-email" placeholder="cliente@empresa.com"/></div>
+            <div class="fg full"><label>Segmento</label><input id="crm-client-segment" placeholder="Ex.: importação, indústria, transporte, varejo"/></div>
+            <div class="fg full"><label>Observações</label><textarea id="crm-client-notes" placeholder="Histórico, particularidades da operação ou próximos pontos de atenção"></textarea></div>
+          </div>
+          <div class="crm-form-actions">
+            <button class="btn btn-primary" onclick="saveClientFromForm()"><i class="ti ti-device-floppy"></i> Salvar cliente</button>
+            <button class="btn" onclick="clearClientForm()"><i class="ti ti-eraser"></i> Limpar</button>
+          </div>
+        </div>
+
+        <div class="crm-link-box">
+          <div class="panel-head" style="padding:0;margin-bottom:.9rem">
+            <div>
+              <div class="panel-title"><i class="ti ti-link"></i> Vincular precificação ao cliente</div>
+              <div class="panel-hint">Use a simulação atual ou uma precificação salva no histórico.</div>
+            </div>
+          </div>
+          <div class="crm-form-grid">
+            <div class="fg"><label>Cliente</label><select id="crm-link-client"></select></div>
+            <div class="fg"><label>Precificação</label><select id="crm-link-pricing"></select></div>
+            <div class="fg"><label>Status</label><select id="crm-link-status"></select></div>
+            <div class="fg"><label>Próxima ação</label><input id="crm-link-next" placeholder="Ex.: ligar sexta-feira às 10h"/></div>
+            <div class="fg full"><label>Observação da proposta</label><textarea id="crm-link-notes" placeholder="Ex.: cliente pediu revisão de armazenagem"></textarea></div>
+          </div>
+          <div class="crm-form-actions">
+            <button class="btn btn-primary" onclick="linkPricingToClient()"><i class="ti ti-link-plus"></i> Vincular proposta</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title"><i class="ti ti-address-book"></i> Clientes cadastrados</div>
+            <div class="panel-hint">Edite, remova ou use para vincular novas precificações.</div>
+          </div>
+        </div>
+        <div id="crm-client-list" class="crm-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="clientes-pipeline-view" class="crm-pipeline-view">
+    <div class="pipeline-kpis" id="pipeline-kpis"></div>
+    <div class="pipeline-charts">
+      <div class="pipeline-chart-card">
+        <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-pie-2"></i> Distribuição por status</div>
+        <canvas id="crm-chart-status"></canvas>
+      </div>
+      <div class="pipeline-chart-card">
+        <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-bar"></i> Valor no pipeline</div>
+        <canvas id="crm-chart-value"></canvas>
+      </div>
+    </div>
+    <div class="pipeline-board" id="pipeline-board"></div>
+  </div>
+</div>
 
 <!-- ──── INVESTIMENTOS ─────────────────────────── -->
 <div id="view-investimentos" class="view">
@@ -1116,6 +1239,7 @@ input[type=range]:focus{outline:none}
      MOBILE: FIXED BOTTOM NAV — LIMPO
 ══════════════════════════════════════════════ -->
 <div class="mob-more-panel" id="mob-more-panel" aria-label="Mais opções">
+  <button onclick="switchView('clientes')"><i class="ti ti-users-group"></i> Clientes</button>
   <button onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação</button>
   <button onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
   <button onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
@@ -1339,6 +1463,9 @@ const PROPOSAL_DEFAULTS={
 let PROPOSAL={...PROPOSAL_DEFAULTS};
 let SIM=null;
 const PRICING_HISTORY_KEY='tp-pricing-history-v1';
+const CLIENTS_KEY='tp-clients-v1';
+const CLIENT_PROPOSALS_KEY='tp-client-proposals-v1';
+let CLIENT_SUBTAB='cadastro';
 let OP_STEP_ACTIVE=0;
 
 /* ══════════════════════════════════════════════
@@ -1400,6 +1527,7 @@ const PAGE_META={
   grupos:{title:'Grupos de custo',sub:'Adicione, edite e organize itens por categoria'},
   precificar:{title:'Precificação',sub:'Simule o preço com base nos custos reais'},
   operacao:{title:'Operação do Zero',sub:'Crie uma operação limpa com grupos editáveis'},
+  clientes:{title:'Clientes',sub:'Cadastre clientes e acompanhe propostas vinculadas às precificações'},
   investimentos:{title:'Investimentos',sub:'Amortização e custos envolvidos com controle manual ou deslizante'},
   ajustes:{title:'Ajustes',sub:'Custos adicionais e impostos'},
   importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
@@ -1431,6 +1559,7 @@ function switchView(v){
   if(v==='grupos')renderGrupos();
   if(v==='precificar')setTimeout(runSim,30);
   if(v==='operacao')renderOperacao();
+  if(v==='clientes')renderClientes();
   if(v==='investimentos')renderInvestimentos();
   if(v==='ajustes')renderAjustes();
   if(v==='importar'){renderImportMeta();}
@@ -1472,6 +1601,7 @@ function refreshChartsForTheme(){
   if(currentView==='dashboard')renderDashboard();
   else if(currentView==='grupos'){renderGrupos();GROUPS.forEach(g=>renderGrpChart(g));}
   else if(currentView==='precificar')runSim();
+  else if(currentView==='clientes')renderClientes();
 }
 
 /* ══════════════════════════════════════════════
@@ -1980,6 +2110,227 @@ function runSim(){
 }
 
 
+
+/* ══════════════════════════════════════════════
+   CLIENTES / CRM / PIPELINE
+══════════════════════════════════════════════ */
+const PIPELINE_STATUSES=[
+  {id:'rascunho',label:'Rascunho',icon:'ti-pencil',color:'#7A849A'},
+  {id:'enviada',label:'Proposta enviada',icon:'ti-send',color:'#0047AB'},
+  {id:'negociacao',label:'Em negociação',icon:'ti-messages',color:'#B96B0A'},
+  {id:'aprovada',label:'Aprovada',icon:'ti-circle-check',color:'#1B8F6E'},
+  {id:'perdida',label:'Perdida',icon:'ti-circle-x',color:'#C23B3B'},
+  {id:'arquivada',label:'Arquivada',icon:'ti-archive',color:'#5A3EA8'},
+];
+function loadClients(){try{return JSON.parse(localStorage.getItem(CLIENTS_KEY)||'[]')||[];}catch(e){return[];}}
+function saveClients(list){try{localStorage.setItem(CLIENTS_KEY,JSON.stringify(list));}catch(e){}}
+function loadClientProposals(){try{return JSON.parse(localStorage.getItem(CLIENT_PROPOSALS_KEY)||'[]')||[];}catch(e){return[];}}
+function saveClientProposals(list){try{localStorage.setItem(CLIENT_PROPOSALS_KEY,JSON.stringify(list));}catch(e){}}
+function statusById(id){return PIPELINE_STATUSES.find(s=>s.id===id)||PIPELINE_STATUSES[0];}
+function getClientDisplay(c){return (c.company||c.name||'Cliente sem nome').trim();}
+function toggleClientSubtabs(){document.getElementById('clientes-subtabs-shell')?.classList.toggle('open');}
+function setClientSubtab(tab){
+  CLIENT_SUBTAB=tab==='pipeline'?'pipeline':'cadastro';
+  document.getElementById('client-tab-cadastro')?.classList.toggle('active',CLIENT_SUBTAB==='cadastro');
+  document.getElementById('client-tab-pipeline')?.classList.toggle('active',CLIENT_SUBTAB==='pipeline');
+  document.getElementById('clientes-cadastro-view')?.classList.toggle('active',CLIENT_SUBTAB==='cadastro');
+  document.getElementById('clientes-pipeline-view')?.classList.toggle('active',CLIENT_SUBTAB==='pipeline');
+  if(CLIENT_SUBTAB==='pipeline')setTimeout(renderPipeline,30);
+}
+function clearClientForm(){
+  ['crm-client-id','crm-client-name','crm-client-company','crm-client-phone','crm-client-email','crm-client-segment','crm-client-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+}
+function saveClientFromForm(){
+  const idEl=document.getElementById('crm-client-id');
+  const id=idEl?.value||('cli-'+Date.now());
+  const client={
+    id,
+    name:(document.getElementById('crm-client-name')?.value||'').trim(),
+    company:(document.getElementById('crm-client-company')?.value||'').trim(),
+    phone:(document.getElementById('crm-client-phone')?.value||'').trim(),
+    email:(document.getElementById('crm-client-email')?.value||'').trim(),
+    segment:(document.getElementById('crm-client-segment')?.value||'').trim(),
+    notes:(document.getElementById('crm-client-notes')?.value||'').trim(),
+    updatedAt:new Date().toISOString()
+  };
+  if(!client.name&&!client.company){toast('Informe pelo menos nome ou empresa');return;}
+  const list=loadClients();
+  const idx=list.findIndex(c=>c.id===id);
+  if(idx>=0)list[idx]={...list[idx],...client}; else list.unshift({...client,createdAt:new Date().toISOString()});
+  saveClients(list);
+  clearClientForm();
+  renderClients();
+  toast(idx>=0?'Cliente atualizado':'Cliente cadastrado');
+}
+function editClient(id){
+  const c=loadClients().find(x=>x.id===id);if(!c)return;
+  const map={'crm-client-id':c.id,'crm-client-name':c.name,'crm-client-company':c.company,'crm-client-phone':c.phone,'crm-client-email':c.email,'crm-client-segment':c.segment,'crm-client-notes':c.notes};
+  Object.entries(map).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v||'';});
+  setClientSubtab('cadastro');
+  document.getElementById('crm-client-name')?.focus();
+}
+function deleteClient(id){
+  saveClients(loadClients().filter(c=>c.id!==id));
+  saveClientProposals(loadClientProposals().filter(p=>p.clientId!==id));
+  renderClients();
+  toast('Cliente removido');
+}
+function clientOptionsHtml(selected=''){
+  const clients=loadClients();
+  if(!clients.length)return '<option value="">Cadastre um cliente primeiro</option>';
+  return '<option value="">Selecione</option>'+clients.map(c=>`<option value="${c.id}"${c.id===selected?' selected':''}>${esc(getClientDisplay(c))}</option>`).join('');
+}
+function pricingOptionsHtml(){
+  const history=loadPricingHistory();
+  const opts=['<option value="current">Simulação atual</option>'];
+  opts.push(...history.map(h=>`<option value="hist:${h.id}">${esc(h.name)} · ${new Date(h.date).toLocaleDateString('pt-BR')}</option>`));
+  return opts.join('');
+}
+function statusOptionsHtml(selected='enviada'){
+  return PIPELINE_STATUSES.map(s=>`<option value="${s.id}"${s.id===selected?' selected':''}>${s.label}</option>`).join('');
+}
+function renderClientStats(){
+  const clients=loadClients();
+  const props=loadClientProposals();
+  const totalValue=props.filter(p=>!['perdida','arquivada'].includes(p.status)).reduce((a,p)=>a+(+p.value||0),0);
+  const won=props.filter(p=>p.status==='aprovada').reduce((a,p)=>a+(+p.value||0),0);
+  const el=document.getElementById('crm-stats');
+  if(el)el.innerHTML=`
+    <div class="crm-stat"><span>Clientes</span><b>${clients.length}</b><small>cadastrados</small></div>
+    <div class="crm-stat"><span>Pipeline</span><b>${fmtS(totalValue)}</b><small>em aberto</small></div>
+    <div class="crm-stat"><span>Aprovadas</span><b>${fmtS(won)}</b><small>receita/mês</small></div>`;
+}
+function renderClientList(){
+  const el=document.getElementById('crm-client-list');if(!el)return;
+  const clients=loadClients();
+  if(!clients.length){el.innerHTML='<div class="crm-empty"><i class="ti ti-user-plus"></i><br/>Nenhum cliente cadastrado ainda.</div>';return;}
+  const propCount=loadClientProposals().reduce((acc,p)=>{acc[p.clientId]=(acc[p.clientId]||0)+1;return acc;},{});
+  el.innerHTML=clients.map(c=>`
+    <div class="crm-card">
+      <div>
+        <div class="crm-card-title">${esc(getClientDisplay(c))}</div>
+        <div class="crm-card-meta">
+          ${c.name?`Contato: ${esc(c.name)}<br/>`:''}${c.phone?`Telefone: ${esc(c.phone)}<br/>`:''}${c.email?`E-mail: ${esc(c.email)}<br/>`:''}${c.segment?`Segmento: ${esc(c.segment)}<br/>`:''}
+          ${propCount[c.id]||0} proposta(s) vinculada(s)
+        </div>
+        ${c.notes?`<div class="crm-card-notes">${esc(c.notes)}</div>`:''}
+      </div>
+      <div class="crm-card-actions">
+        <button class="btn" style="height:34px;padding:.45rem .6rem" onclick="editClient('${c.id}')"><i class="ti ti-pencil"></i></button>
+        <button class="btn btn-danger" style="height:34px;padding:.45rem .6rem" onclick="deleteClient('${c.id}')"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+function renderClientLinker(){
+  const c=document.getElementById('crm-link-client');if(c)c.innerHTML=clientOptionsHtml();
+  const p=document.getElementById('crm-link-pricing');if(p)p.innerHTML=pricingOptionsHtml();
+  const s=document.getElementById('crm-link-status');if(s)s.innerHTML=statusOptionsHtml('enviada');
+}
+function linkPricingToClient(){
+  const clientId=document.getElementById('crm-link-client')?.value||'';
+  if(!clientId){toast('Selecione um cliente');return;}
+  const source=document.getElementById('crm-link-pricing')?.value||'current';
+  let snap=null,historyId='';
+  if(source.startsWith('hist:')){
+    historyId=source.replace('hist:','');
+    const h=loadPricingHistory().find(x=>x.id===historyId);
+    if(!h){toast('Precificação não encontrada');return;}
+    snap=h;
+  }else{
+    snap=pricingSnapshot();
+  }
+  const status=document.getElementById('crm-link-status')?.value||'enviada';
+  const nextAction=(document.getElementById('crm-link-next')?.value||'').trim();
+  const notes=(document.getElementById('crm-link-notes')?.value||'').trim();
+  const props=loadClientProposals();
+  props.unshift({
+    id:'prop-'+Date.now(),clientId,historyId,status,nextAction,notes,
+    title:snap.name||getOperationName(),date:new Date().toISOString(),
+    value:+(snap.sim?.fat||0),unitPrice:+(snap.sim?.precoUnit||0),margin:+(snap.sim?.margemUnit||0),volume:+(snap.sim?.un||0),
+    snapshot:snap
+  });
+  saveClientProposals(props);
+  const n=document.getElementById('crm-link-next');if(n)n.value='';
+  const no=document.getElementById('crm-link-notes');if(no)no.value='';
+  renderClients();
+  toast('Precificação vinculada ao cliente');
+}
+function deleteClientProposal(id){
+  saveClientProposals(loadClientProposals().filter(p=>p.id!==id));
+  renderClients();
+  toast('Proposta removida');
+}
+function moveClientProposal(id,status){
+  const props=loadClientProposals();
+  const p=props.find(x=>x.id===id);if(!p)return;
+  p.status=status;p.updatedAt=new Date().toISOString();
+  saveClientProposals(props);renderPipeline();renderClientStats();
+}
+function downloadClientProposalPDF(id){
+  const p=loadClientProposals().find(x=>x.id===id);if(!p){toast('Proposta não encontrada');return;}
+  downloadCommercialPDF(null,p.snapshot);
+}
+function renderPipeline(){
+  const clients=loadClients();
+  const props=loadClientProposals();
+  const clientMap=Object.fromEntries(clients.map(c=>[c.id,c]));
+  const activeProps=props.filter(p=>p.status!=='arquivada');
+  const openValue=activeProps.filter(p=>!['perdida','aprovada'].includes(p.status)).reduce((a,p)=>a+(+p.value||0),0);
+  const wonValue=props.filter(p=>p.status==='aprovada').reduce((a,p)=>a+(+p.value||0),0);
+  const avgTicket=props.length?props.reduce((a,p)=>a+(+p.value||0),0)/props.length:0;
+  const closeRate=props.length?props.filter(p=>p.status==='aprovada').length/props.length*100:0;
+  const k=document.getElementById('pipeline-kpis');
+  if(k)k.innerHTML=`
+    <div class="pipeline-kpi"><span>Propostas</span><b>${props.length}</b></div>
+    <div class="pipeline-kpi"><span>Em aberto</span><b>${fmtS(openValue)}</b></div>
+    <div class="pipeline-kpi"><span>Aprovadas</span><b>${fmtS(wonValue)}</b></div>
+    <div class="pipeline-kpi"><span>Conversão</span><b>${closeRate.toFixed(0)}%</b></div>`;
+  renderPipelineCharts(props);
+  const board=document.getElementById('pipeline-board');if(!board)return;
+  if(!props.length){board.innerHTML='<div class="pipeline-empty"><i class="ti ti-chart-dots-3"></i><br/>Nenhuma proposta vinculada ainda. Cadastre um cliente e vincule uma precificação para montar o pipeline.</div>';return;}
+  const cols=['rascunho','enviada','negociacao','aprovada','perdida','arquivada'];
+  board.innerHTML=cols.map(status=>{
+    const st=statusById(status);
+    const items=props.filter(p=>p.status===status);
+    return `<div class="pipeline-col">
+      <div class="pipeline-col-head"><div class="pipeline-col-title"><i class="ti ${st.icon}" style="color:${st.color}"></i>${st.label}</div><div class="pipeline-count">${items.length}</div></div>
+      ${items.map(p=>{
+        const c=clientMap[p.clientId]||{};
+        return `<div class="deal-card">
+          <b>${esc(p.title||'Proposta')}</b>
+          <div class="deal-client">${esc(getClientDisplay(c))}</div>
+          <div class="deal-metrics"><span>Valor/mês<strong>${fmt(p.value||0)}</strong></span><span>Preço/un.<strong>${fmt(p.unitPrice||0)}</strong></span></div>
+          ${p.nextAction?`<div class="deal-next"><i class="ti ti-calendar-event"></i> ${esc(p.nextAction)}</div>`:''}
+          ${p.notes?`<div class="deal-next"><i class="ti ti-notes"></i> ${esc(p.notes)}</div>`:''}
+          <div class="deal-actions">
+            <select onchange="moveClientProposal('${p.id}',this.value)" style="height:32px;font-size:.7rem;padding:.3rem .45rem">${statusOptionsHtml(p.status)}</select>
+            <button class="btn" style="height:32px;padding:.35rem .5rem" onclick="downloadClientProposalPDF('${p.id}')"><i class="ti ti-file-type-pdf"></i></button>
+            <button class="btn btn-danger" style="height:32px;padding:.35rem .5rem" onclick="deleteClientProposal('${p.id}')"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>`}).join('')||'<div class="crm-empty" style="padding:.8rem">Sem propostas</div>'}
+    </div>`;
+  }).join('');
+}
+function renderPipelineCharts(props){
+  dc('crmStatus');dc('crmValue');
+  const statusCanvas=document.getElementById('crm-chart-status');
+  const valueCanvas=document.getElementById('crm-chart-value');
+  if(!statusCanvas||!valueCanvas||!window.Chart)return;
+  const cGrid=cv('--grey-1'),cTick=cv('--grey-4'),cInk=cv('--ink');
+  const labels=PIPELINE_STATUSES.map(s=>s.label);
+  const counts=PIPELINE_STATUSES.map(s=>props.filter(p=>p.status===s.id).length);
+  const values=PIPELINE_STATUSES.map(s=>props.filter(p=>p.status===s.id).reduce((a,p)=>a+(+p.value||0),0));
+  const colors=PIPELINE_STATUSES.map(s=>s.color);
+  charts.crmStatus=new Chart(statusCanvas,{type:'doughnut',data:{labels,datasets:[{data:counts,backgroundColor:colors,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'bottom',labels:{color:cTick,usePointStyle:true,boxWidth:8,font:{size:11}}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} proposta(s)`}}}}});
+  charts.crmValue=new Chart(valueCanvas,{type:'bar',data:{labels,datasets:[{label:'Valor no pipeline',data:values,backgroundColor:colors,borderRadius:10,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fmt(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{color:cTick,font:{size:10}}},y:{grid:{color:cGrid},ticks:{color:cTick,callback:v=>fmtS(v)}}}}});
+}
+function renderClients(){
+  renderClientStats();
+  renderClientList();
+  renderClientLinker();
+  setClientSubtab(CLIENT_SUBTAB);
+}
+
 /* ══════════════════════════════════════════════
    ALERTAS INTELIGENTES + HISTÓRICO + PDF COMERCIAL
 ══════════════════════════════════════════════ */
@@ -2100,9 +2451,9 @@ function buildCommercialDocHTML(snap){
     <div class="pd-breakdown-note">Relatório gerado automaticamente com base nas informações preenchidas no TradePrice. Use como apoio comercial e revise os dados antes de apresentar ao cliente.</div>
   </div>`;
 }
-async function downloadCommercialPDF(historyId){
+async function downloadCommercialPDF(historyId,snapOverride){
   const hist=historyId?loadPricingHistory().find(x=>x.id===historyId):null;
-  const snap=hist||pricingSnapshot();
+  const snap=snapOverride||hist||pricingSnapshot();
   if(!window.html2canvas||!window.jspdf){toast('Recursos de PDF ainda carregando, tente novamente');return;}
   const holder=document.createElement('div');
   holder.style.cssText='position:fixed;left:-9999px;top:0;width:794px;background:#fff;z-index:-1';
@@ -2579,6 +2930,7 @@ renderAjustes();
 renderInvestimentos();
 renderOperacao();
 renderPricingHistory();
+renderClients();
 renderSmartAlerts();
 </script>
 </body>
