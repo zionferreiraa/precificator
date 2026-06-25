@@ -7,7 +7,7 @@
 <meta name="description" content="Gestão de custos para importação e exportação"/>
 <title>TradePrice — Gestão de Custos</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='24' font-family='Arial,sans-serif' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
-<!-- build: operacao-zero-editavel-v15-clientes-crm-pipeline-sem-pwa-20260623 -->
+<!-- build: operacao-zero-editavel-v16-clientes-dashboard-dark-pipeline-menu-sem-pwa-20260625 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -669,6 +669,49 @@ input[type=range]:focus{outline:none}
   .prop-doc{padding:8mm 6mm;font-size:.68rem}
   .pd-grid2,.pd-terms-grid,.pd-footer{grid-template-columns:1fr;flex-direction:column;gap:.75rem}
 }
+
+
+/* ══════════════════════════════════════════════
+   V16 — CLIENTES, PIPELINE NO MENU E DASHBOARD
+══════════════════════════════════════════════ */
+.nav-subitem{
+  display:none;align-items:center;gap:9px;margin:.1rem .75rem .25rem 1.55rem;padding:.52rem .85rem;
+  border:1px solid rgba(255,255,255,.10);border-radius:9px;background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.74);font-family:var(--ff-b);font-size:.74rem;font-weight:600;cursor:pointer;text-align:left;
+  transition:background var(--tr),color var(--tr),border-color var(--tr),transform var(--tr);
+}
+.nav-subitem i{font-size:.92rem}.nav-subitem:hover{background:rgba(255,255,255,.11);color:#fff;transform:translateX(1px)}
+.nav-subitem.visible{display:flex}.nav-subitem.active{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.24);color:#fff}
+
+/* Dashboard moderno */
+.dash-hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,.55fr);gap:1rem;margin-bottom:1rem;align-items:stretch}
+.dash-hero-main{position:relative;overflow:hidden;border:1px solid var(--grey-2);border-radius:22px;padding:1.35rem 1.45rem;background:
+  radial-gradient(circle at 0 0,rgba(0,71,171,.14),transparent 34%),linear-gradient(135deg,var(--white),var(--grey-0));box-shadow:var(--sh-sm)}
+.dash-hero-main::after{content:'';position:absolute;right:-70px;top:-80px;width:210px;height:210px;border-radius:50%;background:rgba(0,71,171,.08);pointer-events:none}
+.dash-eyebrow{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .6rem;border-radius:999px;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);color:var(--cobalt-mid);font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.dash-hero h2{font-family:var(--ff-d);font-size:1.65rem;line-height:1.05;letter-spacing:-.055em;color:var(--ink);max-width:680px;margin-bottom:.5rem}
+.dash-hero p{font-size:.84rem;color:var(--grey-4);line-height:1.7;max-width:760px}
+.dash-hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1.15rem;position:relative;z-index:1}
+.dash-hero-meta span{background:rgba(255,255,255,.72);border:1px solid var(--grey-2);border-radius:14px;padding:.78rem .85rem;min-width:0}
+.dash-hero-meta b{display:block;font-family:var(--ff-d);font-size:1rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dash-hero-meta small{display:block;color:var(--grey-4);font-size:.66rem;margin-top:.18rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+.dash-side-card{background:var(--white);border:1px solid var(--grey-2);border-radius:22px;padding:1rem;box-shadow:var(--sh-sm);display:flex;flex-direction:column;gap:.55rem}.dash-side-title{font-family:var(--ff-d);font-weight:800;color:var(--ink);font-size:.9rem;display:flex;align-items:center;gap:.45rem;margin-bottom:.25rem}.dash-side-title i{color:var(--cobalt-mid)}
+.dash-action{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:13px;padding:.75rem .82rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;color:var(--grey-5);font-family:var(--ff-b);font-size:.78rem;font-weight:700;cursor:pointer;transition:.18s ease}.dash-action span{display:flex;align-items:center;gap:.42rem}.dash-action i:first-child{color:var(--cobalt-mid)}.dash-action:hover{background:var(--cobalt-xlt);border-color:var(--cobalt-lt);color:var(--ink)}
+.dash-kpi-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:.8rem;margin-bottom:1rem}.dash-kpi-grid .kpi-card{border-radius:16px;padding:1rem 1.05rem;box-shadow:var(--sh-sm)}
+.dash-chart-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);gap:1rem}.dash-panel{border-radius:20px;padding:1.15rem 1.25rem;box-shadow:var(--sh-sm)}.dash-top-panel{margin-top:1rem}.dash-filter{width:175px}
+:root[data-theme="dark"] .dash-hero-main{background:radial-gradient(circle at 0 0,rgba(110,155,255,.18),transparent 35%),linear-gradient(135deg,#182034,#111827);border-color:var(--grey-2)}
+:root[data-theme="dark"] .dash-hero-meta span{background:rgba(27,34,51,.78);border-color:var(--grey-2)}
+
+/* Clientes/CRM refinado e legível no dark mode */
+.crm-hero{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:1rem;margin-bottom:1rem}.crm-hero-card{background:linear-gradient(135deg,var(--white),var(--grey-0));border:1px solid var(--grey-2);border-radius:22px;padding:1.3rem 1.35rem;box-shadow:var(--sh-sm);position:relative;overflow:hidden}.crm-hero-card::after{content:'';position:absolute;right:-42px;top:-58px;width:160px;height:160px;border-radius:50%;background:rgba(0,71,171,.08);pointer-events:none}.crm-eyebrow{position:relative;z-index:1}.crm-title{position:relative;z-index:1;font-size:1.5rem;line-height:1.08;max-width:760px}.crm-sub{position:relative;z-index:1;max-width:760px}.crm-stats{gap:.7rem}.crm-stat{border-radius:16px;padding:.95rem;background:var(--white);box-shadow:var(--sh-sm)}
+.crm-workspace-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--grey-2);background:var(--white);border-radius:18px;padding:1rem 1.1rem;box-shadow:var(--sh-sm);margin-bottom:1rem}.crm-workspace-label{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--grey-4);font-weight:800;margin-bottom:.22rem}.crm-workspace-bar strong{display:flex;align-items:center;gap:.45rem;font-family:var(--ff-d);font-size:1rem;color:var(--ink)}.crm-workspace-bar strong i{color:var(--cobalt-mid)}.crm-workspace-bar small{display:block;margin-top:.18rem;color:var(--grey-4);font-size:.72rem;line-height:1.45}.crm-workspace-actions{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+.crm-panel-grid{grid-template-columns:minmax(340px,.92fr) minmax(0,1.08fr);gap:1rem}.crm-panel-grid>.panel,.crm-panel-grid>div>.panel{border-radius:20px;padding:1.25rem;box-shadow:var(--sh-sm)}.crm-form-grid{gap:.9rem}.crm-list{gap:.8rem}.crm-card{border-radius:16px;padding:1rem;background:var(--white);box-shadow:var(--sh-sm)}.crm-card-notes{background:var(--grey-0);border:1px solid var(--grey-1)}
+.crm-link-box{background:var(--white)!important;color:var(--ink)!important;border:1px solid var(--grey-2);border-radius:20px;padding:1.25rem;box-shadow:var(--sh-sm);margin-top:1rem;position:relative;overflow:hidden}.crm-link-box::before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:var(--cobalt-mid)}.crm-link-box .panel-title,.crm-link-box .panel-hint,.crm-link-box label{color:var(--ink)!important}.crm-link-box .panel-hint,.crm-link-box label{color:var(--grey-4)!important}.crm-link-box input,.crm-link-box select,.crm-link-box textarea{background:var(--grey-0);color:var(--ink);border-color:var(--grey-2)}
+.pipeline-kpi,.pipeline-chart-card,.pipeline-col,.deal-card{box-shadow:var(--sh-sm)}.pipeline-chart-card{border-radius:20px}.pipeline-col{border-radius:18px;background:var(--grey-0)}.deal-card{border-radius:15px}.deal-metrics span{border:1px solid var(--grey-1)}
+:root[data-theme="dark"] .crm-hero-card{background:linear-gradient(135deg,#182034,#111827);border-color:var(--grey-2)}:root[data-theme="dark"] .crm-hero-card::after{background:rgba(110,155,255,.10)}:root[data-theme="dark"] .crm-stat,:root[data-theme="dark"] .crm-workspace-bar,:root[data-theme="dark"] .crm-link-box,:root[data-theme="dark"] .crm-card,:root[data-theme="dark"] .pipeline-kpi,:root[data-theme="dark"] .pipeline-chart-card,:root[data-theme="dark"] .deal-card{background:#1B2233!important;border-color:var(--grey-2);color:var(--ink)!important}:root[data-theme="dark"] .crm-link-box input,:root[data-theme="dark"] .crm-link-box select,:root[data-theme="dark"] .crm-link-box textarea{background:#111827;color:var(--ink);border-color:var(--grey-2)}:root[data-theme="dark"] .crm-link-box .btn:not(.btn-primary){background:#111827;color:var(--grey-5);border-color:var(--grey-2)}
+
+@media(max-width:1100px){.dash-hero,.dash-chart-grid,.crm-hero,.crm-panel-grid{grid-template-columns:1fr}.dash-kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:767px){.dash-hero{gap:.85rem}.dash-hero-main,.dash-side-card{border-radius:18px;padding:1rem}.dash-hero h2{font-size:1.25rem}.dash-hero-meta{grid-template-columns:1fr}.dash-kpi-grid{grid-template-columns:1fr 1fr}.dash-chart-grid{grid-template-columns:1fr}.dash-filter{width:100%}.crm-workspace-bar{align-items:flex-start;flex-direction:column}.crm-workspace-actions{width:100%;justify-content:stretch}.crm-workspace-actions .btn{flex:1;justify-content:center}.crm-panel-grid{grid-template-columns:1fr}.crm-link-box{padding:1rem}.crm-title{font-size:1.2rem}}
+
 </style>
 </head>
 <body>
@@ -708,7 +751,8 @@ input[type=range]:focus{outline:none}
   <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> Grupos de custo</button>
   <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
   <button class="nav-item" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação do Zero</button>
-  <button class="nav-item" onclick="switchView('clientes')"><i class="ti ti-users-group"></i> Clientes</button>
+  <button class="nav-item" onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> Clientes</button>
+  <button class="nav-subitem client-pipeline-sub" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
   <button class="nav-item" onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
   <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
   <div class="sidebar-label">Dados</div>
@@ -728,7 +772,7 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v14</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v16</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
@@ -742,31 +786,51 @@ input[type=range]:focus{outline:none}
 
 <!-- ──── DASHBOARD ────────────────────────────── -->
 <div id="view-dashboard" class="view active">
-  <div class="kpis" id="kpi-area"></div>
-  <div class="grid2">
-    <div class="panel">
+  <section class="dash-hero">
+    <div class="dash-hero-main">
+      <div class="dash-eyebrow"><i class="ti ti-sparkles"></i> Painel executivo</div>
+      <h2>Visão clara da operação em tempo real</h2>
+      <p>Acompanhe custos, concentração por grupo e itens mais relevantes antes de precificar ou gerar proposta.</p>
+      <div class="dash-hero-meta" id="dash-hero-meta">
+        <span><b id="dash-hero-total">R$ 0</b><small>Custo total mensal</small></span>
+        <span><b id="dash-hero-primary">—</b><small>Maior grupo</small></span>
+        <span><b id="dash-hero-items">0</b><small>Itens mapeados</small></span>
+      </div>
+    </div>
+    <div class="dash-side-card">
+      <div class="dash-side-title"><i class="ti ti-route"></i> Próximas ações</div>
+      <button class="dash-action" onclick="switchView('grupos')"><span><i class="ti ti-layers-difference"></i> Revisar grupos</span><i class="ti ti-chevron-right"></i></button>
+      <button class="dash-action" onclick="switchView('precificar')"><span><i class="ti ti-calculator"></i> Abrir precificação</span><i class="ti ti-chevron-right"></i></button>
+      <button class="dash-action" onclick="openClientPipeline()"><span><i class="ti ti-chart-dots-3"></i> Ver pipeline</span><i class="ti ti-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <div class="kpis dash-kpi-grid" id="kpi-area"></div>
+
+  <div class="dash-chart-grid">
+    <div class="panel dash-panel">
       <div class="panel-head"><div>
         <div class="panel-title"><i class="ti ti-chart-bar"></i> Custo total por grupo</div>
         <div class="panel-hint">Valor absoluto mensal por categoria</div>
       </div></div>
       <div class="chart-legend" id="leg-bar"></div>
-      <div class="chart-wrap" style="height:215px"><canvas id="c-grupos"></canvas></div>
+      <div class="chart-wrap" style="height:240px"><canvas id="c-grupos"></canvas></div>
     </div>
-    <div class="panel">
+    <div class="panel dash-panel">
       <div class="panel-head"><div>
         <div class="panel-title"><i class="ti ti-chart-donut-3"></i> Participação percentual</div>
         <div class="panel-hint">Peso de cada grupo no custo total</div>
       </div></div>
       <div class="chart-legend" id="leg-pie"></div>
-      <div class="chart-wrap" style="height:215px"><canvas id="c-pie"></canvas></div>
+      <div class="chart-wrap" style="height:240px"><canvas id="c-pie"></canvas></div>
     </div>
   </div>
-  <div class="panel">
+  <div class="panel dash-panel dash-top-panel">
     <div class="panel-head" style="flex-wrap:wrap;gap:.75rem"><div>
       <div class="panel-title"><i class="ti ti-list-details"></i> Top itens por custo mensal</div>
       <div class="panel-hint" id="top-items-hint">Participação percentual (%) no custo total</div>
     </div>
-      <div class="fg" style="width:165px">
+      <div class="fg dash-filter">
         <label>Intervalo</label>
         <select id="sel-topn" onchange="renderDashboard()">
           <option value="5">Top 5</option>
@@ -778,7 +842,7 @@ input[type=range]:focus{outline:none}
       </div>
     </div>
     <div class="pareto-banner" id="pareto-banner"></div>
-    <div class="chart-wrap" style="height:265px"><canvas id="c-detail"></canvas></div>
+    <div class="chart-wrap" style="height:295px"><canvas id="c-detail"></canvas></div>
   </div>
 </div>
 
@@ -934,21 +998,15 @@ input[type=range]:focus{outline:none}
     <div class="crm-stats" id="crm-stats"></div>
   </div>
 
-  <div class="crm-subtabs-shell open" id="clientes-subtabs-shell">
-    <div class="crm-subtabs-head" onclick="toggleClientSubtabs()">
-      <div>
-        <strong><i class="ti ti-chevron-down"></i> Área de Clientes</strong>
-        <span>Clique na seta para abrir as opções da aba e alternar entre cadastro e pipeline.</span>
-      </div>
-      <button class="crm-arrow" type="button" aria-label="Abrir opções"><i class="ti ti-chevron-down"></i></button>
+  <div class="crm-workspace-bar">
+    <div>
+      <span class="crm-workspace-label">Área atual</span>
+      <strong id="crm-current-section"><i class="ti ti-user-plus"></i> Cadastro de clientes</strong>
+      <small id="crm-current-hint">Use esta área para cadastrar clientes e vincular uma precificação.</small>
     </div>
-    <div class="crm-subtabs">
-      <button class="crm-subtab active" id="client-tab-cadastro" onclick="setClientSubtab('cadastro');event.stopPropagation()">
-        <i class="ti ti-user-plus"></i><div><b>Cadastro de clientes</b><span>Dados simples e vínculo com precificação</span></div>
-      </button>
-      <button class="crm-subtab" id="client-tab-pipeline" onclick="setClientSubtab('pipeline');event.stopPropagation()">
-        <i class="ti ti-chart-dots-3"></i><div><b>Pipeline de propostas</b><span>Funil visual com gráficos e status</span></div>
-      </button>
+    <div class="crm-workspace-actions">
+      <button class="btn" onclick="openClientesCadastro()"><i class="ti ti-user-plus"></i> Cadastro</button>
+      <button class="btn" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
     </div>
   </div>
 
@@ -1217,7 +1275,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v14</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v16</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivo 100% standalone, zero dependências locais:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code> para o repositório</li>
@@ -1239,7 +1297,8 @@ input[type=range]:focus{outline:none}
      MOBILE: FIXED BOTTOM NAV — LIMPO
 ══════════════════════════════════════════════ -->
 <div class="mob-more-panel" id="mob-more-panel" aria-label="Mais opções">
-  <button onclick="switchView('clientes')"><i class="ti ti-users-group"></i> Clientes</button>
+  <button onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> Clientes</button>
+  <button onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
   <button onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação</button>
   <button onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
   <button onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
@@ -1533,6 +1592,35 @@ const PAGE_META={
   importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
   exportar:{title:'Exportar / GitHub',sub:'Baixe dados ou publique no GitHub Pages'},
 };
+function syncClientSubnav(){
+  const sub=document.querySelector('.client-pipeline-sub');
+  if(!sub)return;
+  const show=currentView==='clientes';
+  sub.classList.toggle('visible',show);
+  sub.classList.toggle('active',show&&CLIENT_SUBTAB==='pipeline');
+}
+function updateClientWorkspaceCopy(){
+  const title=document.getElementById('crm-current-section');
+  const hint=document.getElementById('crm-current-hint');
+  if(title)title.innerHTML=CLIENT_SUBTAB==='pipeline'?'<i class="ti ti-chart-dots-3"></i> Pipeline de propostas':'<i class="ti ti-user-plus"></i> Cadastro de clientes';
+  if(hint)hint.textContent=CLIENT_SUBTAB==='pipeline'?'Acompanhe status, valor em aberto, conversão e propostas vinculadas.':'Use esta área para cadastrar clientes e vincular uma precificação.';
+  if(currentView==='clientes'){
+    const pageTitle=document.getElementById('page-title');
+    const pageSub=document.getElementById('page-sub');
+    const mobSub=document.getElementById('mob-page-sub');
+    if(pageTitle)pageTitle.textContent=CLIENT_SUBTAB==='pipeline'?'Pipeline de propostas':'Clientes';
+    if(pageSub)pageSub.textContent=CLIENT_SUBTAB==='pipeline'?'Funil comercial das precificações vinculadas aos clientes':'Cadastre clientes e vincule propostas às precificações';
+    if(mobSub)mobSub.textContent=CLIENT_SUBTAB==='pipeline'?'Pipeline':'Clientes';
+  }
+}
+function openClientesCadastro(){
+  switchView('clientes');
+  setClientSubtab('cadastro');
+}
+function openClientPipeline(){
+  switchView('clientes');
+  setClientSubtab('pipeline');
+}
 function switchView(v){
   currentView=v;
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
@@ -1542,13 +1630,16 @@ function switchView(v){
   const desktopItems=document.querySelectorAll('.nav-item');
   desktopItems.forEach(btn=>{
     const action=btn.getAttribute('onclick')||'';
-    btn.classList.toggle('active',action.includes(`switchView('${v}')`)||action.includes(`switchView(\"${v}\")`));
+    const isDirect=action.includes(`switchView('${v}')`)||action.includes(`switchView("${v}")`);
+    const isClientes=v==='clientes'&&(action.includes('openClientesCadastro')||action.includes('openClientPipeline'));
+    btn.classList.toggle('active',isDirect||isClientes);
   });
   const mobileDirect=document.querySelector(`.mob-nav-btn[data-view="${v}"]`);
   const mobileMore=document.querySelector('.mob-nav-btn[data-view="mais"]');
   if(mobileDirect)mobileDirect.classList.add('active');
   else if(mobileMore)mobileMore.classList.add('active');
   closeMobileMore();
+  syncClientSubnav();
   const m=PAGE_META[v];
   document.getElementById('page-title').textContent=m.title;
   document.getElementById('page-sub').textContent=m.sub;
@@ -1560,6 +1651,7 @@ function switchView(v){
   if(v==='precificar')setTimeout(runSim,30);
   if(v==='operacao')renderOperacao();
   if(v==='clientes')renderClientes();
+  syncClientSubnav();
   if(v==='investimentos')renderInvestimentos();
   if(v==='ajustes')renderAjustes();
   if(v==='importar'){renderImportMeta();}
@@ -1611,7 +1703,8 @@ function renderDashboard(){
   const total=allT();
   const biggest=GROUPS.slice().sort((a,b)=>gT(b)-gT(a))[0];
   const itemCount=GROUPS.reduce((a,g)=>a+g.items.length,0);
-  const pessoalPct=(gT(GROUPS.find(g=>g.id==='pessoal'))/total*100).toFixed(1);
+  const pessoalTotal=gT(GROUPS.find(g=>g.id==='pessoal'));
+  const pessoalPct=total?(pessoalTotal/total*100).toFixed(1):'0.0';
   const defs=[
     {label:'Custo total mensal',val:fmt(total),sub:'todos os grupos',cls:'red',acc:'#C23B3B'},
     {label:'Grupos ativos',val:GROUPS.length,sub:'categorias',cls:'blue',acc:'#002FA7'},
@@ -1619,6 +1712,13 @@ function renderDashboard(){
     {label:'Maior grupo',val:biggest.label,sub:fmt(gT(biggest))+'/mês',cls:'amber',acc:'#B96B0A'},
     {label:'Peso Pessoal',val:pessoalPct+'%',sub:'do total',cls:'',acc:'#0047AB'},
   ];
+  const heroTotal=document.getElementById('dash-hero-total');
+  const heroPrimary=document.getElementById('dash-hero-primary');
+  const heroItems=document.getElementById('dash-hero-items');
+  if(heroTotal)heroTotal.textContent=fmt(total);
+  if(heroPrimary)heroPrimary.textContent=biggest?biggest.label:'—';
+  if(heroItems)heroItems.textContent=itemCount;
+
   document.getElementById('kpi-area').innerHTML=defs.map((k,i)=>`
     <div class="kpi-card" style="--kpi-accent:${k.acc}">
       <div class="kc-label">${k.label}</div>
@@ -2135,6 +2235,8 @@ function setClientSubtab(tab){
   document.getElementById('client-tab-pipeline')?.classList.toggle('active',CLIENT_SUBTAB==='pipeline');
   document.getElementById('clientes-cadastro-view')?.classList.toggle('active',CLIENT_SUBTAB==='cadastro');
   document.getElementById('clientes-pipeline-view')?.classList.toggle('active',CLIENT_SUBTAB==='pipeline');
+  updateClientWorkspaceCopy();
+  syncClientSubnav();
   if(CLIENT_SUBTAB==='pipeline')setTimeout(renderPipeline,30);
 }
 function clearClientForm(){
@@ -2792,6 +2894,7 @@ window.addEventListener('resize',()=>{
     const id=active.id.replace('view-','');
     if(id==='dashboard')renderDashboard();
     if(id==='precificar')runSim();
+    if(id==='clientes'&&CLIENT_SUBTAB==='pipeline')renderPipeline();
   },250);
 });
 
