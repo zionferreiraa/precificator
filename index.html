@@ -3127,3 +3127,155 @@ renderSmartAlerts();
 </script>
 </body>
 </html>
+
+/* TradePrice PWA — atualização segura */
+const TP_CACHE = 'tp-pwa-v18-20260625';
+const TP_SHELL = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/maskable-512.png',
+  './icons/apple-touch-icon.png',
+  './icons/favicon-48.png'
+];
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(TP_CACHE).then(cache =>
+      cache.addAll(TP_SHELL).catch(() => Promise.resolve())
+    )
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(key => {
+      const isOldTradePrice = key.toLowerCase().includes('tradeprice') || key.startsWith('tp-');
+      return (isOldTradePrice && key !== TP_CACHE) ? caches.delete(key) : Promise.resolve();
+    }));
+    await self.clients.claim();
+  })());
+});
+
+async function networkFirst(request) {
+  const cache = await caches.open(TP_CACHE);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (err) {
+    const cached = await cache.match(request);
+    return cached || cache.match('./index.html');
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(TP_CACHE);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
+  return response;
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(TP_CACHE);
+  const cached = await cache.match(request);
+  const fetchPromise = fetch(request).then(response => {
+    if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
+    return response;
+  }).catch(() => cached);
+  return cached || fetchPromise;
+}
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+
+  if (request.mode === 'navigate' || request.destination === 'document') {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (url.origin === self.location.origin) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  event.respondWith(staleWhileRevalidate(request));
+});
+
+{
+  "name": "TradePrice — Gestão de Custos",
+  "short_name": "TradePrice",
+  "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#F7F8FA",
+  "theme_color": "#0047AB",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Precificar",
+      "short_name": "Precificar",
+      "description": "Abrir a simulação de preço",
+      "url": "./#precificar",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Abrir clientes e propostas",
+      "url": "./#clientes",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
