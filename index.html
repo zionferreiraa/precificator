@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon-48.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
-<!-- build: operacao-zero-editavel-v20-instalar-app-pipeline-clicavel-20260625 -->
+<!-- build: operacao-zero-editavel-v21-limpa-codigo-solto-pwa-20260625 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -785,7 +785,7 @@ input[type=range]:focus{outline:none}
   <button class="nav-item pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
   <div style="flex:1"></div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v20 · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v21 · 2026</div>
   </div>
 </aside>
 
@@ -796,7 +796,7 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v20</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v21</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
@@ -1310,7 +1310,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v20</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v21</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivos do PWA instalável para publicar no GitHub Pages:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Envie <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">manifest.webmanifest</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">service-worker.js</code> e a pasta <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">icons/</code> para o repositório</li>
@@ -3145,6 +3145,40 @@ renderPricingHistory();
 renderClients();
 renderSmartAlerts();
 </script>
+
+<script>
+(function removeStrayPwaSourceText(){
+  const PATTERNS = [
+    '"name":"TradePrice',
+    '"short_name":"TradePrice',
+    'const TP_CACHE',
+    'self.addEventListener(\'install\'',
+    'self.addEventListener("install"',
+    'manifest.webmanifest',
+    'cacheFirst(request)'
+  ];
+  function clean(){
+    if(!document.body) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+    while((node = walker.nextNode())){
+      const txt = (node.nodeValue || '').trim();
+      if(txt.length > 80 && PATTERNS.some(p => txt.includes(p))){
+        nodes.push(node);
+      }
+    }
+    nodes.forEach(n => n.parentNode && n.parentNode.removeChild(n));
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', clean);
+  else clean();
+  window.addEventListener('load', clean);
+  setTimeout(clean, 100);
+  setTimeout(clean, 600);
+  setTimeout(clean, 1500);
+})();
+</script>
+
 </body>
 </html>
 {
@@ -3215,8 +3249,8 @@ renderSmartAlerts();
     }
   ]
 }
-/* TradePrice PWA — atualização segura v19 */
-const TP_CACHE = 'tp-pwa-v19-20260625';
+/* TradePrice PWA — atualização segura v21 */
+const TP_CACHE = 'tp-pwa-v21-20260625';
 const TP_SHELL = [
   './',
   './index.html',
