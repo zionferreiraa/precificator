@@ -3,11 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<meta name="theme-color" content="#002FA7"/>
+<meta name="theme-color" content="#0047AB"/>
 <meta name="description" content="Gestão de custos para importação e exportação"/>
 <title>TradePrice — Gestão de Custos</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002FA7'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='24' font-family='Arial,sans-serif' font-weight='700' fill='white'%3ETP%3C/text%3E%3C/svg%3E"/>
-<!-- build: operacao-zero-editavel-v16-clientes-dashboard-dark-pipeline-menu-sem-pwa-20260625 -->
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="TradePrice"/>
+<link rel="manifest" href="./manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon-48.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
+<!-- build: operacao-zero-editavel-v18-pwa-instalavel-github-20260625 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -712,6 +719,18 @@ input[type=range]:focus{outline:none}
 @media(max-width:1100px){.dash-hero,.dash-chart-grid,.crm-hero,.crm-panel-grid{grid-template-columns:1fr}.dash-kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:767px){.dash-hero{gap:.85rem}.dash-hero-main,.dash-side-card{border-radius:18px;padding:1rem}.dash-hero h2{font-size:1.25rem}.dash-hero-meta{grid-template-columns:1fr}.dash-kpi-grid{grid-template-columns:1fr 1fr}.dash-chart-grid{grid-template-columns:1fr}.dash-filter{width:100%}.crm-workspace-bar{align-items:flex-start;flex-direction:column}.crm-workspace-actions{width:100%;justify-content:stretch}.crm-workspace-actions .btn{flex:1;justify-content:center}.crm-panel-grid{grid-template-columns:1fr}.crm-link-box{padding:1rem}.crm-title{font-size:1.2rem}}
 
+
+/* ══════════════════════════════════════════════
+   V17 — DASHBOARD EXECUTIVO, CLIENTES E PIPELINE CLICK
+══════════════════════════════════════════════ */
+.dash-hero-executive .dash-hero-main{display:flex;flex-direction:column;gap:.95rem;min-height:0}.dash-executive-kpis{margin-top:.15rem;display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:.75rem}.dash-executive-kpis .kpi-card{background:rgba(255,255,255,.82);border-color:rgba(0,47,167,.12);box-shadow:0 10px 26px rgba(16,24,40,.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.dash-executive-kpis .kc-label{font-size:.62rem}.dash-executive-kpis .kc-val{font-size:1.16rem}.dash-executive-kpis .kc-sub{font-size:.66rem}.client-pipeline-sub{pointer-events:auto!important;position:relative;z-index:4}.client-pipeline-sub.visible{display:flex!important}.client-pipeline-sub:focus-visible{outline:2px solid rgba(255,255,255,.7);outline-offset:2px}.crm-client-layout-v17{grid-template-columns:minmax(350px,.9fr) minmax(0,1.1fr);align-items:start}.crm-client-side-stack{display:grid;gap:1rem;align-items:start}.crm-link-box-v17{margin-top:0}.crm-link-grid-v17{grid-template-columns:repeat(2,minmax(0,1fr))}.crm-client-form-panel,.crm-client-list-panel{border-radius:20px;padding:1.25rem;box-shadow:var(--sh-sm)}.crm-link-box-v17 .panel-title{font-size:1rem}.crm-link-box-v17 .panel-hint{max-width:620px}:root[data-theme="dark"] .dash-executive-kpis .kpi-card{background:rgba(27,34,51,.86)!important;border-color:var(--grey-2);box-shadow:0 12px 30px rgba(0,0,0,.32)}:root[data-theme="dark"] .crm-client-form-panel,:root[data-theme="dark"] .crm-client-list-panel{background:#1B2233!important;border-color:var(--grey-2)}
+@media(max-width:1180px){.dash-executive-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.crm-client-layout-v17{grid-template-columns:1fr}}
+@media(max-width:767px){.dash-executive-kpis{grid-template-columns:1fr 1fr;gap:.65rem}.dash-executive-kpis .kpi-card{padding:.8rem}.dash-executive-kpis .kc-val{font-size:1rem}.crm-link-grid-v17{grid-template-columns:1fr}.crm-client-form-panel,.crm-client-list-panel{padding:1rem}.crm-link-box-v17{padding:1rem}.client-pipeline-sub{display:none!important}}
+
+
+.pwa-install-btn.is-installed{display:none!important}
+.pwa-install-btn.is-waiting{opacity:.72}
+
 </style>
 </head>
 <body>
@@ -752,16 +771,17 @@ input[type=range]:focus{outline:none}
   <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
   <button class="nav-item" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação do Zero</button>
   <button class="nav-item" onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> Clientes</button>
-  <button class="nav-subitem client-pipeline-sub" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
+  <button type="button" class="nav-subitem client-pipeline-sub" onclick="event.preventDefault();event.stopPropagation();openClientPipeline();"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
   <button class="nav-item" onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
   <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
   <div class="sidebar-label">Dados</div>
   <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
   <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
+  <button class="nav-item pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
   <button class="nav-item" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
   <div style="flex:1"></div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v14 · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v18 · 2026</div>
   </div>
 </aside>
 
@@ -772,10 +792,11 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v16</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v18</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
+      <button class="btn btn-primary pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
       <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
       <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar CSV</button>
       <button class="btn btn-primary" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
@@ -786,16 +807,12 @@ input[type=range]:focus{outline:none}
 
 <!-- ──── DASHBOARD ────────────────────────────── -->
 <div id="view-dashboard" class="view active">
-  <section class="dash-hero">
+  <section class="dash-hero dash-hero-executive">
     <div class="dash-hero-main">
       <div class="dash-eyebrow"><i class="ti ti-sparkles"></i> Painel executivo</div>
       <h2>Visão clara da operação em tempo real</h2>
-      <p>Acompanhe custos, concentração por grupo e itens mais relevantes antes de precificar ou gerar proposta.</p>
-      <div class="dash-hero-meta" id="dash-hero-meta">
-        <span><b id="dash-hero-total">R$ 0</b><small>Custo total mensal</small></span>
-        <span><b id="dash-hero-primary">—</b><small>Maior grupo</small></span>
-        <span><b id="dash-hero-items">0</b><small>Itens mapeados</small></span>
-      </div>
+      <p>Acompanhe os principais indicadores da operação em um único bloco: custo total, grupos ativos, itens cadastrados, maior grupo e peso de pessoal.</p>
+      <div class="kpis dash-kpi-grid dash-executive-kpis" id="kpi-area"></div>
     </div>
     <div class="dash-side-card">
       <div class="dash-side-title"><i class="ti ti-route"></i> Próximas ações</div>
@@ -804,8 +821,6 @@ input[type=range]:focus{outline:none}
       <button class="dash-action" onclick="openClientPipeline()"><span><i class="ti ti-chart-dots-3"></i> Ver pipeline</span><i class="ti ti-chevron-right"></i></button>
     </div>
   </section>
-
-  <div class="kpis dash-kpi-grid" id="kpi-area"></div>
 
   <div class="dash-chart-grid">
     <div class="panel dash-panel">
@@ -993,7 +1008,7 @@ input[type=range]:focus{outline:none}
     <div class="crm-hero-card">
       <div class="crm-eyebrow"><i class="ti ti-users-group"></i> Clientes + propostas</div>
       <div class="crm-title">Organize clientes, propostas e precificações em um só lugar</div>
-      <div class="crm-sub">Cadastre clientes, vincule a precificação atual ou uma simulação salva e acompanhe cada oportunidade no pipeline comercial.</div>
+      <div class="crm-sub">Cadastre clientes, vincule propostas à simulação atual ou ao histórico e acompanhe tudo no pipeline comercial.</div>
     </div>
     <div class="crm-stats" id="crm-stats"></div>
   </div>
@@ -1011,38 +1026,38 @@ input[type=range]:focus{outline:none}
   </div>
 
   <div id="clientes-cadastro-view" class="crm-cadastro-view active">
-    <div class="crm-panel-grid">
-      <div>
-        <div class="panel">
-          <div class="panel-head">
-            <div>
-              <div class="panel-title"><i class="ti ti-user-plus"></i> Cadastro de cliente</div>
-              <div class="panel-hint">Campos simples para identificar e acompanhar o relacionamento.</div>
-            </div>
-          </div>
-          <input type="hidden" id="crm-client-id"/>
-          <div class="crm-form-grid">
-            <div class="fg"><label>Nome do contato</label><input id="crm-client-name" placeholder="Ex.: João Silva"/></div>
-            <div class="fg"><label>Empresa</label><input id="crm-client-company" placeholder="Ex.: ABC Logística"/></div>
-            <div class="fg"><label>Telefone / WhatsApp</label><input id="crm-client-phone" placeholder="(00) 00000-0000"/></div>
-            <div class="fg"><label>E-mail</label><input id="crm-client-email" placeholder="cliente@empresa.com"/></div>
-            <div class="fg full"><label>Segmento</label><input id="crm-client-segment" placeholder="Ex.: importação, indústria, transporte, varejo"/></div>
-            <div class="fg full"><label>Observações</label><textarea id="crm-client-notes" placeholder="Histórico, particularidades da operação ou próximos pontos de atenção"></textarea></div>
-          </div>
-          <div class="crm-form-actions">
-            <button class="btn btn-primary" onclick="saveClientFromForm()"><i class="ti ti-device-floppy"></i> Salvar cliente</button>
-            <button class="btn" onclick="clearClientForm()"><i class="ti ti-eraser"></i> Limpar</button>
+    <div class="crm-panel-grid crm-client-layout-v17">
+      <div class="panel crm-client-form-panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title"><i class="ti ti-user-plus"></i> Cadastro de cliente</div>
+            <div class="panel-hint">Campos simples para identificar e acompanhar o relacionamento.</div>
           </div>
         </div>
+        <input type="hidden" id="crm-client-id"/>
+        <div class="crm-form-grid">
+          <div class="fg"><label>Nome do contato</label><input id="crm-client-name" placeholder="Ex.: João Silva"/></div>
+          <div class="fg"><label>Empresa</label><input id="crm-client-company" placeholder="Ex.: ABC Logística"/></div>
+          <div class="fg"><label>Telefone / WhatsApp</label><input id="crm-client-phone" placeholder="(00) 00000-0000"/></div>
+          <div class="fg"><label>E-mail</label><input id="crm-client-email" placeholder="cliente@empresa.com"/></div>
+          <div class="fg full"><label>Segmento</label><input id="crm-client-segment" placeholder="Ex.: importação, indústria, transporte, varejo"/></div>
+          <div class="fg full"><label>Observações</label><textarea id="crm-client-notes" placeholder="Histórico, particularidades da operação ou próximos pontos de atenção"></textarea></div>
+        </div>
+        <div class="crm-form-actions">
+          <button class="btn btn-primary" onclick="saveClientFromForm()"><i class="ti ti-device-floppy"></i> Salvar cliente</button>
+          <button class="btn" onclick="clearClientForm()"><i class="ti ti-eraser"></i> Limpar</button>
+        </div>
+      </div>
 
-        <div class="crm-link-box">
+      <div class="crm-client-side-stack">
+        <div class="crm-link-box crm-link-box-v17">
           <div class="panel-head" style="padding:0;margin-bottom:.9rem">
             <div>
               <div class="panel-title"><i class="ti ti-link"></i> Vincular precificação ao cliente</div>
-              <div class="panel-hint">Use a simulação atual ou uma precificação salva no histórico.</div>
+              <div class="panel-hint">Transforme a simulação atual ou uma precificação salva em proposta acompanhável.</div>
             </div>
           </div>
-          <div class="crm-form-grid">
+          <div class="crm-form-grid crm-link-grid-v17">
             <div class="fg"><label>Cliente</label><select id="crm-link-client"></select></div>
             <div class="fg"><label>Precificação</label><select id="crm-link-pricing"></select></div>
             <div class="fg"><label>Status</label><select id="crm-link-status"></select></div>
@@ -1051,18 +1066,19 @@ input[type=range]:focus{outline:none}
           </div>
           <div class="crm-form-actions">
             <button class="btn btn-primary" onclick="linkPricingToClient()"><i class="ti ti-link-plus"></i> Vincular proposta</button>
+            <button class="btn" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Ver pipeline</button>
           </div>
         </div>
-      </div>
 
-      <div class="panel">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title"><i class="ti ti-address-book"></i> Clientes cadastrados</div>
-            <div class="panel-hint">Edite, remova ou use para vincular novas precificações.</div>
+        <div class="panel crm-client-list-panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title"><i class="ti ti-address-book"></i> Clientes cadastrados</div>
+              <div class="panel-hint">Edite, remova ou use para vincular novas precificações.</div>
+            </div>
           </div>
+          <div id="crm-client-list" class="crm-list"></div>
         </div>
-        <div id="crm-client-list" class="crm-list"></div>
       </div>
     </div>
   </div>
@@ -1257,6 +1273,7 @@ input[type=range]:focus{outline:none}
       <button class="btn btn-primary" onclick="exportCSV()"><i class="ti ti-file-text"></i> Exportar CSV</button>
       <button class="btn" onclick="exportJSON()"><i class="ti ti-braces"></i> Exportar JSON</button>
       <button class="btn" onclick="downloadCommercialPDF()"><i class="ti ti-file-type-pdf"></i> PDF comercial</button>
+      <button class="btn btn-primary pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
       <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app HTML</button>
     </div>
   </div>
@@ -1275,16 +1292,16 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v16</div>
-    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivo 100% standalone, zero dependências locais:</p>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v18</div>
+    <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivos do PWA instalável para publicar no GitHub Pages:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
-      <li>Upload de <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code> para o repositório</li>
-      <li>Renomeie para <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code></li>
-      <li>Ative GitHub Pages em <em>Settings → Pages → Source → main</em></li>
+      <li>Envie <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">manifest.webmanifest</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">service-worker.js</code> e a pasta <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">icons/</code> para o repositório</li>
+      <li>Ative GitHub Pages em <em>Settings → Pages → Build and deployment</em></li>
       <li>Acesse em <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">usuario.github.io/repositorio</code></li>
+      <li>No Chrome/Edge, clique em <strong>Instalar app</strong>; no iPhone, use Compartilhar → Adicionar à Tela de Início</li>
     </ol>
     <div style="margin-top:1rem;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);border-radius:var(--r-sm);padding:.75rem 1rem;font-size:.75rem;color:var(--cobalt-mid)">
-      <i class="ti ti-device-mobile"></i> &nbsp;Arquivo standalone sem PWA/cache local ativo — ideal para publicar direto no GitHub Pages sem travar versões antigas.
+      <i class="ti ti-device-mobile"></i> &nbsp;PWA instalável com manifest separado, ícones em PNG e service worker com atualização segura para evitar cache travado.
     </div>
   </div>
 </div>
@@ -1304,6 +1321,7 @@ input[type=range]:focus{outline:none}
   <button onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
   <button onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
   <button onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
+  <button class="pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
   <button onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
 </div>
 <div class="mob-nav-grid" role="navigation" aria-label="Menu de navegação">
@@ -1598,6 +1616,8 @@ function syncClientSubnav(){
   const show=currentView==='clientes';
   sub.classList.toggle('visible',show);
   sub.classList.toggle('active',show&&CLIENT_SUBTAB==='pipeline');
+  sub.style.display=show?'flex':'none';
+  sub.setAttribute('aria-hidden',show?'false':'true');
 }
 function updateClientWorkspaceCopy(){
   const title=document.getElementById('crm-current-section');
@@ -1620,6 +1640,9 @@ function openClientesCadastro(){
 function openClientPipeline(){
   switchView('clientes');
   setClientSubtab('pipeline');
+  const sub=document.querySelector('.client-pipeline-sub');
+  if(sub){sub.classList.add('visible','active');sub.style.display='flex';}
+  setTimeout(renderPipeline,30);
 }
 function switchView(v){
   currentView=v;
@@ -2871,16 +2894,82 @@ function downloadTemplate(){
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
 /* ══════════════════════════════════════════════
-   LIMPEZA DE CACHE ANTIGO (sem registrar PWA novo)
+   PWA INSTALÁVEL — GitHub Pages
 ══════════════════════════════════════════════ */
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister())).catch(()=>{});
+let deferredInstallPrompt=null;
+let pwaRegistration=null;
+function isStandaloneApp(){
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+}
+function isIOSDevice(){
+  return /iphone|ipad|ipod/i.test(window.navigator.userAgent||'');
+}
+function updateInstallButtons(){
+  const installed=isStandaloneApp();
+  document.querySelectorAll('[data-install-app]').forEach(btn=>{
+    btn.classList.toggle('is-installed',installed);
+    btn.disabled=false;
+    if(installed){
+      btn.title='TradePrice já está instalado neste dispositivo';
+    }else if(!deferredInstallPrompt&&isIOSDevice()){
+      btn.title='No iPhone/iPad, use Compartilhar → Adicionar à Tela de Início';
+    }else if(!deferredInstallPrompt){
+      btn.title='Se o instalador não abrir, use o menu do navegador → Instalar app';
+      btn.classList.add('is-waiting');
+    }else{
+      btn.title='Instalar TradePrice neste dispositivo';
+      btn.classList.remove('is-waiting');
+    }
   });
 }
-if('caches' in window){
-  caches.keys().then(keys=>Promise.all(keys.filter(k=>String(k).toLowerCase().includes('tradeprice')).map(k=>caches.delete(k)))).catch(()=>{});
+async function installTradePriceApp(){
+  if(isStandaloneApp()){toast('TradePrice já está instalado.');return;}
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    const choice=await deferredInstallPrompt.userChoice.catch(()=>null);
+    deferredInstallPrompt=null;
+    updateInstallButtons();
+    if(choice&&choice.outcome==='accepted')toast('Instalação iniciada.');
+    else toast('Instalação cancelada.');
+    return;
+  }
+  if(isIOSDevice()){
+    toast('No iPhone/iPad: Compartilhar → Adicionar à Tela de Início.');
+    return;
+  }
+  toast('Use o menu do navegador e escolha “Instalar app”.');
 }
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredInstallPrompt=e;
+  updateInstallButtons();
+});
+window.addEventListener('appinstalled',()=>{
+  deferredInstallPrompt=null;
+  updateInstallButtons();
+  toast('TradePrice instalado com sucesso.');
+});
+function registerTradePricePWA(){
+  updateInstallButtons();
+  if(!('serviceWorker' in navigator))return;
+  window.addEventListener('load',async()=>{
+    try{
+      pwaRegistration=await navigator.serviceWorker.register('./service-worker.js',{scope:'./'});
+      pwaRegistration.addEventListener('updatefound',()=>{
+        const nw=pwaRegistration.installing;
+        if(!nw)return;
+        nw.addEventListener('statechange',()=>{
+          if(nw.state==='installed'&&navigator.serviceWorker.controller){
+            toast('Nova versão disponível. Atualize a página para aplicar.');
+          }
+        });
+      });
+    }catch(err){
+      console.warn('Falha ao registrar PWA',err);
+    }
+  });
+}
+registerTradePricePWA();
 
 /* ══════════════════════════════════════════════
    RESIZE HANDLER (re-render charts on orientation change)
@@ -3038,3 +3127,154 @@ renderSmartAlerts();
 </script>
 </body>
 </html>
+
+{
+  "name": "TradePrice — Gestão de Custos",
+  "short_name": "TradePrice",
+  "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#F7F8FA",
+  "theme_color": "#0047AB",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Precificar",
+      "short_name": "Precificar",
+      "description": "Abrir a simulação de preço",
+      "url": "./#precificar",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Abrir clientes e propostas",
+      "url": "./#clientes",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
+/* TradePrice PWA — atualização segura */
+const TP_CACHE = 'tp-pwa-v18-20260625';
+const TP_SHELL = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/maskable-512.png',
+  './icons/apple-touch-icon.png',
+  './icons/favicon-48.png'
+];
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(TP_CACHE).then(cache =>
+      cache.addAll(TP_SHELL).catch(() => Promise.resolve())
+    )
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(key => {
+      const isOldTradePrice = key.toLowerCase().includes('tradeprice') || key.startsWith('tp-');
+      return (isOldTradePrice && key !== TP_CACHE) ? caches.delete(key) : Promise.resolve();
+    }));
+    await self.clients.claim();
+  })());
+});
+
+async function networkFirst(request) {
+  const cache = await caches.open(TP_CACHE);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (err) {
+    const cached = await cache.match(request);
+    return cached || cache.match('./index.html');
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(TP_CACHE);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
+  return response;
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(TP_CACHE);
+  const cached = await cache.match(request);
+  const fetchPromise = fetch(request).then(response => {
+    if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
+    return response;
+  }).catch(() => cached);
+  return cached || fetchPromise;
+}
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+
+  if (request.mode === 'navigate' || request.destination === 'document') {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (url.origin === self.location.origin) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  event.respondWith(staleWhileRevalidate(request));
+});
