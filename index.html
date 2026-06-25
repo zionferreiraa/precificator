@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon-48.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
-<!-- build: operacao-zero-editavel-v18-pwa-instalavel-github-20260625 -->
+<!-- build: operacao-zero-editavel-v20-instalar-app-pipeline-clicavel-20260625 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -731,6 +731,15 @@ input[type=range]:focus{outline:none}
 .pwa-install-btn.is-installed{display:none!important}
 .pwa-install-btn.is-waiting{opacity:.72}
 
+
+/* V20 — instalar app único e pipeline como subaba real */
+.pipeline-standalone-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--white),var(--grey-0));border:1px solid var(--grey-2);border-radius:22px;padding:1.25rem;box-shadow:var(--shadow-sm)}
+.pipeline-head-actions{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:flex-end}
+.client-pipeline-sub{pointer-events:auto!important;position:relative;z-index:20}
+.client-pipeline-sub.visible{display:flex!important}
+:root[data-theme="dark"] .pipeline-standalone-head{background:linear-gradient(135deg,#1B2233,#121827)!important;border-color:var(--grey-2)}
+@media(max-width:767px){.pipeline-standalone-head{flex-direction:column;padding:1rem}.pipeline-head-actions{width:100%;justify-content:stretch}.pipeline-head-actions .btn{flex:1}.client-pipeline-sub{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -749,10 +758,6 @@ input[type=range]:focus{outline:none}
     <button class="mob-icon-btn" onclick="switchView('importar')" aria-label="Importar"><i class="ti ti-upload"></i></button>
   </div>
 </div>
-
-<button class="mob-download-fab" id="mob-download-fab" onclick="downloadAppHTML()" aria-label="Baixar app HTML">
-  <i class="ti ti-file-download"></i><span>Baixar app</span>
-</button>
 
 <!-- ══════════════════════════════════════════════
      SHELL (desktop: row / mobile: column)
@@ -778,10 +783,9 @@ input[type=range]:focus{outline:none}
   <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
   <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
   <button class="nav-item pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
-  <button class="nav-item" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
   <div style="flex:1"></div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v18 · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v20 · 2026</div>
   </div>
 </aside>
 
@@ -792,12 +796,11 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v18</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v20</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
       <button class="btn btn-primary pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
-      <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
       <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportar CSV</button>
       <button class="btn btn-primary" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
     </div>
@@ -1083,20 +1086,36 @@ input[type=range]:focus{outline:none}
     </div>
   </div>
 
-  <div id="clientes-pipeline-view" class="crm-pipeline-view">
-    <div class="pipeline-kpis" id="pipeline-kpis"></div>
-    <div class="pipeline-charts">
-      <div class="pipeline-chart-card">
-        <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-pie-2"></i> Distribuição por status</div>
-        <canvas id="crm-chart-status"></canvas>
-      </div>
-      <div class="pipeline-chart-card">
-        <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-bar"></i> Valor no pipeline</div>
-        <canvas id="crm-chart-value"></canvas>
-      </div>
+
+</div>
+
+
+<!-- ──── PIPELINE / CRM ─────────────────────────── -->
+<div id="view-pipeline" class="view">
+  <div class="pipeline-standalone-head">
+    <div>
+      <div class="crm-eyebrow"><i class="ti ti-chart-dots-3"></i> Pipeline comercial</div>
+      <div class="crm-title">Acompanhe o andamento das propostas vinculadas aos clientes</div>
+      <div class="crm-sub">Visualize o valor em aberto, propostas aprovadas, taxa de conversão e o status de cada oportunidade criada a partir das precificações.</div>
     </div>
-    <div class="pipeline-board" id="pipeline-board"></div>
+    <div class="pipeline-head-actions">
+      <button class="btn" onclick="openClientesCadastro()"><i class="ti ti-user-plus"></i> Voltar para clientes</button>
+      <button class="btn btn-primary" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Nova precificação</button>
+    </div>
   </div>
+
+  <div class="pipeline-kpis" id="pipeline-kpis"></div>
+  <div class="pipeline-charts">
+    <div class="pipeline-chart-card">
+      <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-pie-2"></i> Distribuição por status</div>
+      <canvas id="crm-chart-status"></canvas>
+    </div>
+    <div class="pipeline-chart-card">
+      <div class="panel-title" style="margin-bottom:.85rem"><i class="ti ti-chart-bar"></i> Valor no pipeline</div>
+      <canvas id="crm-chart-value"></canvas>
+    </div>
+  </div>
+  <div class="pipeline-board" id="pipeline-board"></div>
 </div>
 
 <!-- ──── INVESTIMENTOS ─────────────────────────── -->
@@ -1274,7 +1293,6 @@ input[type=range]:focus{outline:none}
       <button class="btn" onclick="exportJSON()"><i class="ti ti-braces"></i> Exportar JSON</button>
       <button class="btn" onclick="downloadCommercialPDF()"><i class="ti ti-file-type-pdf"></i> PDF comercial</button>
       <button class="btn btn-primary pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
-      <button class="btn" onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app HTML</button>
     </div>
   </div>
   <div class="panel">
@@ -1292,7 +1310,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v18</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v20</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivos do PWA instalável para publicar no GitHub Pages:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Envie <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">manifest.webmanifest</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">service-worker.js</code> e a pasta <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">icons/</code> para o repositório</li>
@@ -1322,7 +1340,6 @@ input[type=range]:focus{outline:none}
   <button onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
   <button onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
   <button class="pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
-  <button onclick="downloadAppHTML()"><i class="ti ti-file-download"></i> Baixar app</button>
 </div>
 <div class="mob-nav-grid" role="navigation" aria-label="Menu de navegação">
   <button class="mob-nav-btn active" data-view="dashboard" onclick="switchView('dashboard')">
@@ -1605,6 +1622,7 @@ const PAGE_META={
   precificar:{title:'Precificação',sub:'Simule o preço com base nos custos reais'},
   operacao:{title:'Operação do Zero',sub:'Crie uma operação limpa com grupos editáveis'},
   clientes:{title:'Clientes',sub:'Cadastre clientes e acompanhe propostas vinculadas às precificações'},
+  pipeline:{title:'Pipeline de propostas',sub:'Funil comercial das precificações vinculadas aos clientes'},
   investimentos:{title:'Investimentos',sub:'Amortização e custos envolvidos com controle manual ou deslizante'},
   ajustes:{title:'Ajustes',sub:'Custos adicionais e impostos'},
   importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
@@ -1613,9 +1631,9 @@ const PAGE_META={
 function syncClientSubnav(){
   const sub=document.querySelector('.client-pipeline-sub');
   if(!sub)return;
-  const show=currentView==='clientes';
+  const show=currentView==='clientes'||currentView==='pipeline';
   sub.classList.toggle('visible',show);
-  sub.classList.toggle('active',show&&CLIENT_SUBTAB==='pipeline');
+  sub.classList.toggle('active',currentView==='pipeline');
   sub.style.display=show?'flex':'none';
   sub.setAttribute('aria-hidden',show?'false':'true');
 }
@@ -1638,8 +1656,8 @@ function openClientesCadastro(){
   setClientSubtab('cadastro');
 }
 function openClientPipeline(){
-  switchView('clientes');
-  setClientSubtab('pipeline');
+  CLIENT_SUBTAB='pipeline';
+  switchView('pipeline');
   const sub=document.querySelector('.client-pipeline-sub');
   if(sub){sub.classList.add('visible','active');sub.style.display='flex';}
   setTimeout(renderPipeline,30);
@@ -1654,7 +1672,7 @@ function switchView(v){
   desktopItems.forEach(btn=>{
     const action=btn.getAttribute('onclick')||'';
     const isDirect=action.includes(`switchView('${v}')`)||action.includes(`switchView("${v}")`);
-    const isClientes=v==='clientes'&&(action.includes('openClientesCadastro')||action.includes('openClientPipeline'));
+    const isClientes=(v==='clientes'||v==='pipeline')&&action.includes('openClientesCadastro');
     btn.classList.toggle('active',isDirect||isClientes);
   });
   const mobileDirect=document.querySelector(`.mob-nav-btn[data-view="${v}"]`);
@@ -1674,6 +1692,7 @@ function switchView(v){
   if(v==='precificar')setTimeout(runSim,30);
   if(v==='operacao')renderOperacao();
   if(v==='clientes')renderClientes();
+  if(v==='pipeline')setTimeout(renderPipeline,30);
   syncClientSubnav();
   if(v==='investimentos')renderInvestimentos();
   if(v==='ajustes')renderAjustes();
@@ -1717,6 +1736,7 @@ function refreshChartsForTheme(){
   else if(currentView==='grupos'){renderGrupos();GROUPS.forEach(g=>renderGrpChart(g));}
   else if(currentView==='precificar')runSim();
   else if(currentView==='clientes')renderClientes();
+  else if(currentView==='pipeline')renderPipeline();
 }
 
 /* ══════════════════════════════════════════════
@@ -3127,9 +3147,76 @@ renderSmartAlerts();
 </script>
 </body>
 </html>
-
-/* TradePrice PWA — atualização segura */
-const TP_CACHE = 'tp-pwa-v18-20260625';
+{
+  "name": "TradePrice — Gestão de Custos",
+  "short_name": "TradePrice",
+  "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#F7F8FA",
+  "theme_color": "#0047AB",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Precificar",
+      "short_name": "Precificar",
+      "description": "Abrir a simulação de preço",
+      "url": "./#precificar",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Abrir clientes e propostas",
+      "url": "./#clientes",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
+/* TradePrice PWA — atualização segura v19 */
+const TP_CACHE = 'tp-pwa-v19-20260625';
 const TP_SHELL = [
   './',
   './index.html',
@@ -3210,72 +3297,3 @@ self.addEventListener('fetch', event => {
 
   event.respondWith(staleWhileRevalidate(request));
 });
-
-{
-  "name": "TradePrice — Gestão de Custos",
-  "short_name": "TradePrice",
-  "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
-  "id": "./",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "display_override": [
-    "window-controls-overlay",
-    "standalone",
-    "minimal-ui"
-  ],
-  "orientation": "any",
-  "background_color": "#F7F8FA",
-  "theme_color": "#0047AB",
-  "categories": [
-    "business",
-    "finance",
-    "productivity"
-  ],
-  "icons": [
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Precificar",
-      "short_name": "Precificar",
-      "description": "Abrir a simulação de preço",
-      "url": "./#precificar",
-      "icons": [
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Clientes",
-      "short_name": "Clientes",
-      "description": "Abrir clientes e propostas",
-      "url": "./#clientes",
-      "icons": [
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ]
-}
