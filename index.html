@@ -771,6 +771,16 @@ input[type=range]:focus{outline:none}
 :root[data-theme="dark"] .pipeline-standalone-head{background:linear-gradient(135deg,#1B2233,#121827)!important;border-color:var(--grey-2)}
 @media(max-width:767px){.pipeline-standalone-head{flex-direction:column;padding:1rem}.pipeline-head-actions{width:100%;justify-content:stretch}.pipeline-head-actions .btn{flex:1}.client-pipeline-sub{display:none!important}}
 
+
+/* V25 — relógio do Dashboard sem depender de ícone externo */
+.dash-wait-clock{position:relative;overflow:hidden}
+.dash-wait-clock i{display:none!important}
+.dash-wait-clock::before{content:'';width:28px;height:28px;border:3px solid currentColor;border-radius:50%;display:block;box-sizing:border-box;opacity:.95}
+.dash-wait-clock::after{content:'';position:absolute;left:50%;top:50%;width:12px;height:3px;background:currentColor;border-radius:999px;transform-origin:left center;animation:tpClockHandSpin 1.6s linear infinite}
+@keyframes tpClockHandSpin{0%{transform:rotate(-90deg)}100%{transform:rotate(270deg)}}
+.pipeline-head-actions{display:flex;gap:.55rem;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:767px){.pipeline-head-actions{justify-content:flex-start}.pipeline-head-actions .btn{width:100%;justify-content:center}}
+
 </style>
 </head>
 <body>
@@ -827,7 +837,7 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v24</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v25</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
@@ -1144,6 +1154,7 @@ input[type=range]:focus{outline:none}
     </div>
     <div class="pipeline-head-actions">
       <button class="btn" onclick="openClientesCadastro()"><i class="ti ti-user-plus"></i> Voltar para clientes</button>
+      <button class="btn btn-danger" onclick="clearRegisteredClients()"><i class="ti ti-user-x"></i> Limpar clientes</button>
       <button class="btn btn-primary" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Nova precificação</button>
     </div>
   </div>
@@ -1354,7 +1365,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v24</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v25</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivos do PWA instalável para publicar no GitHub Pages:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Envie <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">manifest.webmanifest</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">service-worker.js</code> e a pasta <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">icons/</code> para o repositório</li>
@@ -1577,7 +1588,8 @@ let currentView='dashboard';
 const isMobile=()=>window.innerWidth<768;
 
 /* Additional adjustments: extra costs, investments, taxes */
-const ADJ={custos:0,rh:0,opex:0,admin:0,outras:0,amort:0,pis:0.65,cofins:3,iss:0,simples:0};
+const ADJ_DEFAULTS={custos:0,rh:0,opex:0,admin:0,outras:0,amort:0,pis:0.65,cofins:3,iss:0,simples:0};
+const ADJ={...ADJ_DEFAULTS};
 const ADJ_LABELS={custos:'Custos envolvidos',rh:'Recursos humanos',opex:'Despesas operacionais/comerciais',admin:'Despesas administrativas',outras:'Outras despesas'};
 
 /* Proposal generator state */
@@ -1606,6 +1618,57 @@ const PRICING_HISTORY_KEY='tp-pricing-history-v1';
 const CLIENTS_KEY='tp-clients-v1';
 const CLIENT_PROPOSALS_KEY='tp-client-proposals-v1';
 const CLIENT_HISTORY_KEY='tp-client-history-v1';
+const CURRENT_OPERATION_KEY='tp-current-operation-v25';
+function makeOperationId(){return 'op-'+Date.now()+'-'+Math.random().toString(16).slice(2,8);}
+function currentOperationState(){
+  try{
+    const st=JSON.parse(localStorage.getItem(CURRENT_OPERATION_KEY)||'null');
+    if(st&&st.id&&st.createdAt)return st;
+  }catch(e){}
+  return {id:'legacy',name:window.NOME_OPERACAO||'Operação atual',createdAt:'1970-01-01T00:00:00.000Z'};
+}
+function startNewOperationState(name){
+  const cleanName=(String(name||'').trim()||'Nova operação');
+  const st={id:makeOperationId(),name:cleanName,createdAt:new Date().toISOString()};
+  try{localStorage.setItem(CURRENT_OPERATION_KEY,JSON.stringify(st));}catch(e){}
+  window.NOME_OPERACAO=cleanName;
+  return st;
+}
+function activateOperationStateFromSnapshot(snap){
+  if(!snap)return currentOperationState();
+  const st={id:snap.operationId||makeOperationId(),name:snap.name||snap.operationName||'Operação reaberta',createdAt:snap.operationCreatedAt||snap.date||new Date().toISOString(),activeSnapshotId:snap.id||''};
+  try{localStorage.setItem(CURRENT_OPERATION_KEY,JSON.stringify(st));}catch(e){}
+  window.NOME_OPERACAO=st.name;
+  return st;
+}
+function isCurrentOperationRecord(rec){
+  if(!rec)return false;
+  const st=currentOperationState();
+  if(st.id==='legacy')return true;
+  if(st.activeSnapshotId&&rec.id===st.activeSnapshotId)return true;
+  if(rec.operationId)return rec.operationId===st.id;
+  const d=rec.date||rec.createdAt||rec.updatedAt;
+  if(!d)return false;
+  const rd=new Date(d).getTime(),od=new Date(st.createdAt).getTime();
+  return Number.isFinite(rd)&&Number.isFinite(od)&&rd>=od;
+}
+function resetOperationSpecificState(name){
+  const st=startNewOperationState(name);
+  Object.assign(ADJ,ADJ_DEFAULTS);
+  SIM=null;
+  PROPOSAL={...PROPOSAL_DEFAULTS};
+  const setVal=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val;};
+  setVal('sl-overhead',15);setVal('sl-markup',40);setVal('sl-un',30);setVal('sl-extra',0);
+  try{syncAdjSliders();}catch(e){}
+  try{renderAjustes();renderInvestimentos();}catch(e){}
+  ['dash-qa-question','op-ai-question'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.querySelectorAll('[id^="smart-help-input-"]').forEach(el=>el.value='');
+  document.querySelectorAll('.smart-help-answer').forEach(el=>{const view=el.id.replace('smart-help-answer-','');if(view)el.innerHTML=renderSmartAnswerHTML(buildSmartAnswer('',view));});
+  try{renderDashboardQA();}catch(e){}
+  return st;
+}
+function currentPricingHistory(){return loadPricingHistory().filter(isCurrentOperationRecord);}
+function currentClientProposals(){return loadClientProposals().filter(isCurrentOperationRecord);}
 let CLIENT_SUBTAB='cadastro';
 let ACTIVE_CLIENT_HISTORY='';
 let OP_STEP_ACTIVE=0;
@@ -1620,7 +1683,7 @@ const fmtS=v=>v>=1000000?'R$ '+(v/1e6).toFixed(1)+'M':v>=1000?'R$ '+(v/1e3).toFi
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /* ══════════════════════════════════════════════
-   V24 — ASSISTENTE INTELIGENTE LOCAL
+   V25 — ASSISTENTE INTELIGENTE LOCAL + SESSÃO DE OPERAÇÃO
 ══════════════════════════════════════════════ */
 const SMART_ASSISTANT_VIEWS={
   dashboard:{label:'Dashboard',icon:'ti-layout-dashboard',sub:'Pergunte sobre a visão geral da operação.'},
@@ -1660,8 +1723,8 @@ function smartContext(){
   const extraCustos=(+ADJ.custos||0)+(+ADJ.rh||0)+(+ADJ.opex||0)+(+ADJ.admin||0)+(+ADJ.outras||0);
   const taxPct=(+ADJ.pis||0)+(+ADJ.cofins||0)+(+ADJ.iss||0)+(+ADJ.simples||0);
   const clients=typeof loadClients==='function'?loadClients():[];
-  const proposals=typeof loadClientProposals==='function'?loadClientProposals():[];
-  const history=typeof loadPricingHistory==='function'?loadPricingHistory():[];
+  const proposals=typeof currentClientProposals==='function'?currentClientProposals():[];
+  const history=typeof currentPricingHistory==='function'?currentPricingHistory():[];
   const openProps=proposals.filter(p=>!['perdida','arquivada','aprovada'].includes(p.status));
   const wonProps=proposals.filter(p=>p.status==='aprovada');
   const openValue=openProps.reduce((a,p)=>a+(+p.value||0),0);
@@ -2559,6 +2622,21 @@ function loadClientProposals(){try{return JSON.parse(localStorage.getItem(CLIENT
 function saveClientProposals(list){try{localStorage.setItem(CLIENT_PROPOSALS_KEY,JSON.stringify(list));}catch(e){}}
 function loadClientHistory(){try{return JSON.parse(localStorage.getItem(CLIENT_HISTORY_KEY)||'[]')||[];}catch(e){return[];}}
 function saveClientHistory(list){try{localStorage.setItem(CLIENT_HISTORY_KEY,JSON.stringify(list.slice(0,500)));}catch(e){}}
+function clearRegisteredClients(){
+  const clients=loadClients();
+  const props=loadClientProposals();
+  if(!clients.length&&!props.length){toast('Não há clientes ou propostas para limpar');return;}
+  const ok=confirm('Limpar todos os clientes cadastrados, propostas vinculadas e histórico comercial? Esta ação não apaga suas precificações salvas.');
+  if(!ok)return;
+  saveClients([]);
+  saveClientProposals([]);
+  saveClientHistory([]);
+  ACTIVE_CLIENT_HISTORY='';
+  renderClients();
+  renderPipeline();
+  renderDashboardQA();
+  toast('Clientes, propostas e histórico comercial limpos');
+}
 function clientHistoryIcon(type){return ({client:'ti-user-check',proposal:'ti-file-invoice',status:'ti-arrows-exchange',note:'ti-notes',pdf:'ti-file-type-pdf',delete:'ti-trash'}[type]||'ti-point');}
 function addClientHistory(clientId,type,title,detail,meta={}){
   if(!clientId)return;
@@ -2581,7 +2659,7 @@ function addManualClientHistory(clientId){
 function renderClientHistoryDrawer(clientId){
   const c=loadClients().find(x=>x.id===clientId)||{};
   const items=clientHistoryItems(clientId);
-  const props=loadClientProposals().filter(p=>p.clientId===clientId);
+  const props=currentClientProposals().filter(p=>p.clientId===clientId);
   const total=props.reduce((a,p)=>a+(+p.value||0),0);
   return `<div class="crm-history-drawer">
     <div class="crm-history-head"><div><b>Histórico de ${esc(getClientDisplay(c))}</b><span>${props.length} proposta(s) · ${fmt(total)} em valores registrados</span></div><button class="btn" onclick="toggleClientHistory('${clientId}')"><i class="ti ti-chevron-up"></i> Recolher</button></div>
@@ -2662,7 +2740,7 @@ function clientOptionsHtml(selected=''){
   return '<option value="">Selecione</option>'+clients.map(c=>`<option value="${c.id}"${c.id===selected?' selected':''}>${esc(getClientDisplay(c))}</option>`).join('');
 }
 function pricingOptionsHtml(){
-  const history=loadPricingHistory();
+  const history=currentPricingHistory();
   const opts=['<option value="current">Simulação atual</option>'];
   opts.push(...history.map(h=>`<option value="hist:${h.id}">${esc(h.name)} · ${new Date(h.date).toLocaleDateString('pt-BR')}</option>`));
   return opts.join('');
@@ -2672,7 +2750,7 @@ function statusOptionsHtml(selected='enviada'){
 }
 function renderClientStats(){
   const clients=loadClients();
-  const props=loadClientProposals();
+  const props=currentClientProposals();
   const totalValue=props.filter(p=>!['perdida','arquivada'].includes(p.status)).reduce((a,p)=>a+(+p.value||0),0);
   const won=props.filter(p=>p.status==='aprovada').reduce((a,p)=>a+(+p.value||0),0);
   const el=document.getElementById('crm-stats');
@@ -2685,7 +2763,7 @@ function renderClientList(){
   const el=document.getElementById('crm-client-list');if(!el)return;
   const clients=loadClients();
   if(!clients.length){el.innerHTML='<div class="crm-empty"><i class="ti ti-user-plus"></i><br/>Nenhum cliente cadastrado ainda.</div>';return;}
-  const props=loadClientProposals();
+  const props=currentClientProposals();
   const propCount=props.reduce((acc,p)=>{acc[p.clientId]=(acc[p.clientId]||0)+1;return acc;},{});
   const lastByClient=props.reduce((acc,p)=>{if(!acc[p.clientId]||new Date(p.date)>new Date(acc[p.clientId].date))acc[p.clientId]=p;return acc;},{});
   el.innerHTML=clients.map(c=>{
@@ -2733,8 +2811,9 @@ function linkPricingToClient(){
   const nextAction=(document.getElementById('crm-link-next')?.value||'').trim();
   const notes=(document.getElementById('crm-link-notes')?.value||'').trim();
   const props=loadClientProposals();
+  const op=currentOperationState();
   const prop={
-    id:'prop-'+Date.now(),clientId,historyId,status,nextAction,notes,
+    id:'prop-'+Date.now(),operationId:op.id,operationName:op.name,operationCreatedAt:op.createdAt,clientId,historyId,status,nextAction,notes,
     title:snap.name||getOperationName(),date:new Date().toISOString(),
     value:+(snap.sim?.fat||0),unitPrice:+(snap.sim?.precoUnit||0),margin:+(snap.sim?.margemUnit||0),volume:+(snap.sim?.un||0),
     snapshot:snap
@@ -2811,7 +2890,7 @@ function downloadClientProposalPDF(id){
 }
 function renderPipeline(){
   const clients=loadClients();
-  const props=loadClientProposals();
+  const props=currentClientProposals();
   const clientMap=Object.fromEntries(clients.map(c=>[c.id,c]));
   const activeProps=props.filter(p=>p.status!=='arquivada');
   const openValue=activeProps.filter(p=>!['perdida','aprovada'].includes(p.status)).reduce((a,p)=>a+(+p.value||0),0);
@@ -2902,8 +2981,12 @@ function renderSmartAlerts(){
 function pricingSnapshot(){
   if(!SIM)runSim();
   const now=new Date();
+  const op=currentOperationState();
   return {
     id:'hist-'+now.getTime(),
+    operationId:op.id,
+    operationName:op.name,
+    operationCreatedAt:op.createdAt,
     name:getOperationName(),
     date:now.toISOString(),
     sim:{...SIM,segs:SIM.segs.map(s=>({...s}))},
@@ -2956,6 +3039,7 @@ function renderPricingHistory(){
 function restoreHistoryItem(id){
   const h=loadPricingHistory().find(x=>x.id===id);
   if(!h)return;
+  activateOperationStateFromSnapshot(h);
   GROUPS.splice(0,GROUPS.length,...h.groups.map((g,i)=>({id:g.id,label:g.label,icon:GROUPS[i]?.icon||'ti-folder',color:g.color||GROUP_COLOR_PALETTE[i%GROUP_COLOR_PALETTE.length],payment:'pix',periodUnit:g.periodUnit||'mes',periodQty:g.periodQty||1,items:(g.items||[]).map(it=>({...it}))})));
   Object.assign(ADJ,h.ajustes||{});
   window.NOME_OPERACAO=h.name;
@@ -3686,7 +3770,7 @@ function criarOperacaoZero(){
     });
   });
   activeGroup=GROUPS[0]?.id||'';
-  window.NOME_OPERACAO=nome||'Nova operação';
+  resetOperationSpecificState(nome||'Nova operação');
   renderGroupsBar();
   renderValidGroups();
   renderOperacao();
@@ -3905,8 +3989,8 @@ renderSmartAlerts();
     }
   ]
 }
-/* TradePrice PWA — atualização segura v24 */
-const TP_CACHE = 'tp-pwa-v24-20260626';
+/* TradePrice PWA — atualização segura v25 */
+const TP_CACHE = 'tp-pwa-v25-20260626';
 const TP_SHELL = [
   './',
   './index.html',
