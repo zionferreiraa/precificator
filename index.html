@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon-48.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
-<!-- build: gestao-ordenada-operacao-zero-pwa-v22-20260626 -->
+<!-- build: assistente-inteligente-local-v24-20260626 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -747,9 +747,17 @@ input[type=range]:focus{outline:none}
    V17 — DASHBOARD EXECUTIVO, CLIENTES E PIPELINE CLICK
 ══════════════════════════════════════════════ */
 .dash-hero-executive .dash-hero-main{display:flex;flex-direction:column;gap:.95rem;min-height:0}.dash-executive-kpis{margin-top:.15rem;display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:.75rem}.dash-executive-kpis .kpi-card{background:rgba(255,255,255,.82);border-color:rgba(0,47,167,.12);box-shadow:0 10px 26px rgba(16,24,40,.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.dash-executive-kpis .kc-label{font-size:.62rem}.dash-executive-kpis .kc-val{font-size:1.16rem}.dash-executive-kpis .kc-sub{font-size:.66rem}.client-pipeline-sub{pointer-events:auto!important;position:relative;z-index:4}.client-pipeline-sub.visible{display:flex!important}.client-pipeline-sub:focus-visible{outline:2px solid rgba(255,255,255,.7);outline-offset:2px}.crm-client-layout-v17{grid-template-columns:minmax(350px,.9fr) minmax(0,1.1fr);align-items:start}.crm-client-side-stack{display:grid;gap:1rem;align-items:start}.crm-link-box-v17{margin-top:0}.crm-link-grid-v17{grid-template-columns:repeat(2,minmax(0,1fr))}.crm-client-form-panel,.crm-client-list-panel{border-radius:20px;padding:1.25rem;box-shadow:var(--sh-sm)}.crm-link-box-v17 .panel-title{font-size:1rem}.crm-link-box-v17 .panel-hint{max-width:620px}:root[data-theme="dark"] .dash-executive-kpis .kpi-card{background:rgba(27,34,51,.86)!important;border-color:var(--grey-2);box-shadow:0 12px 30px rgba(0,0,0,.32)}:root[data-theme="dark"] .crm-client-form-panel,:root[data-theme="dark"] .crm-client-list-panel{background:#1B2233!important;border-color:var(--grey-2)}
+
+/* Dashboard e assistentes v23 */
+.dash-qa-card{min-height:100%;gap:.75rem}.dash-qa-ready{display:grid;gap:.65rem}.dash-qa-chips,.op-ai-suggestions{display:flex;gap:.45rem;flex-wrap:wrap}.dash-qa-chips button,.op-ai-suggestions button{border:1px solid var(--grey-2);background:var(--grey-0);color:var(--grey-5);border-radius:999px;padding:.42rem .62rem;font-size:.68rem;font-weight:800;font-family:var(--ff-b);cursor:pointer;transition:.18s ease}.dash-qa-chips button:hover,.op-ai-suggestions button:hover{background:var(--cobalt-xlt);border-color:var(--cobalt-lt);color:var(--cobalt-mid)}.dash-qa-inputrow,.op-ai-inputrow{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:end}.dash-qa-inputrow input,.op-ai-inputrow input{height:38px;border:1px solid var(--grey-2);background:var(--white);border-radius:12px;padding:.55rem .7rem;font-size:.74rem;color:var(--ink);font-family:var(--ff-b)}.dash-qa-answer,.op-ai-answer{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:14px;padding:.78rem .85rem;font-size:.74rem;color:var(--grey-5);line-height:1.58}.dash-qa-answer b,.op-ai-answer b{display:block;color:var(--ink);font-size:.8rem;margin-bottom:.2rem}.dash-qa-empty{border:1px dashed var(--grey-2);background:var(--grey-0);border-radius:18px;padding:1.15rem;text-align:center;color:var(--grey-4);display:grid;place-items:center;gap:.5rem;min-height:170px}.dash-wait-clock{width:54px;height:54px;border-radius:18px;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);color:var(--cobalt-mid);display:grid;place-items:center;font-size:1.75rem;animation:tpClockPulse 1.8s ease-in-out infinite}.dash-wait-clock i{animation:tpClockWiggle 1.4s ease-in-out infinite;display:inline-block}.dash-qa-empty b{font-family:var(--ff-d);font-size:.95rem;color:var(--ink);letter-spacing:-.02em}.dash-qa-empty span{font-size:.72rem;line-height:1.55}.op-ai-box{margin-top:1rem;border:1px solid var(--grey-2);background:linear-gradient(180deg,var(--white),var(--grey-0));border-radius:18px;padding:1rem;display:grid;gap:.72rem}.op-ai-title{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:var(--ink);display:flex;align-items:center;gap:.4rem}.op-ai-title i{color:var(--cobalt-mid)}.op-ai-sub{font-size:.72rem;color:var(--grey-4);line-height:1.55;margin-top:-.35rem}.op-ai-actions,.dash-qa-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.55rem}.op-ai-actions .btn,.dash-qa-actions .btn{height:32px;padding:.35rem .55rem;font-size:.68rem}.crm-history-drawer{grid-column:1/-1;border:1px solid var(--grey-2);background:linear-gradient(180deg,var(--grey-0),var(--white));border-radius:16px;padding:.9rem;margin-top:.2rem}.crm-history-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:.75rem}.crm-history-head b{display:block;font-family:var(--ff-d);color:var(--ink);font-size:.92rem}.crm-history-head span{display:block;font-size:.7rem;color:var(--grey-4);margin-top:.15rem}.crm-history-form{display:grid;grid-template-columns:1fr auto;gap:.55rem;margin-bottom:.85rem}.crm-history-form input{height:36px;border:1px solid var(--grey-2);background:var(--white);border-radius:12px;padding:.52rem .65rem;font-size:.73rem;color:var(--ink)}.crm-timeline{display:grid;gap:.55rem;max-height:280px;overflow:auto;padding-right:.15rem}.crm-timeline-item{display:grid;grid-template-columns:28px 1fr;gap:.55rem;align-items:start}.crm-timeline-icon{width:28px;height:28px;border-radius:10px;background:var(--cobalt-xlt);border:1px solid var(--cobalt-lt);color:var(--cobalt-mid);display:grid;place-items:center;font-size:.9rem}.crm-timeline-body{border:1px solid var(--grey-2);background:var(--white);border-radius:13px;padding:.62rem .7rem}.crm-timeline-body b{display:block;color:var(--ink);font-size:.76rem}.crm-timeline-body span{display:block;color:var(--grey-4);font-size:.68rem;margin-top:.12rem}.crm-timeline-body p{color:var(--grey-5);font-size:.72rem;line-height:1.48;margin-top:.35rem}.crm-client-mini-props{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.55rem}.crm-client-mini-props span{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:999px;padding:.25rem .45rem;font-size:.65rem;color:var(--grey-5);font-weight:800}.crm-action-text{font-size:.68rem!important;padding:.42rem .55rem!important;height:32px!important}.crm-card-actions .btn-primary{height:32px;padding:.42rem .55rem}.crm-card-actions .btn{height:32px;padding:.42rem .55rem}@keyframes tpClockPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(0,71,171,.16)}50%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(0,71,171,.04)}}@keyframes tpClockWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}:root[data-theme="dark"] .dash-qa-inputrow input,:root[data-theme="dark"] .op-ai-inputrow input,:root[data-theme="dark"] .crm-history-form input{background:#111827;color:var(--ink);border-color:var(--grey-2)}:root[data-theme="dark"] .dash-qa-answer,:root[data-theme="dark"] .op-ai-answer,:root[data-theme="dark"] .dash-qa-empty,:root[data-theme="dark"] .op-ai-box,:root[data-theme="dark"] .crm-history-drawer,:root[data-theme="dark"] .crm-timeline-body{background:#1B2233!important;border-color:var(--grey-2)}
+@media(max-width:767px){.dash-qa-inputrow,.op-ai-inputrow,.crm-history-form{grid-template-columns:1fr}.dash-qa-inputrow .btn,.op-ai-inputrow .btn,.crm-history-form .btn{width:100%;justify-content:center}.crm-history-head{display:grid}.crm-timeline{max-height:340px}}
 @media(max-width:1180px){.dash-executive-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.crm-client-layout-v17{grid-template-columns:1fr}}
 @media(max-width:767px){.dash-executive-kpis{grid-template-columns:1fr 1fr;gap:.65rem}.dash-executive-kpis .kpi-card{padding:.8rem}.dash-executive-kpis .kc-val{font-size:1rem}.crm-link-grid-v17{grid-template-columns:1fr}.crm-client-form-panel,.crm-client-list-panel{padding:1rem}.crm-link-box-v17{padding:1rem}.client-pipeline-sub{display:none!important}}
 
+
+
+/* V24 — Assistente inteligente local e contextual */
+.smart-help-card{margin-top:1rem;border:1px solid var(--grey-2);background:linear-gradient(180deg,var(--white),var(--grey-0));border-radius:18px;padding:.9rem 1rem;box-shadow:var(--sh-sm);display:grid;gap:.68rem;position:relative;overflow:hidden}.smart-help-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cobalt-mid);opacity:.9}.smart-help-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem}.smart-help-title{display:flex;align-items:center;gap:.42rem;font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:var(--ink)}.smart-help-title i{color:var(--cobalt-mid);font-size:1rem}.smart-help-sub{font-size:.7rem;color:var(--grey-4);line-height:1.5;margin-top:.18rem}.smart-help-toggle{height:30px;width:30px;border-radius:10px;border:1px solid var(--grey-2);background:var(--grey-0);color:var(--grey-5);display:grid;place-items:center;cursor:pointer}.smart-help-body{display:grid;gap:.62rem}.smart-help-card.is-collapsed .smart-help-body{display:none}.smart-help-card.is-collapsed .smart-help-toggle i{transform:rotate(180deg)}.smart-help-chips{display:flex;gap:.42rem;flex-wrap:wrap}.smart-help-chips button{border:1px solid var(--grey-2);background:var(--grey-0);color:var(--grey-5);border-radius:999px;padding:.38rem .58rem;font-size:.66rem;font-weight:800;font-family:var(--ff-b);cursor:pointer;transition:.18s ease}.smart-help-chips button:hover{background:var(--cobalt-xlt);border-color:var(--cobalt-lt);color:var(--cobalt-mid)}.smart-help-inputrow{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:end}.smart-help-inputrow input{height:38px;border:1px solid var(--grey-2);background:var(--white);border-radius:12px;padding:.55rem .7rem;font-size:.74rem;color:var(--ink);font-family:var(--ff-b)}.smart-help-answer{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:14px;padding:.78rem .85rem;font-size:.74rem;color:var(--grey-5);line-height:1.58}.smart-help-answer b{display:block;color:var(--ink);font-size:.8rem;margin-bottom:.22rem}.smart-help-answer span{display:block}.smart-help-answer ul{margin:.45rem 0 0 1rem;padding:0}.smart-help-answer li{margin:.18rem 0}.smart-help-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.6rem}.smart-help-actions .btn{height:32px;padding:.35rem .55rem;font-size:.68rem}.dash-qa-answer ul,.op-ai-answer ul{margin:.45rem 0 0 1rem;padding:0}.dash-qa-answer li,.op-ai-answer li{margin:.18rem 0}:root[data-theme="dark"] .smart-help-card{background:linear-gradient(180deg,#1B2233,#111827)!important;border-color:var(--grey-2)}:root[data-theme="dark"] .smart-help-inputrow input{background:#111827;color:var(--ink);border-color:var(--grey-2)}:root[data-theme="dark"] .smart-help-answer{background:#1B2233!important;border-color:var(--grey-2)}@media(max-width:767px){.smart-help-card{padding:.85rem}.smart-help-head{gap:.5rem}.smart-help-inputrow{grid-template-columns:1fr}.smart-help-inputrow .btn{width:100%;justify-content:center}}
 
 .pwa-install-btn.is-installed{display:none!important}
 .pwa-install-btn.is-waiting{opacity:.72}
@@ -808,7 +816,7 @@ input[type=range]:focus{outline:none}
   <button class="nav-item pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
   <div style="flex:1"></div>
   <div style="padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.08)">
-    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v21 · 2026</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.04em">v24 · 2026</div>
   </div>
 </aside>
 
@@ -819,7 +827,7 @@ input[type=range]:focus{outline:none}
     <div>
       <div class="topbar-title" id="page-title">Dashboard</div>
       <div class="topbar-sub" id="page-sub">Visão consolidada de todos os grupos de custo</div>
-      <div class="build-chip" title="Versão do arquivo carregado">build v21</div>
+      <div class="build-chip" title="Versão do arquivo carregado">build v24</div>
     </div>
     <div class="topbar-actions">
       <button class="btn" onclick="toggleTheme()" aria-label="Alternar tema"><i class="ti ti-moon" id="theme-icon"></i> <span id="theme-label">Dark mode</span></button>
@@ -840,11 +848,9 @@ input[type=range]:focus{outline:none}
       <p>Acompanhe os principais indicadores da operação em um único bloco: custo total, grupos ativos, itens cadastrados, maior grupo e peso de pessoal.</p>
       <div class="kpis dash-kpi-grid dash-executive-kpis" id="kpi-area"></div>
     </div>
-    <div class="dash-side-card">
-      <div class="dash-side-title"><i class="ti ti-route"></i> Próximas ações</div>
-      <button class="dash-action" onclick="switchView('grupos')"><span><i class="ti ti-layers-difference"></i> Revisar grupos</span><i class="ti ti-chevron-right"></i></button>
-      <button class="dash-action" onclick="switchView('precificar')"><span><i class="ti ti-calculator"></i> Abrir precificação</span><i class="ti ti-chevron-right"></i></button>
-      <button class="dash-action" onclick="openClientPipeline()"><span><i class="ti ti-chart-dots-3"></i> Ver pipeline</span><i class="ti ti-chevron-right"></i></button>
+    <div class="dash-side-card dash-qa-card">
+      <div class="dash-side-title"><i class="ti ti-message-question"></i> Assistente geral da operação</div>
+      <div id="dashboard-qa-content"></div>
     </div>
   </section>
 
@@ -1018,6 +1024,25 @@ input[type=range]:focus{outline:none}
         <div class="op-steps" id="op-steps"></div>
         <div class="op-step-detail" id="op-step-detail"></div>
       </div>
+
+      <div class="op-ai-box">
+        <div class="op-ai-title"><i class="ti ti-message-question"></i> Assistente TradePrice</div>
+        <div class="op-ai-sub">Pergunte livremente sobre esta etapa. O assistente interpreta sua dúvida, lê o estágio atual do app e indica o próximo passo.</div>
+        <div class="op-ai-suggestions">
+          <button onclick="setOperationAssistantQuestion('O que faço agora?')">O que faço agora?</button>
+          <button onclick="setOperationAssistantQuestion('Quais grupos devo criar?')">Quais grupos?</button>
+          <button onclick="setOperationAssistantQuestion('O que falta para minha operação ficar pronta?')">O que falta?</button>
+          <button onclick="setOperationAssistantQuestion('Como melhorar minha margem?')">Margem</button>
+        </div>
+        <div class="op-ai-inputrow">
+          <input id="op-ai-question" placeholder="Ex.: não sei se imposto entra como custo ou ajuste" onkeydown="if(event.key==='Enter')askOperationAssistant()"/>
+          <button class="btn btn-primary" onclick="askOperationAssistant()"><i class="ti ti-send"></i></button>
+        </div>
+        <div class="op-ai-answer" id="op-ai-answer">
+          <b>Faça sua primeira pergunta.</b>
+          <span>Eu vou responder com base no estágio atual do app e indicar a próxima tela quando fizer sentido.</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1087,6 +1112,7 @@ input[type=range]:focus{outline:none}
           </div>
           <div class="crm-form-actions">
             <button class="btn btn-primary" onclick="linkPricingToClient()"><i class="ti ti-link-plus"></i> Vincular proposta</button>
+            <button class="btn" onclick="openProposalForSelectedClient()"><i class="ti ti-file-invoice"></i> Gerar proposta</button>
             <button class="btn" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Ver pipeline</button>
           </div>
         </div>
@@ -1328,7 +1354,7 @@ input[type=range]:focus{outline:none}
   </div>
   <div class="panel">
     <div class="panel-title" style="margin-bottom:1rem"><i class="ti ti-brand-github"></i> Publicar no GitHub Pages</div>
-    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v21</div>
+    <div style="display:inline-flex;margin-bottom:.75rem;padding:.35rem .55rem;border-radius:999px;background:var(--green-lt);color:var(--green);font-size:.68rem;font-weight:700">Arquivo carregado: build v24</div>
     <p style="font-size:.82rem;color:var(--grey-4);margin-bottom:.875rem;line-height:1.65">Arquivos do PWA instalável para publicar no GitHub Pages:</p>
     <ol style="font-size:.79rem;color:var(--grey-5);line-height:2.2;padding-left:1.25rem">
       <li>Envie <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">index.html</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">manifest.webmanifest</code>, <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">service-worker.js</code> e a pasta <code style="background:var(--grey-1);padding:.1rem .4rem;border-radius:4px;font-size:.73rem">icons/</code> para o repositório</li>
@@ -1579,7 +1605,9 @@ let SIM=null;
 const PRICING_HISTORY_KEY='tp-pricing-history-v1';
 const CLIENTS_KEY='tp-clients-v1';
 const CLIENT_PROPOSALS_KEY='tp-client-proposals-v1';
+const CLIENT_HISTORY_KEY='tp-client-history-v1';
 let CLIENT_SUBTAB='cadastro';
+let ACTIVE_CLIENT_HISTORY='';
 let OP_STEP_ACTIVE=0;
 
 /* ══════════════════════════════════════════════
@@ -1590,6 +1618,199 @@ const allT=()=>GROUPS.reduce((a,g)=>a+gT(g),0);
 const fmt=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtS=v=>v>=1000000?'R$ '+(v/1e6).toFixed(1)+'M':v>=1000?'R$ '+(v/1e3).toFixed(1)+'k':fmt(v);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ══════════════════════════════════════════════
+   V24 — ASSISTENTE INTELIGENTE LOCAL
+══════════════════════════════════════════════ */
+const SMART_ASSISTANT_VIEWS={
+  dashboard:{label:'Dashboard',icon:'ti-layout-dashboard',sub:'Pergunte sobre a visão geral da operação.'},
+  grupos:{label:'Grupos de custo',icon:'ti-layers-difference',sub:'Tire dúvidas sobre grupos, itens, custos fixos e variáveis.'},
+  precificar:{label:'Precificação',icon:'ti-adjustments-horizontal',sub:'Entenda preço, margem, markup, volume, impostos e proposta.'},
+  operacao:{label:'Operação do Zero',icon:'ti-pencil-plus',sub:'Guia para criar a operação corretamente.'},
+  clientes:{label:'Clientes',icon:'ti-users-group',sub:'Pergunte sobre cadastro, histórico e proposta comercial.'},
+  pipeline:{label:'Pipeline',icon:'ti-chart-dots-3',sub:'Entenda status, oportunidades e próximos follow-ups.'},
+  investimentos:{label:'Investimentos',icon:'ti-pig-money',sub:'Entenda amortização, implantação e recuperação do investimento.'},
+  ajustes:{label:'Ajustes',icon:'ti-settings',sub:'Pergunte sobre overhead, impostos e despesas adicionais.'},
+  importar:{label:'Importar',icon:'ti-cloud-upload',sub:'Dúvidas sobre planilhas, CSV, Excel e campos obrigatórios.'},
+  exportar:{label:'Exportar',icon:'ti-download',sub:'Dúvidas sobre backup, histórico, PDF, CSV, JSON e instalação.'}
+};
+const SMART_QUICK={
+  dashboard:['O que minha operação está dizendo?','O que revisar primeiro?','O que falta para ficar pronta?','Como melhorar minha margem?'],
+  grupos:['Como organizar os grupos?','Isso é custo fixo ou variável?','Qual custo está pesando mais?','O que devo lançar aqui?'],
+  precificar:['Meu preço está saudável?','Como melhorar a margem?','O que acontece se eu mudar o volume?','Posso gerar proposta?'],
+  operacao:['O que faço agora?','Quais grupos devo criar?','O que falta para ficar pronta?','Como começo do zero?'],
+  clientes:['Como vincular uma proposta?','Como usar o histórico?','Como gerar proposta?','Qual próximo contato?'],
+  pipeline:['Qual proposta priorizar?','O que significa cada status?','Quanto tenho em aberto?','Como acompanhar negociação?'],
+  investimentos:['O que entra em investimentos?','Como diluir no preço?','Em quantos meses recuperar?','Qual cuidado devo ter?'],
+  ajustes:['Onde coloco impostos?','O que é overhead?','Que despesas entram aqui?','O que revisar antes de precificar?'],
+  importar:['Como montar a planilha?','Quais colunas são obrigatórias?','Como importar CSV?','O que fazer se der erro?'],
+  exportar:['Como fazer backup?','Como baixar PDF?','Como instalar o app?','Como salvar histórico?']
+};
+function smartNorm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ç/g,'c');}
+function smartHas(q,arr){return arr.some(w=>q.includes(smartNorm(w)));}
+function smartAction(label,action,primary=false){return {label,action,primary};}
+function smartContext(){
+  try{if(!SIM&&document.getElementById('sl-overhead'))runSim();}catch(e){}
+  const total=allT();
+  const groups=(GROUPS||[]).map(g=>({id:g.id,label:g.label,total:gT(g),items:(g.items||[]).length,raw:g})).sort((a,b)=>b.total-a.total);
+  const items=[];(GROUPS||[]).forEach(g=>(g.items||[]).forEach(i=>items.push({label:i.nome||'Item sem nome',group:g.label,val:(+i.qtd||0)*(+i.unit||0)})));
+  items.sort((a,b)=>b.val-a.val);
+  let cum=0,pareto=0;for(const it of items){cum+=total?it.val/total*100:0;pareto++;if(cum>=80)break;}
+  const empty=groups.filter(g=>!g.items);
+  const extraCustos=(+ADJ.custos||0)+(+ADJ.rh||0)+(+ADJ.opex||0)+(+ADJ.admin||0)+(+ADJ.outras||0);
+  const taxPct=(+ADJ.pis||0)+(+ADJ.cofins||0)+(+ADJ.iss||0)+(+ADJ.simples||0);
+  const clients=typeof loadClients==='function'?loadClients():[];
+  const proposals=typeof loadClientProposals==='function'?loadClientProposals():[];
+  const history=typeof loadPricingHistory==='function'?loadPricingHistory():[];
+  const openProps=proposals.filter(p=>!['perdida','arquivada','aprovada'].includes(p.status));
+  const wonProps=proposals.filter(p=>p.status==='aprovada');
+  const openValue=openProps.reduce((a,p)=>a+(+p.value||0),0);
+  const wonValue=wonProps.reduce((a,p)=>a+(+p.value||0),0);
+  return {total,groups,items,biggestGroup:groups[0]||null,biggestItem:items[0]||null,empty,extraCustos,taxPct,pareto,cum,clients,proposals,history,openProps,wonProps,openValue,wonValue,sim:SIM||{},operationName:window.NOME_OPERACAO||'operação atual',ready:{groups:groups.length>0,costs:total>0,pricing:!!(SIM&&SIM.precoUnit>0),history:history.length>0,clients:clients.length>0,proposals:proposals.length>0}};
+}
+function smartMissing(ctx){
+  const m=[];
+  if(!ctx.ready.groups)m.push('criar a estrutura de grupos');
+  if(!ctx.ready.costs)m.push('lançar os custos reais nos grupos');
+  if(ctx.empty.length)m.push(`revisar ${ctx.empty.length} grupo(s) vazio(s)`);
+  if(!ctx.ready.pricing)m.push('abrir a precificação e validar volume, markup e impostos');
+  if(!ctx.ready.history)m.push('salvar uma simulação no histórico');
+  if(!ctx.ready.clients)m.push('cadastrar pelo menos um cliente');
+  if(!ctx.ready.proposals)m.push('vincular uma proposta a um cliente');
+  return m;
+}
+function smartDefaultActionForView(view){
+  return {
+    dashboard:[smartAction('Criar operação','operacao',true),smartAction('Revisar grupos','grupos')],
+    grupos:[smartAction('Novo grupo','openGroupManager',true),smartAction('Precificar','precificar')],
+    precificar:[smartAction('Salvar histórico','savePricingHistory',true),smartAction('Clientes','clientes')],
+    operacao:[smartAction('Adicionar grupo','addOperacaoGroup',true),smartAction('Grupos','grupos')],
+    clientes:[smartAction('Gerar proposta','openProposal',true),smartAction('Pipeline','pipeline')],
+    pipeline:[smartAction('Clientes','clientes'),smartAction('Gerar proposta','openProposal',true)],
+    investimentos:[smartAction('Investimentos','investimentos',true),smartAction('Precificar','precificar')],
+    ajustes:[smartAction('Ajustes','ajustes',true),smartAction('Precificar','precificar')],
+    importar:[smartAction('Selecionar arquivo','selectImportFile',true),smartAction('Baixar modelo','downloadTemplate')],
+    exportar:[smartAction('Exportar CSV','exportCSV',true),smartAction('Instalar app','installApp')]
+  }[view]||[smartAction('Dashboard','dashboard')];
+}
+function smartViewFallback(view,ctx){
+  const label=SMART_ASSISTANT_VIEWS[view]?.label||'esta aba';
+  const map={
+    dashboard:`Nesta visão geral, acompanhe custo total, maior grupo, top itens, margem simulada e sinais da operação. Custo atual: ${fmt(ctx.total)}.`,
+    grupos:`Nesta aba, organize os custos em grupos claros. Use grupos como Pessoal, Sistemas, Insumos, Frete, Impostos, Terceiros ou Operacional para facilitar análise.`,
+    precificar:`Nesta aba, o preço nasce da soma de custos, overhead, amortização, impostos, volume e markup. Valide esses campos antes de gerar proposta.`,
+    operacao:`Aqui você cria a estrutura inicial. Comece pelo escopo do que será vendido, depois transforme a operação em grupos de custo.`,
+    clientes:`Aqui você cadastra clientes, vincula precificações, registra histórico e gera proposta comercial sem perder o acompanhamento.`,
+    pipeline:`Aqui você acompanha as propostas por status: rascunho, enviada, negociação, aprovada, perdida ou arquivada.`,
+    investimentos:`Aqui entram valores que precisam ser recuperados ao longo do tempo, como implantação, equipamentos, setup e estrutura inicial.`,
+    ajustes:`Aqui ficam custos adicionais, overhead e impostos. Revise antes de fechar preço para não reduzir sua margem real.`,
+    importar:`Aqui você carrega Excel ou CSV. A planilha precisa ter pelo menos grupo, nome e custo_unitario.`,
+    exportar:`Aqui você baixa CSV, JSON, histórico, PDF comercial e também acessa a instalação do PWA.`
+  };
+  return {title:`Ajuda sobre ${label}`,text:map[view]||`Pergunte sobre ${label} ou sobre qualquer etapa do app.`,bullets:[],actions:smartDefaultActionForView(view)};
+}
+function buildSmartAnswer(raw,view='dashboard'){
+  const ctx=smartContext();
+  const q=smartNorm(raw);
+  const original=String(raw||'').trim();
+  if(!original){
+    const m=smartMissing(ctx);
+    return {title:'Assistente pronto para ajudar',text:`Estou olhando a aba ${SMART_ASSISTANT_VIEWS[view]?.label||'atual'} e também o estado geral da operação. Você pode perguntar livremente, sem usar uma frase exata.`,bullets:m.length?[`Faltam pontos como: ${m.slice(0,3).join(', ')}.`]:[`A operação já tem ${ctx.groups.length} grupo(s), ${ctx.items.length} item(ns) e custo mensal de ${fmt(ctx.total)}.`],actions:smartDefaultActionForView(view)};
+  }
+  if(smartHas(q,['pronta','completa','o que falta','falta','finalizar','concluir','confiar'])){
+    const miss=smartMissing(ctx);
+    if(!miss.length)return {title:'Operação bem encaminhada',text:`A operação já possui custos, precificação, histórico, cliente e proposta vinculada. Agora o foco deve ser revisar margem, proposta e pipeline antes do envio final.`,bullets:[`Custo mensal: ${fmt(ctx.total)}.`,`Preço sugerido: ${fmt(ctx.sim.precoUnit||0)}.`,`Pipeline aberto: ${fmt(ctx.openValue)}.`],actions:[smartAction('Precificar','precificar',true),smartAction('Pipeline','pipeline')]};
+    return {title:'O que falta para avançar',text:'A operação ainda precisa de alguns pontos antes de ser considerada pronta para proposta ou análise final.',bullets:miss.slice(0,5),actions:smartDefaultActionForView(view)};
+  }
+  if(smartHas(q,['o que faco','proximo passo','por onde comeco','estou perdido','me guia','comecar','primeiro passo','agora'])){
+    const next=smartMissing(ctx)[0];
+    if(next)return {title:'Próximo passo recomendado',text:`O melhor próximo passo é ${next}.`,bullets:[`Aba atual: ${SMART_ASSISTANT_VIEWS[view]?.label||view}.`,`Custo mensal cadastrado: ${fmt(ctx.total)}.`,`Use os botões abaixo para ir direto ao ponto.`],actions:smartDefaultActionForView(view)};
+    return {title:'Próximo passo comercial',text:'A estrutura principal já está pronta. Agora revise a proposta, acompanhe o pipeline e registre os próximos contatos com clientes.',bullets:[`Clientes: ${ctx.clients.length}.`,`Propostas: ${ctx.proposals.length}.`,`Pipeline aberto: ${fmt(ctx.openValue)}.`],actions:[smartAction('Clientes','clientes',true),smartAction('Pipeline','pipeline')]};
+  }
+  if(smartHas(q,['maior custo','mais pesa','pesando','caro','custo alto','impacto','vilao','onde esta caro'])){
+    if(!ctx.biggestGroup)return {title:'Ainda não há custo para analisar',text:'Cadastre grupos e itens primeiro. Depois eu consigo apontar o grupo e o item que mais pesam.',bullets:[],actions:[smartAction('Criar operação','operacao',true),smartAction('Grupos','grupos')]};
+    return {title:'Maior impacto de custo',text:`O grupo que mais pesa hoje é ${ctx.biggestGroup.label}, com ${fmt(ctx.biggestGroup.total)} por mês.`,bullets:[ctx.total?`Ele representa ${(ctx.biggestGroup.total/ctx.total*100).toFixed(1)}% do custo total.`:'Ainda sem percentual calculável.',ctx.biggestItem?`O item de maior impacto é ${ctx.biggestItem.label}, em ${ctx.biggestItem.group}, com ${fmt(ctx.biggestItem.val)}.`:'Nenhum item encontrado.',`Revisar esse grupo primeiro tende a gerar mais economia que mexer em custos pequenos.`],actions:[smartAction('Revisar grupos','grupos',true),smartAction('Precificar','precificar')]};
+  }
+  if(smartHas(q,['reduzir','economizar','cortar','diminuir custo','baratear','melhorar margem','margem melhor','lucro'])){
+    const g=ctx.biggestGroup;
+    const econ=g?g.total*.1:0;
+    return {title:'Como melhorar margem',text:g?`Comece pelo maior grupo: ${g.label}. Uma redução de 10% nele economizaria cerca de ${fmt(econ)} por mês.`:'Para melhorar margem, primeiro cadastre custos reais e simule volume/markup.',bullets:['Revise quantidades, fornecedores, itens duplicados e custos que não são essenciais.','Depois teste volume e markup na aba Precificação.','Não aumente preço sem conferir impostos e amortização.'],actions:[smartAction('Grupos','grupos',true),smartAction('Precificar','precificar')]};
+  }
+  if(smartHas(q,['grupo','grupos','categoria','categorias','organizar','separar','estrutura'])){
+    return {title:'Como organizar os grupos',text:'Crie grupos que ajudem a tomar decisão, não apenas a guardar custos. O ideal é separar por natureza ou área de impacto.',bullets:['Exemplos: Pessoal, Sistemas, Equipamentos, Insumos, Frete, Taxas, Terceiros, Administrativo e Comercial.','Evite misturar custos de comportamento diferente quando isso prejudicar a análise.','Grupos vazios devem ser preenchidos ou removidos antes da precificação final.'],actions:[smartAction('Novo grupo','openGroupManager',true),smartAction('Operação do Zero','operacao')]};
+  }
+  if(smartHas(q,['fixo','variavel','variável','unidade','mensal','recorrente'])){
+    return {title:'Custo fixo ou variável',text:'Custo fixo permanece mesmo vendendo pouco. Custo variável acompanha volume, unidade, entrega, pedido ou cliente.',bullets:['Fixo: aluguel, sistemas, equipe mensal, ferramentas e estrutura.','Variável: embalagem, frete por entrega, comissão, taxa por venda e insumo por unidade.','Quando tiver dúvida, pergunte: esse custo aumenta quando vendo mais? Se sim, tende a ser variável.'],actions:[smartAction('Grupos','grupos',true),smartAction('Precificar','precificar')]};
+  }
+  if(smartHas(q,['imposto','taxa','simples','pis','cofins','iss','tributo','tributario'])){
+    return {title:'Impostos e taxas',text:`A carga tributária configurada agora é ${ctx.taxPct.toFixed(2)}%. Ela impacta diretamente o preço sugerido e a margem real.`,bullets:['Se usar Simples Nacional, evite duplicar impostos que já estejam dentro da alíquota.','Revise impostos antes de gerar proposta.','Taxas por venda ou por transação podem entrar como custo variável ou ajuste, dependendo da lógica da operação.'],actions:[smartAction('Abrir ajustes','ajustes',true),smartAction('Precificar','precificar')]};
+  }
+  if(smartHas(q,['investimento','investimentos','amortizacao','amortização','diluir','recuperar','implantacao','implantação','setup'])){
+    return {title:'Investimentos e amortização',text:'Investimento é algo que você precisa recuperar ao longo do tempo, como implantação, equipamento, setup ou estrutura inicial.',bullets:[`Amortização mensal atual: ${fmt(ctx.sim.amort||ADJ.amort||0)}.`,`Escolha em quantos meses quer recuperar o valor para não jogar tudo em uma única venda.`,`Não duplique como investimento um valor que já entrou como custo mensal.`],actions:[smartAction('Investimentos','investimentos',true),smartAction('Precificar','precificar')]};
+  }
+  if(smartHas(q,['preco','preço','precificar','precificacao','precificação','markup','volume','unidades','ticket','vender por quanto'])){
+    return {title:'Leitura de precificação',text:ctx.ready.pricing?`Com os dados atuais, o preço sugerido está em ${fmt(ctx.sim.precoUnit||0)} por unidade e a receita potencial em ${fmt(ctx.sim.fat||0)}.`:'Ainda falta validar a simulação de preço. Lance custos, defina volume e ajuste markup/impostos.',bullets:[`Custo base mensal: ${fmt(ctx.total)}.`,`Markup atual: ${ctx.sim.markup||0}%.`,`Volume atual: ${ctx.sim.un||0} unidade(s)/mês.`],actions:[smartAction('Precificar','precificar',true),smartAction('Gerar proposta','openProposal')]};
+  }
+  if(smartHas(q,['cliente','clientes','proposta','pdf','whatsapp','historico','histórico','cadastro','contato'])){
+    return {title:'Clientes e proposta comercial',text:`Você tem ${ctx.clients.length} cliente(s) cadastrado(s) e ${ctx.proposals.length} proposta(s) vinculada(s).`,bullets:['Cadastre o cliente com dados básicos.','Vincule a simulação atual ou uma precificação salva.','Use o histórico para registrar follow-ups, alterações e observações.','Gere a proposta para transformar a precificação em material comercial.'],actions:[smartAction('Clientes','clientes',true),smartAction('Gerar proposta','openProposal'),smartAction('Pipeline','pipeline')]};
+  }
+  if(smartHas(q,['pipeline','funil','status','negociacao','negociação','aprovada','perdida','follow','follow-up','oportunidade'])){
+    return {title:'Pipeline de propostas',text:`O pipeline aberto soma ${fmt(ctx.openValue)} em oportunidades ainda não aprovadas, perdidas ou arquivadas.`,bullets:[`Propostas abertas: ${ctx.openProps.length}.`,`Propostas aprovadas: ${ctx.wonProps.length}, totalizando ${fmt(ctx.wonValue)}.`,`Priorize oportunidades quentes, com próxima ação clara e maior valor potencial.`],actions:[smartAction('Ver pipeline','pipeline',true),smartAction('Clientes','clientes')]};
+  }
+  if(smartHas(q,['dashboard','indicador','indicadores','painel','resumo','analise geral','análise geral','80/20','pareto','top itens'])){
+    return {title:'Como ler o dashboard',text:`O dashboard resume a operação. Hoje o custo mensal é ${fmt(ctx.total)} e existem ${ctx.items.length} item(ns) cadastrados.`,bullets:[ctx.biggestGroup?`Maior grupo: ${ctx.biggestGroup.label}, com ${fmt(ctx.biggestGroup.total)}.`:'Ainda não há grupo com custo.',ctx.pareto?`Regra 80/20: aproximadamente ${ctx.pareto} item(ns) concentram ${ctx.cum.toFixed(0)}% do custo.`:'Cadastre itens para calcular Pareto.',`Use essa leitura para decidir o que revisar antes de mexer no preço.`],actions:[smartAction('Dashboard','dashboard',true),smartAction('Grupos','grupos')]};
+  }
+  if(smartHas(q,['importar','excel','csv','planilha','power bi','arquivo','coluna','colunas'])){
+    return {title:'Importação de dados',text:'Para importar, use uma planilha com cabeçalhos claros. O app processa localmente, sem servidor.',bullets:['Obrigatório: grupo, nome e custo_unitario.','Opcional: quantidade, categoria e campos de ajustes.','Se der erro, confira nomes de colunas, células vazias e separador do CSV.'],actions:[smartAction('Importar','importar',true),smartAction('Baixar modelo','downloadTemplate')]};
+  }
+  if(smartHas(q,['exportar','backup','json','baixar','download','github','instalar','pwa','app','pdf comercial','salvar'])){
+    return {title:'Exportar, backup e instalação',text:'Use Exportar para baixar os dados atuais em CSV/JSON, gerar PDF comercial, salvar histórico e instalar o app como PWA.',bullets:['CSV ajuda a abrir em planilhas.','JSON ajuda a guardar backup completo.','A instalação funciona melhor via HTTPS/GitHub Pages e navegador compatível.'],actions:[smartAction('Exportar','exportar',true),smartAction('Instalar app','installApp')]};
+  }
+  if(smartHas(q,['erro','bug','nao funciona','não funciona','problema','sumiu','travou','corrigir'])){
+    return {title:'Como investigar um problema',text:'Comece conferindo se há dados preenchidos, se a aba correta está aberta e se o navegador carregou a versão mais recente do app.',bullets:['Atualize a página após subir uma nova versão no GitHub.','Se for PWA instalado, feche e abra novamente para puxar o novo cache.','Se dados sumirem, confira se está no mesmo navegador/dispositivo, pois esta versão salva localmente.'],actions:[smartAction('Exportar backup','exportar',true),smartAction('Dashboard','dashboard')]};
+  }
+  return smartViewFallback(view,ctx);
+}
+function renderSmartAnswerHTML(ans,cls='smart-help-actions'){
+  const bullets=(ans.bullets||[]).filter(Boolean).map(b=>`<li>${esc(b)}</li>`).join('');
+  const actions=(ans.actions||[]).map(a=>`<button class="btn ${a.primary?'btn-primary':''}" onclick="runSmartAssistantAction('${esc(a.action)}')"><i class="ti ti-arrow-right"></i> ${esc(a.label)}</button>`).join('');
+  return `<b>${esc(ans.title)}</b><span>${esc(ans.text)}</span>${bullets?`<ul>${bullets}</ul>`:''}${actions?`<div class="${cls}">${actions}</div>`:''}`;
+}
+function smartHelpCardHTML(view){
+  const cfg=SMART_ASSISTANT_VIEWS[view]||SMART_ASSISTANT_VIEWS.dashboard;
+  const chips=(SMART_QUICK[view]||SMART_QUICK.dashboard).map(q=>`<button onclick="setSmartAssistantQuestion('${view}', '${esc(q)}')">${esc(q)}</button>`).join('');
+  return `<div class="smart-help-card" id="smart-help-card-${view}" data-smart-view="${view}">
+    <div class="smart-help-head"><div><div class="smart-help-title"><i class="ti ${cfg.icon}"></i> Assistente TradePrice</div><div class="smart-help-sub">${esc(cfg.sub)} Escreva do seu jeito; não precisa usar perguntas prontas.</div></div><button class="smart-help-toggle" onclick="toggleSmartHelp('${view}')" title="Recolher/expandir"><i class="ti ti-chevron-up"></i></button></div>
+    <div class="smart-help-body" id="smart-help-body-${view}"><div class="smart-help-chips">${chips}</div><div class="smart-help-inputrow"><input id="smart-help-input-${view}" placeholder="Digite sua dúvida sobre esta aba..." onkeydown="if(event.key==='Enter')askSmartAssistant('${view}')"/><button class="btn btn-primary" onclick="askSmartAssistant('${view}')"><i class="ti ti-send"></i></button></div><div class="smart-help-answer" id="smart-help-answer-${view}"></div></div>
+  </div>`;
+}
+function ensureSmartAssistantCards(){
+  Object.keys(SMART_ASSISTANT_VIEWS).forEach(view=>{
+    if(view==='dashboard'||view==='operacao')return;
+    const host=document.getElementById('view-'+view);
+    if(!host||document.getElementById('smart-help-card-'+view))return;
+    host.insertAdjacentHTML('beforeend',smartHelpCardHTML(view));
+    const out=document.getElementById('smart-help-answer-'+view);
+    if(out)out.innerHTML=renderSmartAnswerHTML(buildSmartAnswer('',view));
+  });
+}
+function toggleSmartHelp(view){document.getElementById('smart-help-card-'+view)?.classList.toggle('is-collapsed');}
+function setSmartAssistantQuestion(view,q){const input=document.getElementById('smart-help-input-'+view);if(input)input.value=q;askSmartAssistant(view,q);}
+function askSmartAssistant(view,force){const out=document.getElementById('smart-help-answer-'+view);if(!out)return;const raw=String(force||document.getElementById('smart-help-input-'+view)?.value||'').trim();out.innerHTML=renderSmartAnswerHTML(buildSmartAnswer(raw,view));}
+function runSmartAssistantAction(action){
+  if(action==='pipeline'){openClientPipeline();return;}
+  if(action==='openGroupManager'){openGroupManager();return;}
+  if(action==='addOperacaoGroup'){addOperacaoGroup();return;}
+  if(action==='openProposal'){openProposal();return;}
+  if(action==='savePricingHistory'){saveCurrentPricingHistory();return;}
+  if(action==='downloadTemplate'){downloadTemplate();return;}
+  if(action==='selectImportFile'){document.getElementById('finp')?.click();return;}
+  if(action==='exportCSV'){exportCSV();return;}
+  if(action==='installApp'){installTradePriceApp();return;}
+  if(SMART_ASSISTANT_VIEWS[action]){switchView(action);return;}
+}
+function refreshCurrentSmartAssistant(){ensureSmartAssistantCards();}
+
 
 /* KPI update micro-animation: returns 'kpi-pulse' if value changed since last render */
 const KPI_PREV={};
@@ -1712,13 +1933,14 @@ function switchView(v){
   if(v==='grupos')renderGrupos();
   if(v==='precificar')setTimeout(runSim,30);
   if(v==='operacao')renderOperacao();
-  if(v==='clientes')renderClientes();
+  if(v==='clientes')renderClients();
   if(v==='pipeline')setTimeout(renderPipeline,30);
   syncClientSubnav();
   if(v==='investimentos')renderInvestimentos();
   if(v==='ajustes')renderAjustes();
   if(v==='importar'){renderImportMeta();}
   if(v==='exportar'){renderPricingHistory();}
+  setTimeout(refreshCurrentSmartAssistant,30);
 }
 
 /* ══════════════════════════════════════════════
@@ -1756,7 +1978,7 @@ function refreshChartsForTheme(){
   if(currentView==='dashboard')renderDashboard();
   else if(currentView==='grupos'){renderGrupos();GROUPS.forEach(g=>renderGrpChart(g));}
   else if(currentView==='precificar')runSim();
-  else if(currentView==='clientes')renderClientes();
+  else if(currentView==='clientes')renderClients();
   else if(currentView==='pipeline')renderPipeline();
 }
 
@@ -1789,6 +2011,7 @@ function renderDashboard(){
       <div class="kc-val ${kpiCls('dash-'+i,k.val,k.cls)}">${k.val}</div>
       <div class="kc-sub">${k.sub}</div>
     </div>`).join('');
+  renderDashboardQA();
 
   const labels=GROUPS.map(g=>g.label);
   const totals=GROUPS.map(g=>Math.round(gT(g)));
@@ -1797,7 +2020,7 @@ function renderDashboard(){
   const cGrid=cv('--grey-1'),cTick=cv('--grey-4'),cLabel=cv('--grey-5'),cInk=cv('--ink'),cWhite=cv('--white');
 
   document.getElementById('leg-bar').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label}</span>`).join('');
-  document.getElementById('leg-pie').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${(gT(g)/total*100).toFixed(1)}%</strong></span>`).join('');
+  document.getElementById('leg-pie').innerHTML=GROUPS.map(g=>`<span><span class="cl-dot" style="background:${g.color}"></span>${g.label} <strong>${total?(gT(g)/total*100).toFixed(1):'0.0'}%</strong></span>`).join('');
 
   dc('grp');
   charts.grp=new Chart(document.getElementById('c-grupos'),{
@@ -1887,6 +2110,50 @@ function renderDashboard(){
       });});ctx.restore();
     }}]
   });
+}
+
+
+function dashboardDataSummary(){
+  const total=allT();
+  const items=[];
+  GROUPS.forEach(g=>(g.items||[]).forEach(it=>items.push({group:g,label:it.nome,val:(+it.qtd||0)*(+it.unit||0)})));
+  items.sort((a,b)=>b.val-a.val);
+  const groups=GROUPS.map(g=>({g,total:gT(g),pct:total?gT(g)/total*100:0})).sort((a,b)=>b.total-a.total);
+  const biggestGroup=groups[0]||{g:{label:'—'},total:0,pct:0};
+  const biggestItem=items[0]||{label:'—',val:0,group:{label:'—'}};
+  let cum=0,pareto=0;
+  for(const it of items){cum+=total?it.val/total*100:0;pareto++;if(cum>=80)break;}
+  return {total,items,groups,biggestGroup,biggestItem,pareto,cum,itemCount:items.length};
+}
+function renderDashboardQA(){
+  const box=document.getElementById('dashboard-qa-content');
+  if(!box)return;
+  const d=dashboardDataSummary();
+  const ready=d.total>0&&d.itemCount>0;
+  if(!ready){
+    box.innerHTML=`<div class="dash-qa-empty"><div class="dash-wait-clock"><i class="ti ti-clock-hour-4"></i></div><b>esperando a sua operação...</b><span>Quando os grupos receberem custos, este espaço vira o assistente geral da operação.</span><button class="btn btn-primary" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Criar operação</button></div>`;
+    return;
+  }
+  const chips=(SMART_QUICK.dashboard||[]).map(q=>`<button onclick="setDashboardQuestion('${esc(q)}')">${esc(q)}</button>`).join('');
+  box.innerHTML=`<div class="dash-qa-ready">
+    <div class="dash-qa-chips">${chips}</div>
+    <div class="dash-qa-inputrow">
+      <input id="dash-qa-question" placeholder="Ex.: o que minha operação está dizendo?" onkeydown="if(event.key==='Enter')askDashboardQuestion()"/>
+      <button class="btn btn-primary" onclick="askDashboardQuestion()"><i class="ti ti-send"></i></button>
+    </div>
+    <div class="dash-qa-answer" id="dash-qa-answer">${renderSmartAnswerHTML(buildSmartAnswer('', 'dashboard'),'dash-qa-actions')}</div>
+  </div>`;
+}
+function setDashboardQuestion(q){
+  const input=document.getElementById('dash-qa-question');
+  if(input)input.value=q;
+  askDashboardQuestion(q);
+}
+function askDashboardQuestion(force){
+  const out=document.getElementById('dash-qa-answer');
+  if(!out)return;
+  const raw=String(force||document.getElementById('dash-qa-question')?.value||'').trim();
+  out.innerHTML=renderSmartAnswerHTML(buildSmartAnswer(raw,'dashboard'),'dash-qa-actions');
 }
 
 /* ══════════════════════════════════════════════
@@ -2290,6 +2557,46 @@ function loadClients(){try{return JSON.parse(localStorage.getItem(CLIENTS_KEY)||
 function saveClients(list){try{localStorage.setItem(CLIENTS_KEY,JSON.stringify(list));}catch(e){}}
 function loadClientProposals(){try{return JSON.parse(localStorage.getItem(CLIENT_PROPOSALS_KEY)||'[]')||[];}catch(e){return[];}}
 function saveClientProposals(list){try{localStorage.setItem(CLIENT_PROPOSALS_KEY,JSON.stringify(list));}catch(e){}}
+function loadClientHistory(){try{return JSON.parse(localStorage.getItem(CLIENT_HISTORY_KEY)||'[]')||[];}catch(e){return[];}}
+function saveClientHistory(list){try{localStorage.setItem(CLIENT_HISTORY_KEY,JSON.stringify(list.slice(0,500)));}catch(e){}}
+function clientHistoryIcon(type){return ({client:'ti-user-check',proposal:'ti-file-invoice',status:'ti-arrows-exchange',note:'ti-notes',pdf:'ti-file-type-pdf',delete:'ti-trash'}[type]||'ti-point');}
+function addClientHistory(clientId,type,title,detail,meta={}){
+  if(!clientId)return;
+  const list=loadClientHistory();
+  list.unshift({id:'histc-'+Date.now()+'-'+Math.random().toString(16).slice(2),clientId,type,title,detail,date:new Date().toISOString(),meta});
+  saveClientHistory(list);
+}
+function clientHistoryItems(clientId){return loadClientHistory().filter(h=>h.clientId===clientId).sort((a,b)=>new Date(b.date)-new Date(a.date));}
+function fmtDateTime(iso){try{return new Date(iso).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});}catch(e){return '—';}}
+function toggleClientHistory(id){ACTIVE_CLIENT_HISTORY=ACTIVE_CLIENT_HISTORY===id?'':id;renderClientList();}
+function addManualClientHistory(clientId){
+  const input=document.getElementById('crm-history-note-'+clientId);
+  const val=(input?.value||'').trim();
+  if(!val){toast('Escreva uma anotação para salvar no histórico');return;}
+  addClientHistory(clientId,'note','Anotação manual',val);
+  if(input)input.value='';
+  renderClientList();
+  toast('Anotação salva no histórico');
+}
+function renderClientHistoryDrawer(clientId){
+  const c=loadClients().find(x=>x.id===clientId)||{};
+  const items=clientHistoryItems(clientId);
+  const props=loadClientProposals().filter(p=>p.clientId===clientId);
+  const total=props.reduce((a,p)=>a+(+p.value||0),0);
+  return `<div class="crm-history-drawer">
+    <div class="crm-history-head"><div><b>Histórico de ${esc(getClientDisplay(c))}</b><span>${props.length} proposta(s) · ${fmt(total)} em valores registrados</span></div><button class="btn" onclick="toggleClientHistory('${clientId}')"><i class="ti ti-chevron-up"></i> Recolher</button></div>
+    <div class="crm-history-form"><input id="crm-history-note-${clientId}" placeholder="Adicionar anotação: Ex.: cliente pediu revisão para sexta" onkeydown="if(event.key==='Enter')addManualClientHistory('${clientId}')"/><button class="btn btn-primary" onclick="addManualClientHistory('${clientId}')"><i class="ti ti-plus"></i> Salvar nota</button></div>
+    <div class="crm-timeline">${items.length?items.map(h=>`<div class="crm-timeline-item"><div class="crm-timeline-icon"><i class="ti ${clientHistoryIcon(h.type)}"></i></div><div class="crm-timeline-body"><b>${esc(h.title)}</b><span>${fmtDateTime(h.date)}</span>${h.detail?`<p>${esc(h.detail)}</p>`:''}</div></div>`).join(''):'<div class="crm-empty"><i class="ti ti-notes"></i><br/>Sem eventos ainda. Cadastros, propostas, mudanças de status e notas aparecerão aqui.</div>'}</div>
+  </div>`;
+}
+function getSnapshotFromPricingSelect(){
+  const source=document.getElementById('crm-link-pricing')?.value||'current';
+  if(source.startsWith('hist:')){
+    const historyId=source.replace('hist:','');
+    return loadPricingHistory().find(x=>x.id===historyId)||null;
+  }
+  return pricingSnapshot();
+}
 function statusById(id){return PIPELINE_STATUSES.find(s=>s.id===id)||PIPELINE_STATUSES[0];}
 function getClientDisplay(c){return (c.company||c.name||'Cliente sem nome').trim();}
 function toggleClientSubtabs(){document.getElementById('clientes-subtabs-shell')?.classList.toggle('open');}
@@ -2322,7 +2629,13 @@ function saveClientFromForm(){
   if(!client.name&&!client.company){toast('Informe pelo menos nome ou empresa');return;}
   const list=loadClients();
   const idx=list.findIndex(c=>c.id===id);
-  if(idx>=0)list[idx]={...list[idx],...client}; else list.unshift({...client,createdAt:new Date().toISOString()});
+  if(idx>=0){
+    list[idx]={...list[idx],...client};
+    addClientHistory(id,'client','Cliente atualizado','Cadastro revisado na aba Clientes.');
+  }else{
+    list.unshift({...client,createdAt:new Date().toISOString()});
+    addClientHistory(id,'client','Cliente cadastrado','Cliente criado e pronto para receber propostas.');
+  }
   saveClients(list);
   clearClientForm();
   renderClients();
@@ -2338,6 +2651,8 @@ function editClient(id){
 function deleteClient(id){
   saveClients(loadClients().filter(c=>c.id!==id));
   saveClientProposals(loadClientProposals().filter(p=>p.clientId!==id));
+  saveClientHistory(loadClientHistory().filter(h=>h.clientId!==id));
+  if(ACTIVE_CLIENT_HISTORY===id)ACTIVE_CLIENT_HISTORY='';
   renderClients();
   toast('Cliente removido');
 }
@@ -2370,22 +2685,31 @@ function renderClientList(){
   const el=document.getElementById('crm-client-list');if(!el)return;
   const clients=loadClients();
   if(!clients.length){el.innerHTML='<div class="crm-empty"><i class="ti ti-user-plus"></i><br/>Nenhum cliente cadastrado ainda.</div>';return;}
-  const propCount=loadClientProposals().reduce((acc,p)=>{acc[p.clientId]=(acc[p.clientId]||0)+1;return acc;},{});
-  el.innerHTML=clients.map(c=>`
-    <div class="crm-card">
+  const props=loadClientProposals();
+  const propCount=props.reduce((acc,p)=>{acc[p.clientId]=(acc[p.clientId]||0)+1;return acc;},{});
+  const lastByClient=props.reduce((acc,p)=>{if(!acc[p.clientId]||new Date(p.date)>new Date(acc[p.clientId].date))acc[p.clientId]=p;return acc;},{});
+  el.innerHTML=clients.map(c=>{
+    const last=lastByClient[c.id];
+    const st=last?statusById(last.status):null;
+    return `<div class="crm-card">
       <div>
         <div class="crm-card-title">${esc(getClientDisplay(c))}</div>
         <div class="crm-card-meta">
           ${c.name?`Contato: ${esc(c.name)}<br/>`:''}${c.phone?`Telefone: ${esc(c.phone)}<br/>`:''}${c.email?`E-mail: ${esc(c.email)}<br/>`:''}${c.segment?`Segmento: ${esc(c.segment)}<br/>`:''}
           ${propCount[c.id]||0} proposta(s) vinculada(s)
         </div>
+        ${last?`<div class="crm-client-mini-props"><span><i class="ti ${st.icon}"></i> Última: ${esc(st.label)}</span><span>${fmt(last.value||0)}/mês</span>${last.nextAction?`<span>Próx.: ${esc(last.nextAction)}</span>`:''}</div>`:''}
         ${c.notes?`<div class="crm-card-notes">${esc(c.notes)}</div>`:''}
       </div>
       <div class="crm-card-actions">
-        <button class="btn" style="height:34px;padding:.45rem .6rem" onclick="editClient('${c.id}')"><i class="ti ti-pencil"></i></button>
-        <button class="btn btn-danger" style="height:34px;padding:.45rem .6rem" onclick="deleteClient('${c.id}')"><i class="ti ti-trash"></i></button>
+        <button class="btn btn-primary crm-action-text" onclick="openProposalForClient('${c.id}')"><i class="ti ti-file-invoice"></i> Proposta</button>
+        <button class="btn crm-action-text" onclick="toggleClientHistory('${c.id}')"><i class="ti ti-history"></i> Histórico</button>
+        <button class="btn" title="Editar" onclick="editClient('${c.id}')"><i class="ti ti-pencil"></i></button>
+        <button class="btn btn-danger" title="Remover" onclick="deleteClient('${c.id}')"><i class="ti ti-trash"></i></button>
       </div>
-    </div>`).join('');
+      ${ACTIVE_CLIENT_HISTORY===c.id?renderClientHistoryDrawer(c.id):''}
+    </div>`;
+  }).join('');
 }
 function renderClientLinker(){
   const c=document.getElementById('crm-link-client');if(c)c.innerHTML=clientOptionsHtml();
@@ -2409,19 +2733,23 @@ function linkPricingToClient(){
   const nextAction=(document.getElementById('crm-link-next')?.value||'').trim();
   const notes=(document.getElementById('crm-link-notes')?.value||'').trim();
   const props=loadClientProposals();
-  props.unshift({
+  const prop={
     id:'prop-'+Date.now(),clientId,historyId,status,nextAction,notes,
     title:snap.name||getOperationName(),date:new Date().toISOString(),
     value:+(snap.sim?.fat||0),unitPrice:+(snap.sim?.precoUnit||0),margin:+(snap.sim?.margemUnit||0),volume:+(snap.sim?.un||0),
     snapshot:snap
-  });
+  };
+  props.unshift(prop);
   saveClientProposals(props);
+  addClientHistory(clientId,'proposal','Proposta vinculada',`${prop.title} · ${fmt(prop.value||0)}/mês · status ${statusById(status).label}.`);
   const n=document.getElementById('crm-link-next');if(n)n.value='';
   const no=document.getElementById('crm-link-notes');if(no)no.value='';
   renderClients();
   toast('Precificação vinculada ao cliente');
 }
 function deleteClientProposal(id){
+  const prop=loadClientProposals().find(p=>p.id===id);
+  if(prop)addClientHistory(prop.clientId,'delete','Proposta removida',prop.title||'Proposta removida do pipeline.');
   saveClientProposals(loadClientProposals().filter(p=>p.id!==id));
   renderClients();
   toast('Proposta removida');
@@ -2430,10 +2758,55 @@ function moveClientProposal(id,status){
   const props=loadClientProposals();
   const p=props.find(x=>x.id===id);if(!p)return;
   p.status=status;p.updatedAt=new Date().toISOString();
-  saveClientProposals(props);renderPipeline();renderClientStats();
+  saveClientProposals(props);
+  addClientHistory(p.clientId,'status','Status da proposta atualizado',`${p.title||'Proposta'} agora está em ${statusById(status).label}.`);
+  renderPipeline();renderClientStats();
+  if(currentView==='clientes')renderClients();
+}
+function fillProposalFromClient(clientId,snap=null,proposal=null){
+  const c=loadClients().find(x=>x.id===clientId);
+  if(!c){toast('Cliente não encontrado');return false;}
+  const sim=snap?.sim || proposal?.snapshot?.sim || SIM || pricingSnapshot().sim;
+  PROPOSAL={...PROPOSAL,
+    clientCompany:c.company||getClientDisplay(c),
+    clientName:c.name||'',
+    serviceName:proposal?.title||snap?.name||getOperationName(),
+    serviceDesc:`Proposta comercial para ${proposal?.title||snap?.name||getOperationName()}, com valores calculados a partir da estrutura de custos preenchida no TradePrice.`,
+    qty:+(sim?.un||0),
+    unitPrice:Number(((sim?.precoUnit)||0).toFixed(2)),
+    notes:proposal?.notes||PROPOSAL.notes||'',
+    includeBreakdown:true,
+    _touched:true,
+    _clientId:clientId,
+    _proposalId:proposal?.id||'',
+    _contextSnap:snap||proposal?.snapshot||null
+  };
+  return true;
+}
+function openProposalForClient(clientId){
+  if(!SIM)runSim();
+  if(!fillProposalFromClient(clientId,pricingSnapshot()))return;
+  openProposal();
+  addClientHistory(clientId,'proposal','Proposta aberta','Proposta comercial preparada com base na simulação atual.');
+}
+function openProposalForSelectedClient(){
+  const clientId=document.getElementById('crm-link-client')?.value||'';
+  if(!clientId){toast('Selecione um cliente para gerar a proposta');return;}
+  const snap=getSnapshotFromPricingSelect();
+  if(!snap){toast('Precificação não encontrada');return;}
+  if(!fillProposalFromClient(clientId,snap))return;
+  openProposal();
+  addClientHistory(clientId,'proposal','Proposta aberta','Proposta preparada a partir da precificação selecionada.');
+}
+function openProposalForClientProposal(id){
+  const p=loadClientProposals().find(x=>x.id===id);if(!p){toast('Proposta não encontrada');return;}
+  if(!fillProposalFromClient(p.clientId,p.snapshot,p))return;
+  openProposal();
+  addClientHistory(p.clientId,'proposal','Proposta aberta',`${p.title||'Proposta'} aberta para edição/exportação.`);
 }
 function downloadClientProposalPDF(id){
   const p=loadClientProposals().find(x=>x.id===id);if(!p){toast('Proposta não encontrada');return;}
+  addClientHistory(p.clientId,'pdf','PDF comercial gerado',p.title||'Proposta exportada em PDF.');
   downloadCommercialPDF(null,p.snapshot);
 }
 function renderPipeline(){
@@ -2470,7 +2843,8 @@ function renderPipeline(){
           ${p.notes?`<div class="deal-next"><i class="ti ti-notes"></i> ${esc(p.notes)}</div>`:''}
           <div class="deal-actions">
             <select onchange="moveClientProposal('${p.id}',this.value)" style="height:32px;font-size:.7rem;padding:.3rem .45rem">${statusOptionsHtml(p.status)}</select>
-            <button class="btn" style="height:32px;padding:.35rem .5rem" onclick="downloadClientProposalPDF('${p.id}')"><i class="ti ti-file-type-pdf"></i></button>
+            <button class="btn" style="height:32px;padding:.35rem .5rem" title="Gerar proposta" onclick="openProposalForClientProposal('${p.id}')"><i class="ti ti-file-invoice"></i></button>
+            <button class="btn" style="height:32px;padding:.35rem .5rem" title="PDF comercial" onclick="downloadClientProposalPDF('${p.id}')"><i class="ti ti-file-type-pdf"></i></button>
             <button class="btn btn-danger" style="height:32px;padding:.35rem .5rem" onclick="deleteClientProposal('${p.id}')"><i class="ti ti-trash"></i></button>
           </div>
         </div>`}).join('')||'<div class="crm-empty" style="padding:.8rem">Sem propostas</div>'}
@@ -2689,6 +3063,7 @@ function syncProposalFromSim(){
   PROPOSAL.qty=SIM.un;
   PROPOSAL.unitPrice=parseFloat(SIM.precoUnit.toFixed(2));
   PROPOSAL._touched=false;
+  PROPOSAL._contextSnap=null;
   document.getElementById('pf-qty').value=PROPOSAL.qty;
   document.getElementById('pf-unitPrice').value=PROPOSAL.unitPrice;
   renderProposalPreview();
@@ -2705,6 +3080,7 @@ function renderProposalPreview(){
   const doc=document.getElementById('prop-doc');
   if(!doc)return;
   const p=PROPOSAL;
+  const simRef=(p._contextSnap&&p._contextSnap.sim)||SIM;
   const total=p.qty*p.unitPrice;
   const today=new Date();
   const validUntil=new Date(today.getTime()+(p.validDays||0)*86400000);
@@ -2712,13 +3088,13 @@ function renderProposalPreview(){
   const ref='PROP-'+today.getFullYear()+String(today.getMonth()+1).padStart(2,'0')+String(today.getDate()).padStart(2,'0');
 
   let breakdownHtml='';
-  if(p.includeBreakdown&&SIM){
+  if(p.includeBreakdown&&simRef){
     breakdownHtml=`
       <div class="pd-section-title">Composição do preço unitário</div>
       <table class="pd-table">
         <thead><tr><th>Item</th><th>Valor/un.</th><th>% do preço</th></tr></thead>
         <tbody>
-          ${SIM.segs.map(s=>`<tr><td>${esc(s.label)}</td><td>${fmt(s.val)}</td><td>${((s.val/SIM.precoUnit)*100).toFixed(1)}%</td></tr>`).join('')}
+          ${(simRef.segs||[]).map(s=>`<tr><td>${esc(s.label)}</td><td>${fmt(s.val)}</td><td>${simRef.precoUnit?((s.val/simRef.precoUnit)*100).toFixed(1):'0.0'}%</td></tr>`).join('')}
         </tbody>
       </table>
       <div class="pd-breakdown-note">Demonstrativo de composição de custo — informação complementar, sujeita a alteração conforme volume e condições contratadas.</div>`;
@@ -2798,6 +3174,7 @@ async function downloadProposalPDF(){
     }
     const clientSlug=(PROPOSAL.clientCompany||PROPOSAL.clientName||'cliente').trim().replace(/[^a-zA-Z0-9]+/g,'_');
     pdf.save(`Proposta_${clientSlug}.pdf`);
+    if(PROPOSAL._clientId)addClientHistory(PROPOSAL._clientId,'pdf','PDF da proposta gerado',`${PROPOSAL.serviceName||'Proposta'} exportada em PDF.`);
     toast('PDF gerado com sucesso');
   }catch(e){
     console.error(e);
@@ -3241,6 +3618,33 @@ function renderOpSteps(){
       </div>`;
   }
 }
+function operationAssistantContext(){
+  if(!SIM)runSim();
+  const total=allT();
+  const empty=GROUPS.filter(g=>!g.items.length);
+  const groupsReady=GROUPS.length>0;
+  const costsReady=total>0&&empty.length<GROUPS.length;
+  const pricingReady=SIM&&SIM.precoUnit>0;
+  return {total,empty,groupsReady,costsReady,pricingReady,groupCount:GROUPS.length,itemCount:GROUPS.reduce((a,g)=>a+g.items.length,0)};
+}
+function setOperationAssistantQuestion(q){
+  const input=document.getElementById('op-ai-question');
+  if(input)input.value=q;
+  askOperationAssistant(q);
+}
+function askOperationAssistant(force){
+  const out=document.getElementById('op-ai-answer');
+  if(!out)return;
+  const raw=String(force||document.getElementById('op-ai-question')?.value||'').trim();
+  out.innerHTML=renderSmartAnswerHTML(buildSmartAnswer(raw,'operacao'),'op-ai-actions');
+}
+function runAssistantAction(action){
+  if(action==='focusName'){const input=document.getElementById('op-zero-nome');if(input){input.focus();input.scrollIntoView({behavior:'smooth',block:'center'});}return;}
+  if(action==='addGroup'){addOperacaoGroup();return;}
+  if(action==='pipeline'){openClientPipeline();return;}
+  switchView(action);
+}
+
 function renderOperacao(){
   renderOpSteps();
   const wrap=document.getElementById('op-zero-list');
@@ -3297,6 +3701,7 @@ function renderNovaOpChecks(){renderOperacao();}
 
 initTheme();
 initMobileDownloadFAB();
+ensureSmartAssistantCards();
 renderDashboard();
 renderAjustes();
 renderInvestimentos();
@@ -3500,8 +3905,8 @@ renderSmartAlerts();
     }
   ]
 }
-/* TradePrice PWA — atualização segura v22 */
-const TP_CACHE = 'tp-pwa-v22-20260626';
+/* TradePrice PWA — atualização segura v24 */
+const TP_CACHE = 'tp-pwa-v24-20260626';
 const TP_SHELL = [
   './',
   './index.html',
