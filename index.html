@@ -10,11 +10,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="TradePrice"/>
-<link rel="manifest" href="./manifest.webmanifest"/>
+<link rel="manifest" href="./manifest.json"/>
 <link rel="icon" type="image/png" sizes="48x48" href="./icons/favicon-48.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
-<!-- build: operacao-zero-editavel-v21-limpa-codigo-solto-pwa-20260625 -->
+<!-- build: gestao-ordenada-operacao-zero-pwa-v22-20260626 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -180,7 +180,7 @@ body{
   /* ── FIXED BOTTOM NAV ── */
   .mob-fab,.mob-sheet,.mob-overlay,.mob-sheet-handle,.mob-sheet-title{display:none!important}
   .mob-nav-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);
+    display:grid;grid-template-columns:repeat(5,1fr);
     gap:0;
     position:fixed;left:0;right:0;bottom:0;z-index:45;
     background:var(--white);
@@ -544,6 +544,29 @@ input[type=range]:focus{outline:none}
 .op-step.active{background:var(--cobalt-xlt);border-color:var(--cobalt-lt)}
 .op-step.active .op-step-num{background:var(--klein);border-color:var(--klein);color:#fff}
 .op-step.done .op-step-num{background:var(--green);border-color:var(--green);color:#fff}
+
+.op-stepper-main{margin-top:0;border-top:none;padding-top:0}
+.op-stepper-intro{font-size:.74rem;color:var(--grey-4);line-height:1.6;margin:-.25rem 0 .85rem}
+.op-step-detail{margin-top:.85rem;border:1px solid var(--cobalt-lt);background:linear-gradient(180deg,var(--white),var(--cobalt-xlt));border-radius:var(--r);padding:.95rem}
+.op-step-detail h4{font-family:var(--ff-d);font-size:.92rem;color:var(--ink);margin-bottom:.35rem;letter-spacing:-.02em}
+.op-step-detail p{font-size:.74rem;color:var(--grey-5);line-height:1.6;margin-bottom:.7rem}
+.op-step-checks{display:grid;gap:.42rem;margin:.55rem 0 .8rem}
+.op-step-checks span{display:flex;gap:.42rem;align-items:flex-start;font-size:.71rem;color:var(--grey-5);line-height:1.45}
+.op-step-checks i{color:var(--green);font-size:.9rem;margin-top:.02rem;flex-shrink:0}
+.op-step-detail-actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.op-step-nav{display:flex;gap:.45rem;flex-wrap:wrap}
+.install-help-overlay{position:fixed;inset:0;z-index:120;background:rgba(5,12,28,.45);display:flex;align-items:center;justify-content:center;padding:1rem}
+.install-help-card{width:min(520px,100%);background:var(--white);border:1px solid var(--grey-2);border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.22);padding:1.25rem}
+.install-help-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:.8rem}
+.install-help-title{font-family:var(--ff-d);font-size:1.05rem;font-weight:800;color:var(--ink);display:flex;gap:.5rem;align-items:center}
+.install-help-title i{color:var(--cobalt-mid)}
+.install-help-close{border:1px solid var(--grey-2);background:var(--grey-0);border-radius:999px;width:34px;height:34px;display:grid;place-items:center;cursor:pointer;color:var(--grey-5)}
+.install-help-card p{font-size:.78rem;color:var(--grey-5);line-height:1.65;margin:.45rem 0}
+.install-help-steps{display:grid;gap:.55rem;margin-top:.8rem}
+.install-help-steps div{display:flex;gap:.55rem;align-items:flex-start;border:1px solid var(--grey-2);background:var(--grey-0);border-radius:12px;padding:.7rem;font-size:.74rem;color:var(--grey-5);line-height:1.5}
+.install-help-steps b{color:var(--ink)}
+.install-help-steps i{color:var(--cobalt-mid);font-size:1rem;margin-top:.05rem;flex-shrink:0}
+@media(max-width:767px){.op-step-detail-actions{display:grid;grid-template-columns:1fr}.op-step-nav{display:grid;grid-template-columns:1fr 1fr}.op-step-detail-actions .btn{width:100%;justify-content:center}.install-help-card{border-radius:18px;padding:1rem}}
 .mob-more-panel{display:none}
 @media(max-width:767px){
   .mob-more-panel{position:fixed;left:.75rem;right:.75rem;bottom:calc(var(--mob-bottomnav) + .55rem + env(safe-area-inset-bottom));z-index:44;background:var(--white);border:1px solid var(--grey-2);box-shadow:0 12px 34px rgba(0,47,167,.18);border-radius:18px;padding:.75rem;grid-template-columns:repeat(2,1fr);gap:.5rem}
@@ -772,13 +795,13 @@ input[type=range]:focus{outline:none}
   <div class="sidebar-label">Análise</div>
   <button class="nav-item active" onclick="switchView('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
   <div class="sidebar-label">Gestão</div>
-  <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> Grupos de custo</button>
-  <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> Precificar</button>
-  <button class="nav-item" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação do Zero</button>
-  <button class="nav-item" onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> Clientes</button>
-  <button type="button" class="nav-subitem client-pipeline-sub" onclick="event.preventDefault();event.stopPropagation();openClientPipeline();"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
-  <button class="nav-item" onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
-  <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
+  <button class="nav-item" onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> 1. Operação do Zero</button>
+  <button class="nav-item" onclick="switchView('grupos')"><i class="ti ti-layers-difference"></i> 2. Grupos de custo</button>
+  <button class="nav-item" onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> 3. Investimentos</button>
+  <button class="nav-item" onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> 4. Ajustes</button>
+  <button class="nav-item" onclick="switchView('precificar')"><i class="ti ti-calculator"></i> 5. Precificar</button>
+  <button class="nav-item" onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> 6. Clientes</button>
+  <button class="nav-item" onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> 7. Pipeline</button>
   <div class="sidebar-label">Dados</div>
   <button class="nav-item" onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar dados</button>
   <button class="nav-item" onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
@@ -989,16 +1012,11 @@ input[type=range]:focus{outline:none}
     </div>
 
     <div class="panel op-zero-side">
-      <div class="panel-title"><i class="ti ti-list-check"></i> Como usar depois de criar</div>
-      <div class="panel-hint" style="margin-top:.35rem">Depois da criação, complete os custos e simule o preço nas abas principais.</div>
-      <div class="op-zero-side-list">
-        <div class="op-zero-side-item"><i class="ti ti-layers-difference"></i><div><b>Grupos flexíveis</b><span>Crie frete, armazenagem, documentação, despacho, seguros ou qualquer outro grupo.</span></div></div>
-        <div class="op-zero-side-item"><i class="ti ti-adjustments-horizontal"></i><div><b>Total por grupo</b><span>Cada grupo pode nascer mensal, semanal, diário, por hora, por container ou por veículo.</span></div></div>
-        <div class="op-zero-side-item"><i class="ti ti-calculator"></i><div><b>Precificação limpa</b><span>A simulação usa apenas os grupos novos e os investimentos/ajustes configurados.</span></div></div>
-      </div>
-      <div class="op-stepper">
+      <div class="op-stepper op-stepper-main">
         <div class="op-stepper-title"><i class="ti ti-route"></i> Passo a passo interativo</div>
+        <div class="op-stepper-intro">Siga a sequência para montar uma operação limpa, lançar custos, ajustar impostos e chegar à precificação final.</div>
         <div class="op-steps" id="op-steps"></div>
+        <div class="op-step-detail" id="op-step-detail"></div>
       </div>
     </div>
   </div>
@@ -1332,24 +1350,26 @@ input[type=range]:focus{outline:none}
      MOBILE: FIXED BOTTOM NAV — LIMPO
 ══════════════════════════════════════════════ -->
 <div class="mob-more-panel" id="mob-more-panel" aria-label="Mais opções">
-  <button onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> Clientes</button>
-  <button onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> Pipeline</button>
-  <button onclick="switchView('operacao')"><i class="ti ti-pencil-plus"></i> Operação</button>
-  <button onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> Investimentos</button>
-  <button onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> Ajustes</button>
+  <button onclick="switchView('investimentos')"><i class="ti ti-building-bank"></i> 3. Investimentos</button>
+  <button onclick="switchView('ajustes')"><i class="ti ti-adjustments"></i> 4. Ajustes</button>
+  <button onclick="openClientesCadastro()"><i class="ti ti-users-group"></i> 6. Clientes</button>
+  <button onclick="openClientPipeline()"><i class="ti ti-chart-dots-3"></i> 7. Pipeline</button>
   <button onclick="switchView('importar')"><i class="ti ti-upload"></i> Importar</button>
   <button onclick="switchView('exportar')"><i class="ti ti-download"></i> Exportar</button>
   <button class="pwa-install-btn" data-install-app onclick="installTradePriceApp()"><i class="ti ti-device-mobile-down"></i> Instalar app</button>
 </div>
 <div class="mob-nav-grid" role="navigation" aria-label="Menu de navegação">
   <button class="mob-nav-btn active" data-view="dashboard" onclick="switchView('dashboard')">
-    <i class="ti ti-layout-dashboard"></i><span>Dashboard</span>
+    <i class="ti ti-layout-dashboard"></i><span>Início</span>
+  </button>
+  <button class="mob-nav-btn" data-view="operacao" onclick="switchView('operacao')">
+    <i class="ti ti-pencil-plus"></i><span>1. Operação</span>
   </button>
   <button class="mob-nav-btn" data-view="grupos" onclick="switchView('grupos')">
-    <i class="ti ti-layers-difference"></i><span>Grupos</span>
+    <i class="ti ti-layers-difference"></i><span>2. Grupos</span>
   </button>
   <button class="mob-nav-btn" data-view="precificar" onclick="switchView('precificar')">
-    <i class="ti ti-calculator"></i><span>Precificar</span>
+    <i class="ti ti-calculator"></i><span>5. Preço</span>
   </button>
   <button class="mob-nav-btn" data-view="mais" onclick="toggleMobileMore()">
     <i class="ti ti-menu-2"></i><span>Mais</span>
@@ -1618,13 +1638,13 @@ function closeMobileMore(){
 ══════════════════════════════════════════════ */
 const PAGE_META={
   dashboard:{title:'Dashboard',sub:'Visão consolidada de todos os grupos de custo'},
-  grupos:{title:'Grupos de custo',sub:'Adicione, edite e organize itens por categoria'},
-  precificar:{title:'Precificação',sub:'Simule o preço com base nos custos reais'},
-  operacao:{title:'Operação do Zero',sub:'Crie uma operação limpa com grupos editáveis'},
+  grupos:{title:'Grupos de custo',sub:'Lance os custos reais dentro dos grupos da operação'},
+  precificar:{title:'Precificação',sub:'Finalize preço, margem, proposta e histórico'},
+  operacao:{title:'Operação do Zero',sub:'Comece por aqui: monte a estrutura antes de lançar custos'},
   clientes:{title:'Clientes',sub:'Cadastre clientes e acompanhe propostas vinculadas às precificações'},
   pipeline:{title:'Pipeline de propostas',sub:'Funil comercial das precificações vinculadas aos clientes'},
-  investimentos:{title:'Investimentos',sub:'Amortização e custos envolvidos com controle manual ou deslizante'},
-  ajustes:{title:'Ajustes',sub:'Custos adicionais e impostos'},
+  investimentos:{title:'Investimentos',sub:'Configure amortizações antes da simulação final'},
+  ajustes:{title:'Ajustes',sub:'Revise overhead, impostos e despesas antes de precificar'},
   importar:{title:'Importar dados',sub:'Excel, CSV ou exportações do Power BI'},
   exportar:{title:'Exportar / GitHub',sub:'Baixe dados ou publique no GitHub Pages'},
 };
@@ -1672,8 +1692,9 @@ function switchView(v){
   desktopItems.forEach(btn=>{
     const action=btn.getAttribute('onclick')||'';
     const isDirect=action.includes(`switchView('${v}')`)||action.includes(`switchView("${v}")`);
-    const isClientes=(v==='clientes'||v==='pipeline')&&action.includes('openClientesCadastro');
-    btn.classList.toggle('active',isDirect||isClientes);
+    const isClientes=(v==='clientes')&&action.includes('openClientesCadastro');
+    const isPipeline=(v==='pipeline')&&action.includes('openClientPipeline');
+    btn.classList.toggle('active',isDirect||isClientes||isPipeline);
   });
   const mobileDirect=document.querySelector(`.mob-nav-btn[data-view="${v}"]`);
   const mobileMore=document.querySelector('.mob-nav-btn[data-view="mais"]');
@@ -2914,50 +2935,95 @@ function downloadTemplate(){
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
 /* ══════════════════════════════════════════════
-   PWA INSTALÁVEL — GitHub Pages
+   PWA INSTALÁVEL — GitHub Pages / HTTPS
 ══════════════════════════════════════════════ */
 let deferredInstallPrompt=null;
 let pwaRegistration=null;
 function isStandaloneApp(){
   return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
 }
-function isIOSDevice(){
-  return /iphone|ipad|ipod/i.test(window.navigator.userAgent||'');
-}
+function isIOSDevice(){return /iphone|ipad|ipod/i.test(window.navigator.userAgent||'');}
+function isAndroidDevice(){return /android/i.test(window.navigator.userAgent||'');}
+function isChromiumLike(){return /chrome|chromium|crios|edg|samsungbrowser/i.test(window.navigator.userAgent||'');}
+function canUseNativeInstallPrompt(){return !!deferredInstallPrompt;}
 function updateInstallButtons(){
   const installed=isStandaloneApp();
   document.querySelectorAll('[data-install-app]').forEach(btn=>{
     btn.classList.toggle('is-installed',installed);
     btn.disabled=false;
+    btn.classList.toggle('is-waiting',!installed&&!canUseNativeInstallPrompt());
     if(installed){
       btn.title='TradePrice já está instalado neste dispositivo';
-    }else if(!deferredInstallPrompt&&isIOSDevice()){
+    }else if(!window.isSecureContext){
+      btn.title='Para instalar, abra pelo link HTTPS do GitHub Pages';
+    }else if(isIOSDevice()){
       btn.title='No iPhone/iPad, use Compartilhar → Adicionar à Tela de Início';
-    }else if(!deferredInstallPrompt){
-      btn.title='Se o instalador não abrir, use o menu do navegador → Instalar app';
-      btn.classList.add('is-waiting');
-    }else{
+    }else if(canUseNativeInstallPrompt()){
       btn.title='Instalar TradePrice neste dispositivo';
-      btn.classList.remove('is-waiting');
+    }else{
+      btn.title='Abrir instruções de instalação';
     }
   });
 }
-async function installTradePriceApp(){
-  if(isStandaloneApp()){toast('TradePrice já está instalado.');return;}
-  if(deferredInstallPrompt){
-    deferredInstallPrompt.prompt();
-    const choice=await deferredInstallPrompt.userChoice.catch(()=>null);
-    deferredInstallPrompt=null;
-    updateInstallButtons();
-    if(choice&&choice.outcome==='accepted')toast('Instalação iniciada.');
-    else toast('Instalação cancelada.');
-    return;
+function installHelpSteps(){
+  if(!window.isSecureContext){
+    return [
+      ['ti-lock-open','Abra pelo GitHub Pages','A instalação de PWA só funciona em HTTPS. Publique o projeto e acesse o link do GitHub Pages, não o arquivo local.'],
+      ['ti-refresh','Depois recarregue a página','Após publicar, recarregue o app uma vez para o service worker assumir o controle.']
+    ];
   }
   if(isIOSDevice()){
-    toast('No iPhone/iPad: Compartilhar → Adicionar à Tela de Início.');
+    return [
+      ['ti-brand-safari','Abra no Safari','No iPhone/iPad, a instalação precisa ser feita pelo Safari.'],
+      ['ti-share','Toque em Compartilhar','Use o botão de compartilhar do Safari.'],
+      ['ti-device-mobile-plus','Escolha Adicionar à Tela de Início','Confirme o nome TradePrice para criar o ícone do app.']
+    ];
+  }
+  if(isAndroidDevice()){
+    return [
+      ['ti-brand-chrome','Abra no Chrome','Use Chrome ou Edge no Android para liberar a instalação.'],
+      ['ti-dots-vertical','Abra o menu do navegador','Toque nos três pontos do navegador.'],
+      ['ti-device-mobile-plus','Escolha Instalar app','Se aparecer “Adicionar à tela inicial”, use essa opção.']
+    ];
+  }
+  return [
+    ['ti-world','Use Chrome ou Edge','A instalação automática é liberada principalmente em navegadores Chromium.'],
+    ['ti-download','Procure o ícone de instalar','Quando disponível, ele aparece na barra de endereço.'],
+    ['ti-dots-vertical','Ou use o menu do navegador','Menu do navegador → Instalar app / Salvar e compartilhar → Instalar página como app.']
+  ];
+}
+function showInstallHelp(){
+  const old=document.getElementById('install-help-overlay');
+  if(old)old.remove();
+  const steps=installHelpSteps();
+  const overlay=document.createElement('div');
+  overlay.className='install-help-overlay';
+  overlay.id='install-help-overlay';
+  overlay.onclick=e=>{if(e.target===overlay)overlay.remove();};
+  overlay.innerHTML=`<div class="install-help-card" role="dialog" aria-modal="true" aria-labelledby="install-help-title">
+    <div class="install-help-head">
+      <div class="install-help-title" id="install-help-title"><i class="ti ti-device-mobile-down"></i> Instalar TradePrice</div>
+      <button class="install-help-close" onclick="document.getElementById('install-help-overlay')?.remove()" aria-label="Fechar"><i class="ti ti-x"></i></button>
+    </div>
+    <p>Quando o navegador libera o instalador nativo, este botão abre a instalação automaticamente. Se ele ainda não liberou, siga o caminho abaixo.</p>
+    <div class="install-help-steps">${steps.map(s=>`<div><i class="ti ${s[0]}"></i><span><b>${esc(s[1])}</b><br>${esc(s[2])}</span></div>`).join('')}</div>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+async function installTradePriceApp(){
+  updateInstallButtons();
+  if(isStandaloneApp()){toast('TradePrice já está instalado.');return;}
+  if(deferredInstallPrompt){
+    const promptEvent=deferredInstallPrompt;
+    deferredInstallPrompt=null;
+    promptEvent.prompt();
+    const choice=await promptEvent.userChoice.catch(()=>null);
+    updateInstallButtons();
+    if(choice&&choice.outcome==='accepted')toast('Instalação iniciada.');
+    else showInstallHelp();
     return;
   }
-  toast('Use o menu do navegador e escolha “Instalar app”.');
+  showInstallHelp();
 }
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();
@@ -2969,27 +3035,35 @@ window.addEventListener('appinstalled',()=>{
   updateInstallButtons();
   toast('TradePrice instalado com sucesso.');
 });
-function registerTradePricePWA(){
+async function registerTradePricePWA(){
   updateInstallButtons();
-  if(!('serviceWorker' in navigator))return;
-  window.addEventListener('load',async()=>{
-    try{
-      pwaRegistration=await navigator.serviceWorker.register('./service-worker.js',{scope:'./'});
-      pwaRegistration.addEventListener('updatefound',()=>{
-        const nw=pwaRegistration.installing;
-        if(!nw)return;
-        nw.addEventListener('statechange',()=>{
-          if(nw.state==='installed'&&navigator.serviceWorker.controller){
-            toast('Nova versão disponível. Atualize a página para aplicar.');
-          }
-        });
+  if(!('serviceWorker' in navigator)){
+    console.warn('Service worker não suportado neste navegador.');
+    return;
+  }
+  if(!window.isSecureContext){
+    console.warn('PWA precisa de HTTPS ou localhost para instalar.');
+    return;
+  }
+  try{
+    pwaRegistration=await navigator.serviceWorker.register('./service-worker.js',{scope:'./'});
+    await navigator.serviceWorker.ready.catch(()=>null);
+    updateInstallButtons();
+    pwaRegistration.addEventListener('updatefound',()=>{
+      const nw=pwaRegistration.installing;
+      if(!nw)return;
+      nw.addEventListener('statechange',()=>{
+        if(nw.state==='installed'&&navigator.serviceWorker.controller){
+          toast('Nova versão disponível. Atualize a página para aplicar.');
+        }
       });
-    }catch(err){
-      console.warn('Falha ao registrar PWA',err);
-    }
-  });
+    });
+  }catch(err){
+    console.warn('Falha ao registrar PWA',err);
+  }
 }
-registerTradePricePWA();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',registerTradePricePWA);
+else registerTradePricePWA();
 
 /* ══════════════════════════════════════════════
    RESIZE HANDLER (re-render charts on orientation change)
@@ -3069,17 +3143,103 @@ function removeOperacaoGroup(i){
   renderOperacao();
 }
 const OP_ZERO_STEPS=[
-  {title:'Nomeie a operação',text:'Dê um nome para identificar a simulação e facilitar o histórico.'},
-  {title:'Monte os grupos',text:'Adicione, remova ou renomeie todos os grupos que fazem parte da operação.'},
-  {title:'Defina o tipo de total',text:'Escolha se cada grupo será mensal, por container, por veículo ou outro formato.'},
-  {title:'Crie a operação limpa',text:'Ao confirmar, o app abre uma estrutura zerada para lançar os custos reais.'},
-  {title:'Precifique e salve',text:'Depois de preencher, simule o preço, salve no histórico e gere o PDF comercial.'}
+  {
+    title:'Mapeie o escopo',
+    text:'Liste o que a operação precisa entregar antes de criar os grupos.',
+    detail:'Comece entendendo o serviço: tipo de operação, volume mensal, frequência, pontos de custo e o que será cobrado do cliente.',
+    checks:['Defina se é importação, exportação, logística, armazenagem, serviço recorrente ou projeto pontual.','Anote volume esperado, unidade de cobrança e período de operação.','Separe custos fixos, variáveis, terceiros, equipe e tecnologia.']
+  },
+  {
+    title:'Nomeie a operação',
+    text:'Dê um nome claro para identificar a simulação e facilitar o histórico.',
+    detail:'Use um nome que ajude a encontrar a operação depois, principalmente quando houver várias propostas parecidas.',
+    checks:['Inclua cliente, rota, mês, projeto ou tipo de serviço.','Evite nomes genéricos como “teste” ou “nova proposta”.'],
+    actionLabel:'Preencher nome',
+    action:'focusName'
+  },
+  {
+    title:'Monte os grupos',
+    text:'Crie os blocos principais que vão receber os custos reais.',
+    detail:'Os grupos funcionam como pastas de custo. Quanto mais clara for a separação, mais fácil será entender onde a operação pesa.',
+    checks:['Use grupos como Pessoal, Equipamentos, Sistema, Internet, Insumos, Frete, Armazenagem, Documentação ou Despacho.','Remova grupos que não existem nesta operação.','Adicione grupos específicos quando o custo não couber em nenhuma categoria.'],
+    actionLabel:'Adicionar grupo',
+    action:'addGroup'
+  },
+  {
+    title:'Defina o tipo de total',
+    text:'Escolha se cada grupo será mensal, semanal, diário, por hora, container ou veículo.',
+    detail:'Esse ponto evita distorções. Um custo mensal deve entrar como mensal; um custo por container deve entrar por container; um custo por hora precisa da quantidade de horas.',
+    checks:['Use mensal para custos fixos recorrentes.','Use container, veículo, pedido ou operação quando o custo variar por entrega.','Preencha a quantidade quando o tipo escolhido exigir volume.']
+  },
+  {
+    title:'Crie a operação limpa',
+    text:'Confirme a estrutura para zerar os dados atuais e iniciar do jeito certo.',
+    detail:'Ao criar, o app apaga os grupos atuais e abre uma estrutura nova com os grupos definidos aqui. Faça isso quando a estrutura estiver revisada.',
+    checks:['Confira se todos os grupos estão com nomes claros.','Garanta que os tipos de total estão corretos.','Depois de criar, vá para Grupos de custo e lance os itens reais.'],
+    actionLabel:'Criar operação limpa',
+    action:'createOperation'
+  },
+  {
+    title:'Lance os custos reais',
+    text:'Preencha cada grupo com quantidade, custo unitário e categoria.',
+    detail:'A precificação só fica confiável quando os custos reais estão lançados nos grupos corretos.',
+    checks:['Inclua equipe, fornecedores, sistemas, fretes, taxas, insumos e despesas operacionais.','Revise se nenhum grupo ficou vazio por esquecimento.','Use nomes de itens que expliquem o custo sem depender de memória.'],
+    actionLabel:'Abrir grupos',
+    action:'openGroups'
+  },
+  {
+    title:'Revise investimentos e ajustes',
+    text:'Configure amortizações, overhead, despesas e impostos aplicáveis.',
+    detail:'Antes de precificar, revise custos que não entram diretamente nos grupos, mas afetam a operação.',
+    checks:['Em Investimentos, dilua equipamentos, implantação e estrutura pelo prazo correto.','Em Ajustes, confira overhead, despesas administrativas e impostos.','Evite duplicar um custo lançado no grupo e também nos ajustes.'],
+    actionLabel:'Abrir investimentos',
+    action:'openInvestments'
+  },
+  {
+    title:'Finalize a precificação',
+    text:'Simule preço, margem, alertas e salve a proposta no histórico.',
+    detail:'Com custos, investimentos e ajustes revisados, a aba Precificar mostra preço sugerido, margem e composição do valor.',
+    checks:['Defina volume/unidades mensais.','Ajuste markup e margem até chegar a um preço sustentável.','Salve a simulação e gere a proposta comercial quando estiver pronta.'],
+    actionLabel:'Abrir precificação',
+    action:'openPricing'
+  }
 ];
-function setOpStep(i){OP_STEP_ACTIVE=i;renderOpSteps();}
+function setOpStep(i){
+  OP_STEP_ACTIVE=Math.max(0,Math.min(i,OP_ZERO_STEPS.length-1));
+  renderOpSteps();
+}
+function nextOpStep(){setOpStep(OP_STEP_ACTIVE+1);}
+function prevOpStep(){setOpStep(OP_STEP_ACTIVE-1);}
+function runOpStepAction(action){
+  if(action==='focusName'){
+    const input=document.getElementById('op-zero-nome');
+    if(input){input.focus();input.scrollIntoView({behavior:'smooth',block:'center'});}
+  }
+  if(action==='addGroup')addOperacaoGroup();
+  if(action==='createOperation')criarOperacaoZero();
+  if(action==='openGroups')switchView('grupos');
+  if(action==='openInvestments')switchView('investimentos');
+  if(action==='openPricing')switchView('precificar');
+}
 function renderOpSteps(){
   const el=document.getElementById('op-steps');
-  if(!el)return;
-  el.innerHTML=OP_ZERO_STEPS.map((s,i)=>`<div class="op-step ${i===OP_STEP_ACTIVE?'active':''} ${i<OP_STEP_ACTIVE?'done':''}" onclick="setOpStep(${i})"><div class="op-step-num">${i<OP_STEP_ACTIVE?'<i class="ti ti-check"></i>':String(i+1).padStart(2,'0')}</div><div><b>${esc(s.title)}</b><span>${esc(s.text)}</span></div></div>`).join('');
+  if(el){
+    el.innerHTML=OP_ZERO_STEPS.map((s,i)=>`<div class="op-step ${i===OP_STEP_ACTIVE?'active':''} ${i<OP_STEP_ACTIVE?'done':''}" onclick="setOpStep(${i})"><div class="op-step-num">${i<OP_STEP_ACTIVE?'<i class="ti ti-check"></i>':String(i+1).padStart(2,'0')}</div><div><b>${esc(s.title)}</b><span>${esc(s.text)}</span></div></div>`).join('');
+  }
+  const detail=document.getElementById('op-step-detail');
+  if(detail){
+    const s=OP_ZERO_STEPS[OP_STEP_ACTIVE]||OP_ZERO_STEPS[0];
+    detail.innerHTML=`<h4>${String(OP_STEP_ACTIVE+1).padStart(2,'0')}. ${esc(s.title)}</h4>
+      <p>${esc(s.detail||s.text)}</p>
+      <div class="op-step-checks">${(s.checks||[]).map(c=>`<span><i class="ti ti-check"></i>${esc(c)}</span>`).join('')}</div>
+      <div class="op-step-detail-actions">
+        <div class="op-step-nav">
+          <button class="btn" onclick="prevOpStep()" ${OP_STEP_ACTIVE===0?'disabled':''}><i class="ti ti-arrow-left"></i> Anterior</button>
+          <button class="btn" onclick="nextOpStep()" ${OP_STEP_ACTIVE===OP_ZERO_STEPS.length-1?'disabled':''}>Próximo <i class="ti ti-arrow-right"></i></button>
+        </div>
+        ${s.actionLabel?`<button class="btn btn-primary" onclick="runOpStepAction('${esc(s.action)}')"><i class="ti ti-bolt"></i> ${esc(s.actionLabel)}</button>`:''}
+      </div>`;
+  }
 }
 function renderOperacao(){
   renderOpSteps();
@@ -3155,6 +3315,7 @@ renderSmartAlerts();
     'self.addEventListener(\'install\'',
     'self.addEventListener("install"',
     'manifest.webmanifest',
+    'manifest.json',
     'cacheFirst(request)'
   ];
   function clean(){
@@ -3185,12 +3346,11 @@ renderSmartAlerts();
   "name": "TradePrice — Gestão de Custos",
   "short_name": "TradePrice",
   "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
-  "id": "./",
-  "start_url": "./",
+  "id": "./index.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "display_override": [
-    "window-controls-overlay",
     "standalone",
     "minimal-ui"
   ],
@@ -3224,10 +3384,22 @@ renderSmartAlerts();
   ],
   "shortcuts": [
     {
+      "name": "Operação do Zero",
+      "short_name": "Operação",
+      "description": "Criar uma operação limpa",
+      "url": "./index.html#operacao",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "Precificar",
       "short_name": "Precificar",
       "description": "Abrir a simulação de preço",
-      "url": "./#precificar",
+      "url": "./index.html#precificar",
       "icons": [
         {
           "src": "./icons/icon-192.png",
@@ -3239,7 +3411,7 @@ renderSmartAlerts();
       "name": "Clientes",
       "short_name": "Clientes",
       "description": "Abrir clientes e propostas",
-      "url": "./#clientes",
+      "url": "./index.html#clientes",
       "icons": [
         {
           "src": "./icons/icon-192.png",
@@ -3249,11 +3421,91 @@ renderSmartAlerts();
     }
   ]
 }
-/* TradePrice PWA — atualização segura v21 */
-const TP_CACHE = 'tp-pwa-v21-20260625';
+{
+  "name": "TradePrice — Gestão de Custos",
+  "short_name": "TradePrice",
+  "description": "App de precificação, custos, clientes, propostas e pipeline comercial.",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#F7F8FA",
+  "theme_color": "#0047AB",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Operação do Zero",
+      "short_name": "Operação",
+      "description": "Criar uma operação limpa",
+      "url": "./index.html#operacao",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Precificar",
+      "short_name": "Precificar",
+      "description": "Abrir a simulação de preço",
+      "url": "./index.html#precificar",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Abrir clientes e propostas",
+      "url": "./index.html#clientes",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
+/* TradePrice PWA — atualização segura v22 */
+const TP_CACHE = 'tp-pwa-v22-20260626';
 const TP_SHELL = [
   './',
   './index.html',
+  './manifest.json',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -3285,7 +3537,7 @@ self.addEventListener('activate', event => {
 async function networkFirst(request) {
   const cache = await caches.open(TP_CACHE);
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, {cache: 'no-store'});
     if (response && response.ok) cache.put(request, response.clone());
     return response;
   } catch (err) {
